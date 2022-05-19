@@ -342,3 +342,8 @@ input[type=range]:focus::-ms-fill-upper {
   width: 100%;
   text-align: center;
 }
+
+.unrate:hover
+{
+  color: red;
+}

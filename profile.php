@@ -9,8 +9,7 @@
 	$query = "select name_m, id_meet from movie join meeting using(id_m) left join (select * from expert_rate where id_exp = '$id') as e using(id_meet) where id_rate is NULL;";
 	$res = mysqli_query($conn, $query);
 	
-	$query_m = "SELECT (row_number() OVER (ORDER BY `our_rate` DESC)) as `top`, `name_m`, `our_rate`, `number`, `rate`
-FROM `movie` join `meeting` USING(`id_m`) join `expert_rate` using(`id_meet`) where `id_exp` = '$id'";
+	$query_m = "SELECT (row_number() OVER (ORDER BY `our_rate` DESC)) as `top`, `name_m`, `our_rate`, `number`, `rate`, `id_meet` FROM `movie` join `meeting` USING(`id_m`) join `expert_rate` using(`id_meet`) where `id_exp` = '$id'";
 	$res_m = mysqli_query($conn, $query_m);
 	$query_test = "SELECT count(*) as a from expert_rate WHERE id_exp = '$id'";
 	$res_nam = mysqli_query($conn, $query_test);
@@ -115,7 +114,8 @@ FROM `movie` join `meeting` USING(`id_m`) join `expert_rate` using(`id_meet`) wh
   						</tr>
   					</thead>
   					<tbody>
-  						<?php while($r=mysqli_fetch_assoc($res_m)): ?>
+  						<?php while($r=mysqli_fetch_assoc($res_m)):
+  							$tmp_id = $r['id_meet']; ?>
   						<tr>
   							<td><a class="mov-nam"href="dfd"><?=$r['name_m']?></a></td>
   							<td class="rate-ch"><?=$r['rate']?></td>
@@ -123,6 +123,7 @@ FROM `movie` join `meeting` USING(`id_m`) join `expert_rate` using(`id_meet`) wh
  								<td class="rate-ch"><?=$r['our_rate']?></td>
  								<td><?=$r['number']?></td>
  								<td><?=$r['top']?></td>
+ 								<td><a class="unrate" href="model/unrate.php?id=<?=$tmp_id?>">Удалить запись</a></td>
  							</tr>
  						<?php endwhile;?>
   					</tbody>
