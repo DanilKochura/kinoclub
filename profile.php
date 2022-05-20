@@ -9,7 +9,7 @@
 	$query = "select name_m, id_meet from movie join meeting using(id_m) left join (select * from expert_rate where id_exp = '$id') as e using(id_meet) where id_rate is NULL;";
 	$res = mysqli_query($conn, $query);
 	
-	$query_m = "SELECT (row_number() OVER (ORDER BY `our_rate` DESC)) as `top`, `name_m`, `our_rate`, `number`, `rate`, `id_meet` FROM `movie` join `meeting` USING(`id_m`) join `expert_rate` using(`id_meet`) where `id_exp` = '$id'";
+	$query_m = "SELECT (row_number() OVER (ORDER BY `our_rate` DESC)) as `top`, `name_m`, `our_rate`, `rate`, `id_meet` FROM `movie` join `meeting` USING(`id_m`) join `expert_rate` using(`id_meet`) where `id_exp` = '$id'";
 	$res_m = mysqli_query($conn, $query_m);
 	$query_test = "SELECT count(*) as a from expert_rate WHERE id_exp = '$id'";
 	$res_nam = mysqli_query($conn, $query_test);
@@ -58,13 +58,22 @@
 										  <span class="input-group-text">Имя и фамилия</span>
 										  <input type="text" aria-label="Имя и фамилия" name="name"class="form-control">
 										</div>
+										<div class="input-group">
+										  <span class="input-group-text">Новый пароль</span>
+										  <input type="password" aria-label="Новый пароль" name="new-pass"class="form-control">
+										</div>
+										<div class="input-group">
+										  <span class="input-group-text">Подтвердите пароль</span>
+										  <input type="password" aria-label="Подтвердите пароль" name="new-pass-confirm"class="form-control">
+										</div>
+										<div class="input-group">
+										  <span class="input-group-text">Текущий пароль</span>
+										  <input type="password" aria-label="Текущий пароль" name="old-pass"class="form-control">
+										</div>
 									  <button type="submit" class="btn btn-primary">Отправить</button>
 									</form>
      							 </div>
-     							 <div class="modal-footer">
-						        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-						        <button type="button" class="btn btn-primary">Сохранить изменения</button>
-						      </div>
+     							 
 						    </div>
 						  </div>
 								</div>
@@ -121,7 +130,7 @@
   							<td class="rate-ch"><?=$r['rate']?></td>
  
  								<td class="rate-ch"><?=$r['our_rate']?></td>
- 								<td><?=$r['number']?></td>
+ 								<td><?=$r['id_meet']?></td>
  								<td><?=$r['top']?></td>
  								<td><a class="unrate" href="model/unrate.php?id=<?=$tmp_id?>">Удалить запись</a></td>
  							</tr>
