@@ -1,13 +1,27 @@
 <?php 
+	/*ini_set('display_errors', 0);
+	ini_set('display_startup_errors', 0);
+	error_reporting(E_ALL);*/
 	session_start();
 	if($_SESSION['user']['id']!=29){header('Location: profile.php');}
 	require 'path/header.php';
 	include 'parser/parser.php';
 	require 'config/bd.php';
+	$a = array(
+		'name'=>"Name",
+		'original'=>"Original Name",
+		'year'=>"Year of creation",
+		'director'=>"Director",
+		'genre'=>array(),
+		'rating-kp'=>"Kinopoisk rate",
+		'duration'=>"Duration",
+		'url'=>"Url",
+		'imdb'=>"IMDB rate"
+	);
 	if(isset($_GET['name']))
 	{
 		$a = Parse($_GET['name']);
-		//print_r($a);
+		
 	}
 	$q1 = "select count(*) from director"; /*количество режиссеров*/
 	$query = "SELECT id_d, name_d from director"; /*список режиссеров*/
