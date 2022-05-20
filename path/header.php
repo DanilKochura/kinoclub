@@ -9,7 +9,8 @@
 
     <link href="styles/stylesheet.css" type="text/css" rel="stylesheet"/>
 
-    <title>Hello, world!</title>
+    <title>IMDibil</title>
+		<link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon">
   </head>
   <body><header class="p-3 bg-dark text-white">
 	    <div class="container">
