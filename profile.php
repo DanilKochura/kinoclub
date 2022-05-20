@@ -1,8 +1,12 @@
 <?php
 	session_start();
-	if(!isset($_GET['id'])) {header("Location: index.php");}
-	$id = $_GET['id'];
+
 	if(!isset($_SESSION['user'])) { header("Location: path/login.php");}
+	$id=$_SESSION['user']['id'];
+	if(isset($_GET['id']))
+	{	
+		$id = $_GET['id'];
+	}
 	require 'path/header.php';
 	$id_s = $_SESSION['user']['id'];
 	require 'config/bd.php';

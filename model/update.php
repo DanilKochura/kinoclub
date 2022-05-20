@@ -37,10 +37,8 @@
 			header('Location: ../profile.php?id='.$id);
 		}
 	}
-	else
-	{
-		header('Location: ../profile.php?id='.$id);
-	}
+	
+	print_r($_FILES['avatar']);
     $path = $_SESSION['user']['login'].".jpg";
         if (!move_uploaded_file($_FILES['avatar']['tmp_name'], "../uploads/".$path)) {
             $_SESSION['message'] = $path;
@@ -52,3 +50,4 @@
         $_SESSION['user']['avatar'] = $path;
         $_SESSION['user']['name'] = $name;
         header('Location: ../profile.php?id='.$id);
+?>
