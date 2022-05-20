@@ -34,6 +34,10 @@ if(isset($_SESSION['user']))
             У вас нет аккаунта? - <a href="register.php">зарегистрируйтесь</a>!
         </p>
       </form>
+      <?php if(isset($_SESSION['message'])){
+        echo $_SESSION['message'];
+        unset($_SESSION['message']);
+      }?>
     </main>
    <!-- <form action="../path/log.php" method="post">
         <label>Логин</label>

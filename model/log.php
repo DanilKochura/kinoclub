@@ -20,8 +20,8 @@
 
         header('Location: ../profile.php?id='.$_SESSION['user']['id']);
     } else {
-        $_SESSION['message'] = 'Не верный логин или пароль';
-        header('Location: /');
+        $_SESSION['message'] = 'Неверный логин или пароль';
+        header('Location: ../pages/login.php');
         print_r($check_user);
     }
 
