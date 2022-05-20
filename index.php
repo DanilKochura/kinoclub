@@ -3,7 +3,7 @@ require 'config/bd.php';
 define('ROOT', dirname(__FILE__));
 
 $meetings= array();
-$descr_q = "SELECT id_meet, id_m, name_m, original, year_of_cr, name_d,duration,rating, our_rate,rating_kp, poster from movie
+$descr_q = "SELECT id_meet, url, id_m, name_m, original, year_of_cr, name_d,duration,rating, our_rate,rating_kp, poster from movie
 				join director on id_d=director join meeting using(id_m);";
 $exp_q = "SELECT id_rate, id_meet, id_exp, avatar, name, rate from expert join expert_rate on id_e=id_exp  order by id_meet, rate desc
 ;";
@@ -118,7 +118,7 @@ require 'path/header.php';?>
   	
   		<div class="container rounded forum-card">
   		<div class="row">
-  			<div class="col-md-2 poster"><img src="<?=$m['poster'];?>" class="img-fluid rounded"id="IM"></div>
+  			<div class="col-md-2 poster"><a href="<?=$m['url'];?>"><img src="<?=$m['poster'];?>" class="img-fluid rounded"id="IM"></a></div>
   			<div class="col-md-4 text-left description">
 		  		<p class="name"><?=$m['name_m'];?></p>
 		  		<div class="original"><?=$m['original'];?></div>
@@ -132,7 +132,7 @@ require 'path/header.php';?>
 					}
 					echo $meetings[$m['id_m']]['genre'][$j];?> </div>
 		  		<div class="director">Режиссер: <?=$m['name_d'];?></div>
-		  		<div class="time">Длительность: <?=$m['duration'];?>.</div>
+		  		<div class="time">Длительность: <?=$m['duration'];?> мин.</div>
 		  		<div class="rates"><table class="table-rate text-center">
        			<thead>
             	<tr>
