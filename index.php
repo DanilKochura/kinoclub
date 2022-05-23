@@ -1,20 +1,28 @@
 <?php
+
 require 'config/bd.php';
-define('ROOT', dirname(__FILE__));
+function Query_try($connection, $query) //запрос к бд и прерывание в случае ошибки
+{
+	if(!($result = mysqli_query($connection, $query)))
+	{
+		die("Query error");
+	}
+	return $result;
+}
 
 $meetings= array();
 $descr_q = "SELECT id_meet, url, id_m, name_m, original, year_of_cr, name_d,duration,rating, our_rate,rating_kp, poster from movie
-				join director on id_d=director join meeting using(id_m);";
+				join director on id_d=director join meeting using(id_m);";  //получение карточки фильма
+
 $exp_q = "SELECT id_rate, id_meet, id_exp, avatar, name, rate from expert join expert_rate on id_e=id_exp  order by id_meet, rate desc
-;";
-$genre_q ="SELECT name_g, id_meet from genre 
-						join gen_to_mov using(id_g)
-						join meeting using(id_m) order by id_meet;";
-$res_d=mysqli_query($conn, $descr_q);
-$res_e=mysqli_query($conn, $exp_q);
-$res_g=mysqli_query($conn, $genre_q);
-while ($movie = mysqli_fetch_assoc($res_d)) {
-	//Инициализируем цены]
+;";  // получение списка эксепрт-оценка
+
+$genre_q ="SELECT name_g, id_meet from genre  join gen_to_mov using(id_g) join meeting using(id_m) order by id_meet;"; //получение списка жанров для фильма
+
+$res_description=Query_try($conn, $descr_q);
+$res_experts = Query_try($conn, $exp_q);
+$res_genres = Query_try($conn, $genre_q);
+while ($movie = mysqli_fetch_assoc($res_description)) {
 	$movie['rates']=array();
 	$movie['genre']=array();
 	$meetings[$movie['id_m']] = $movie;
@@ -23,12 +31,12 @@ while ($movie = mysqli_fetch_assoc($res_d)) {
 }
 $i=0;
 
-while($res = mysqli_fetch_assoc($res_g))
+while($res = mysqli_fetch_assoc($res_genres))
 {
 	$meetings[$res['id_meet']]['genre'][] = $res['name_g'];
 }
 $i=0;
-while($res = mysqli_fetch_assoc($res_e))
+while($res = mysqli_fetch_assoc($res_experts))
 {
 	$a = [
 		'avatar' => $res['avatar'],
@@ -38,51 +46,7 @@ while($res = mysqli_fetch_assoc($res_e))
 	$meetings[$res['id_meet']]['rates'][] = $a;
 
 }
-function rateCheck($d)
-{
-			$r;
-		if ($d>=7.0) $r= "green_zone";
-		else if ($d>=5.0) $r= "grey_zone";
-		else $r= "red_zone";
-		return $r;
-}
-/*foreach($meetings as $m)
-{
-	echo $m['name_m'];
-	echo "<br>";
-	echo $m['original'];
-	echo "<br>";
-	echo $m['year_of_cr'];
-	echo "<br>";
-	echo $m['name_d'];
-	echo "<br>";
-	echo $m['duration'];
-	echo "<br>";
-	echo $m['rating'];
-	echo "<br>";
-	echo $m['rating_kp'];
-	echo "<br>";
-	echo $m['our_rate'];
-	echo "<br>";
-	foreach($meetings[$m['id_m']]['rates'] as $g)
-	{
-		foreach($g as $j)
-		{
-		echo $j.",";
-		}
-		echo "<br>";
-	}
-	echo "<br>";
-	foreach($meetings[$m['id_m']]['genre'] as $g)
-	{
-		echo $g.",";
-	}
-	
-	
-	echo "<br><br><br>";
 
-}
-print_r($meetings);
 /*
 Array 
 ( 
@@ -132,7 +96,7 @@ require 'path/header.php';?>
 					}
 					echo $meetings[$m['id_m']]['genre'][$j];?> </div>
 		  		<div class="director">Режиссер: <?=$m['name_d'];?></div>
-		  		<div class="time">Длительность: <?=$m['duration'];?> мин.</div>
+		  		<div class="time">Длительность: <?=$m['duration'];?>мин.</div>
 		  		<div class="rates"><table class="table-rate text-center">
        			<thead>
             	<tr>
@@ -161,9 +125,6 @@ require 'path/header.php';?>
 					  </thead>
 					  <tbody>
 					  	<?php 
-					  	/*echo "<pre>";
-					  	print_r($meetings[$m['id_m']]['rates']);
-					  	echo "</pre>";*/
 					  	$n = count($m['rates']);
 					  	for($i=0; $i<$n; ++$i): ?>
 					    <tr>
@@ -174,12 +135,21 @@ require 'path/header.php';?>
 					  </tbody>
   					</table>
   			</div>
+  			<?php if($m['id_meet']==9): ?>
+				<div class="col-md-4 text-center">Цитаты
+  			<blockquote class="blockquote text-center">
+  				Дима нихуя не понимают, а анимешники ему объясняют!<br><br>
+  				<footer class="blockquote-footer">Альвар</footer>
+				</blockquote>
+			</div>
+		<?php else: ?>
   			<div class="col-md-4 text-center">Цитаты
   			<blockquote class="blockquote text-center">
   				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante<br><br>
   				<footer class="blockquote-footer">Кто-то знаменитый в <cite title="Название источника">Название источника</cite></footer>
 				</blockquote>
 			</div>
+				<?php endif; ?>
   		</div>
   	</div><?php endforeach;?>
 <?php require 'path/footer.php';?>
