@@ -13,8 +13,9 @@ function findS($str, $start, $end)
 function Parse($param)
 {
 	$url = 'parser/pages/'.$param.'.html';
+	if(!file_exists($url)) {return false;}
 	$a = file_get_contents($url);
-	//echo $a;
+	
 	$s = findS($a, '<script type="application/ld+json">', '</script>');
 	$d = findS($a, '<script id="__NEXT_DATA__" type="application/json', '</script>');
 	$d = json_decode($d, true);
