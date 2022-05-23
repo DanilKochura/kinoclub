@@ -12,7 +12,8 @@
     <title>IMDibil</title>
 		<link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon">
   </head>
-  <body><header class="p-3 bg-dark text-white">
+  <body>
+  	<header class="p-3 bg-dark text-white">
 	    <div class="container">
 	      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 	        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
@@ -28,7 +29,7 @@
 
 	        <div class="text-end">
 	          <button type="button" onclick="document.location='../imdibil/pages/login.php'" class="btn btn-outline-light me-2">Профиль</button>
-	          <button type="button" class="btn btn-warning">Вход</button>
+	          <button type="button" onclick="document.location='../imdibil/pages/login.php'" class="btn btn-warning">Вход</button>
 	        </div>
 	      </div>
 	    </div>
