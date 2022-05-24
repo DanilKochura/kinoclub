@@ -1,7 +1,7 @@
 <?php 
-	/*ini_set('display_errors', 0);
+	ini_set('display_errors', 0);
 	ini_set('display_startup_errors', 0);
-	error_reporting(E_ALL);*/
+	error_reporting(E_ALL);
 	session_start();
 	if($_SESSION['user']['id']!=29){header('Location: profile.php');}
 	require 'path/header.php';
@@ -16,7 +16,8 @@
 		'rating-kp'=>"Kinopoisk rate",
 		'duration'=>"Duration",
 		'url'=>"Url",
-		'imdb'=>"IMDB rate"
+		'imdb'=>"IMDB rate",
+		'descr'=>"Description"
 	);
 	if(isset($_GET['name']))
 	{
@@ -25,11 +26,11 @@
 	}
 	$q1 = "select count(*) from director"; /*количество режиссеров*/
 	$query = "SELECT id_d, name_d from director"; /*список режиссеров*/
-	$res=mysqli_query($conn, $query);
+	$res=Query_try($query);
 	$q = "SELECT id_g, name_g from genre"; /*список жанров*/
-	$q = mysqli_query($conn, $q);
+	$q = Query_try($q);
 	$query_meet = "SELECT name_m, id_m from movie left join meeting using(id_m) where id_meet is NULL";
-	$momeet = mysqli_query($conn, $query_meet);
+	$momeet = Query_try($query_meet);
 	function checkGenre($r, $g)
 	{
 		foreach ($g as $gen) {
@@ -95,6 +96,8 @@
 						<input class="form-control" name="avatar"type="file" id="formFile">
 						<label>Урл</label>
 						<input type="text" name="url" value="<?=$a['url']?>" class="form-control">
+						<label>Синопсис</label>
+						<input type="text" name="descr" value="<?=$a['descr']?>" class="form-control">
 				</div>
 				<div class="form-gr">
 					<div class="form-path">
@@ -120,10 +123,12 @@
 			</form>
 			</div>
 			<div>
-			<form>
-				<label>Название файла</label>
-				<input type="text" name="name" class="form-film ">
-				<button type="submit" onclick="#" class="btn btn-warning">Проверить фильм</button>
+			<form action="path/install.php" enctype="multipart/form-data" method="post">
+				<div class="form-al">
+						<label>Название файла</label>
+						<input class="form-control" name="file-to-parse"type="file" id="formFile">
+				</div>
+				<button type="submit" class="btn btn-warning">Проверить фильм</button>
 			</form>
 			</div>
 		</div>
