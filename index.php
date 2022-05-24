@@ -1,79 +1,10 @@
 <?php
 
-require 'config/bd.php';
-function Query_try($connection, $query) //запрос к бд и прерывание в случае ошибки
-{
-	if(!($result = mysqli_query($connection, $query)))
-	{
-		die("Query error");
-	}
-	return $result;
-}
+require 'model/GetBase.php';
 
-$meetings= array();
-$descr_q = "SELECT id_meet, url, id_m, name_m, original, year_of_cr, name_d,duration,rating, our_rate,rating_kp, poster from movie
-				join director on id_d=director join meeting using(id_m);";  //получение карточки фильма
 
-$exp_q = "SELECT id_rate, id_meet, id_exp, avatar, name, rate from expert join expert_rate on id_e=id_exp  order by id_meet, rate desc
-;";  // получение списка эксепрт-оценка
+$meetings= GetAllMovies();
 
-$genre_q ="SELECT name_g, id_meet from genre  join gen_to_mov using(id_g) join meeting using(id_m) order by id_meet;"; //получение списка жанров для фильма
-
-$res_description=Query_try($conn, $descr_q);
-$res_experts = Query_try($conn, $exp_q);
-$res_genres = Query_try($conn, $genre_q);
-while ($movie = mysqli_fetch_assoc($res_description)) {
-	$movie['rates']=array();
-	$movie['genre']=array();
-	$meetings[$movie['id_m']] = $movie;
-
-	
-}
-$i=0;
-
-while($res = mysqli_fetch_assoc($res_genres))
-{
-	$meetings[$res['id_meet']]['genre'][] = $res['name_g'];
-}
-$i=0;
-while($res = mysqli_fetch_assoc($res_experts))
-{
-	$a = [
-		'avatar' => $res['avatar'],
-		'name' => $res['name'],
-		'id' => $res['id_exp'],
-		'rate' =>$res['rate']];
-	$meetings[$res['id_meet']]['rates'][] = $a;
-
-}
-
-/*
-Array 
-( 
-	[1] => Array 
-	( 
-		id 
-		name
-		original
-		year
-		name_d
-		dur
-		kp
-		imdb
-		our
-		poster
-		genre array(
-		g1
-		g2
-		...)
-		rates array(
-		avatar
-		rate)
-	) 
-) 
-Arr
-
-*/
 ?>
 <?php session_start();
 require 'path/header.php';?>
