@@ -16,6 +16,6 @@
 		if(!$id){$_SESSION['message']['director']="Erorr";}
 
 	}
-	header('Location: ../admin.php');
+	header('Location: ../admin.php?name='.$id);
 
 ?>

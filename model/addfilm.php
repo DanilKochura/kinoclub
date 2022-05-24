@@ -1,8 +1,4 @@
 <?php
-echo "<pre>";
-print_r($_POST);
-echo "</pre>";
-
 	require_once '../config/bd.php';
 	session_start();
 	$name = $_POST['name']; 
@@ -14,6 +10,7 @@ echo "</pre>";
 	$kp = $_POST['kinopoisk']; 
 	$imdb = $_POST['imdb']; 
 	$file = $_POST['file'];
+	$descr = $_POST['descr'];
 	echo $file;
     $path = "image/".$or.".jpg";
         if (!move_uploaded_file($_FILES['avatar']['tmp_name'], "../".$path)) {
@@ -24,7 +21,7 @@ echo "</pre>";
     $increment = mysqli_fetch_assoc($increment);
     $i = $increment['id_m']+1;
 
-    $query = "INSERT INTO `movie` (`id_m`, `name_m`, `rating`, `rating_kp`, `year_of_cr`, `duration`, `director`, `our_rate`, `original`, `poster`, `url`) VALUES ('$i', '$name', '$imdb', '$kp', '$ye', '$dur', '$dir', NULL, '$or', '$path', '$url')";
+    $query = "INSERT INTO `movie` (`id_m`, `name_m`, `rating`, `rating_kp`, `year_of_cr`, `duration`, `director`, `our_rate`, `original`, `poster`, `url`, `description`) VALUES ('$i', '$name', '$imdb', '$kp', '$ye', '$dur', '$dir', NULL, '$or', '$path', '$url', '$descr')";
     $d = mysqli_query($conn, $query);
     if(!$d) {die("TI SUKA TUPOY CHTOLE");}
     foreach($_POST['check'] as $gen)
@@ -32,7 +29,7 @@ echo "</pre>";
     	$q = "INSERT INTO `gen_to_mov` (`id_s`, `id_g`, `id_m`) VALUES (NULL, '$gen', '$i')";
     	$d = mysqli_query($conn, $q);
 	}
-	unlink('../parser/pages/'.$file.'.html');
+	unlink('../parser/pages/'.$name.'.html');
     header('Location: ../admin.php');
 
 ?>

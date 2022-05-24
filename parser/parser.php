@@ -12,7 +12,7 @@ function findS($str, $start, $end)
 
 function Parse($param)
 {
-	$url = 'parser/pages/'.$param.'.html';
+	$url = 'parser/pages/'.$param;
 	if(!file_exists($url)) {return false;}
 	$a = file_get_contents($url);
 	
@@ -36,7 +36,8 @@ function Parse($param)
 		'rating-kp'=>round($s['aggregateRating']['ratingValue'], 1),
 		'duration'=>$s['timeRequired'],
 		'url'=>$s['url'],
-		'imdb'=>$d['props']['apolloState']['data'][$film_index]['rating']['imdb']['value']
+		'imdb'=>$d['props']['apolloState']['data'][$film_index]['rating']['imdb']['value'],
+		'descr'=>$s['description']
 	);
 }
 
