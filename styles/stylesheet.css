@@ -2,6 +2,10 @@
 /* reg and log*/
 
 /*         */
+header
+{
+  background-color: #23282b;
+}
 .b-example-divider {
   height: 3rem;
   background-color: rgba(0, 0, 0, .1);
@@ -12,12 +16,12 @@
 
 .form-control-dark {
   color: #fff;
-  background-color: var(--bs-dark);
+  background-color: #23282b;
   border-color: var(--bs-gray);
 }
 .form-control-dark:focus {
   color: #fff;
-  background-color: var(--bs-dark);
+  background-color: #23282b;
   border-color: #fff;
   box-shadow: 0 0 0 .25rem rgba(255, 255, 255, .25);
 }
@@ -35,7 +39,7 @@
   outline: 0;
 }
 .forum-card {
-  background-color: #2f353b;
+  background-color: #23282b;
   color: white;
   vertical-align: middle;
   margin-top: 20px;
@@ -60,7 +64,7 @@
 }
 .rating-tab::-webkit-scrollbar {
   width: 10px;
-  background-color: #2f353b;
+  background-color: #23282b;
   color: ;
 }
 
@@ -72,7 +76,7 @@
 .rating-tab::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
   border-radius: 10px;
-  background-color: #2f353b;
+  background-color: #23282b;
 }
 .table-rate {
   max-width: 100%;
@@ -104,7 +108,9 @@
 .selected
 {
   border: dotted 0.3rem #ffc107;
+  transition: 1s;
 }
+
 .thirds
 {
   padding: 5px;
@@ -191,7 +197,7 @@ h5.name {
 .three h1 {
   position: relative;
   color: #FCF2E5;
-  background: #2f353b;
+  background: #23282b;
   font-weight: normal;
   padding: 10px 40px;
   display: inline-block;
@@ -207,7 +213,7 @@ h5.name {
   height: 4px;
   left: 0;
   bottom: -15px;
-  background: #2f353b;
+  background: #23282b;
   border-radius: 10%;
 }
 .three h1:after {
@@ -215,7 +221,7 @@ h5.name {
   position: absolute;
   height: 0;
   width: 80%;
-  border-top: 10px solid #2f353b;
+  border-top: 10px solid #23282b;
   border-left: 12px solid transparent;
   border-right: 12px solid transparent;
   left: 50%;
@@ -250,7 +256,7 @@ h5.name {
   border-radius: 10%;
 }
 .table-user-rate{
-  background-color: #2f353b;
+  background-color: #23282b;
   color: white;
   border-radius: 1%;
 }
