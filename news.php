@@ -29,7 +29,16 @@
   						<h5 class="name"><?=$film['name_m']?></h5>
 		  				<div class="original"><?=$film['original']?></div>
 		  				<div class="year">Год: <?=$film['year_of_cr']?></div>
-		  				<div class="type">Жанр: драма, комедия, криминал</div>
+		  				<div class="type">Жанр: 
+		  					<?php 
+					  			$n = count($film['genre']);
+								for($i = 0; $i<$n-1; ++$i)
+								{
+									echo $film['genre'][$i]. ", ";
+								}
+								echo $film['genre'][$i];
+							?>
+		  				</div>
 		  				<div class="director">Режиссер: <?=$film['name_d']?></div>
 		  				<div class="time">Длительность: <?=$film['duration']?>мин.</div>
 		                <table class="table-rate text-center" style="height: 100px;">
@@ -56,7 +65,11 @@
   	</div>
   <?php ++$j; endforeach; ?>
 
-
+<div class="container-fluid forum-card footer">
+	<div class="row">
+		FOOOOOOTER
+	</div>
+</div>
  <script src="scripts\bootstrap.bundle.min.js"></script>
  <script src="scripts\main.js"></script>
   </body>

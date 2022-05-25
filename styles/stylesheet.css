@@ -189,7 +189,7 @@ h5.name {
 
 
 .three {
-  margin: -15px;
+  margin: -30px;
   padding: 50px 20px;
   text-align: center;
   
@@ -246,7 +246,11 @@ h5.name {
 /*sign-login*/
 
 /*     */
-
+.rate-ch
+{
+  font-weight: 800;
+  font-size: 16px;
+}
 .user-info {
   padding-top: 20px;
   max-height: 30%;
