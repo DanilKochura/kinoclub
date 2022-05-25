@@ -81,6 +81,53 @@
 			}
 			return $experts;
 	}
+	function GetAllThirds()
+	{
+		$thirds = array();
+		$query = "SELECT `movie`.*, `name`, `name_d`, `thirds`.`selected` from `movie` join `thirds` on `id_m`=`first` or `id_m`=`second` or `id_m`=`third` join `expert` using(`id_e`) join `director` on `director`=`id_d` order by `id_t` desc, `id_m` asc";
+		$query_g = "SELECT name_g, id_m from movie join thirds on id_m=first or id_m=second or id_m=third join gen_to_mov using(id_m) join genre using(id_g) order by id_t desc, id_m asc ";
+		$gen_res = Query_try($query_g);
+		$thirds_res = Query_try($query);
+		$i=0;
+		$j=0;
+		while($res = mysqli_fetch_assoc($thirds_res))
+		{
+			if($i==3)
+			{
+				$i=0;
+				++$j;
+			}
+			$thirds[$j][]=$res;
+			++$i;
+				
+		}
+		$i = 0;
+		$j=0;
+		$res = mysqli_fetch_assoc($gen_res);
+		$id = $res['id_m'];
+		for($k = 0; $k<($gen_res->num_rows)-1; ++$k){
+			if($id!=$res['id_m'])
+			{
+				$id=$res['id_m'];
+				++$i;
+				if($i==3)
+				{
+					$i=0;
+					++$j;
+				}
+			}
+			$thirds[$j][$i]['genre'][]=$res['name_g'];
+			$res = mysqli_fetch_assoc($gen_res);
+			//debug($res);
+		}
+		return $thirds;
+	}
+	function debug($arr)
+	{
+		echo "<pre>";
+		print_r($arr);
+		echo "</pre>";
+	}
 
 ?>
 
