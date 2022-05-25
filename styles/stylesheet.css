@@ -38,7 +38,7 @@
   background-color: #2f353b;
   color: white;
   vertical-align: middle;
-  margin-top: 0px;
+  margin-top: 20px;
   border: none;
   padding-left: 30px;
   padding-bottom: 20px;
@@ -101,10 +101,26 @@
 .btn-yellow {
 
 }
+.selected
+{
+  border: dotted 0.3rem #ffc107;
+}
+.thirds
+{
+  padding: 5px;
+  font-size: 12px;
+}
+.row.description
+{
+  padding: 10px;
+}
 .name {
   font-weight: 800;
   font-size: 20px;
   color:  #ffc107;
+}
+h5.name {
+ font-size: 15px; 
 }
 #IM {
   width: 100%;
