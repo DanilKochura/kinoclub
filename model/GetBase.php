@@ -9,7 +9,7 @@
 			parent::__construct();
 		}
 
-		public function GetAllMovies() //функция получения супер-массива с данными о всех фильмах
+		public function GetAllMovies() //функция получения супер-массива с данными о всех встречах
 		{
 			$meetings= array();
 			$descr_q = "SELECT id_meet, url, id_m, name_m, original, year_of_cr, name_d,duration,rating, our_rate,rating_kp, poster from movie
@@ -22,11 +22,14 @@
 			$res_description=$this->Query_try($descr_q);
 			$res_experts = $this->Query_try($exp_q);
 			$res_genres = $this->Query_try($genre_q);
+			$i=0;
 			while ($movie = mysqli_fetch_assoc($res_description)) 
 			{
 				$movie['rates']=array();
 				$movie['genre']=array();
-				$meetings[$movie['id_m']] = $movie;
+				$movie['num'] = $i;
+				$meetings[$movie['id_meet']] = $movie;
+				++$i;
 
 		
 			}

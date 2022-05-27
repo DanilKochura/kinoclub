@@ -1,7 +1,7 @@
 <?php 
 	session_start();
-	require '../config/bd.php';
-	$id=$_POST['name'];
+	require '../model/PostBase.php';
+	/*$id=$_POST['name'];
 	$db = new DB();
 	$val = "SELECT COUNT(*) as co FROM director WHERE name_d='$id'";
 	$increment = "SELECT id_d from director order by id_d desc limit 1";
@@ -17,6 +17,8 @@
 		if(!$id){$_SESSION['message']['director']="Erorr";}
 
 	}
-	header('Location: ../admin.php?name='.$id);
+	header('Location: ../admin.php?name='.$id);*/
+	$base = new PostBase();
+	$base->AddDirector();
 
 ?>

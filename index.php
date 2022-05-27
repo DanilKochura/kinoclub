@@ -1,15 +1,14 @@
 <?php
-
+session_start();
 require 'model/GetBase.php';
 
 $base = new GetBase();
 $meetings= $base->GetAllMovies();
-
-?>
-<?php session_start();
-require 'path/header.php';?>
-  	<?php foreach($meetings as $m):?>
-  	<div class="row"> '<div class="three"><h1>Заседание #<?=$m['id_meet'];?></h1></div></div>
+//debug($meetings);
+require 'path/header.php';
+foreach($meetings as $m):
+	?>
+  	<div class="row"> '<div class="three"><h1>Заседание #<?=$m['num']+1?></h1></div></div>
   	
   		<div class="container rounded forum-card">
   		<div class="row">
@@ -20,12 +19,12 @@ require 'path/header.php';?>
 		  		<div class="year">Год: <?=$m['year_of_cr'];?></div>
 		  		<div class="type">Жанр: 
 		  			<?php 
-		  			$n = count($meetings[$m['id_m']]['genre']);
+		  			$n = count($m['genre']);
 					for($j = 0; $j<$n-1; ++$j)
 					{
-						echo $meetings[$m['id_m']]['genre'][$j]. ", ";
+						echo $m['genre'][$j]. ", ";
 					}
-					echo $meetings[$m['id_m']]['genre'][$j];?> </div>
+					echo $m['genre'][$j];?> </div>
 		  		<div class="director">Режиссер: <?=$m['name_d'];?></div>
 		  		<div class="time">Длительность: <?=$m['duration'];?>мин.</div>
 		  		<div class="rates"><table class="table-rate text-center">
@@ -82,5 +81,5 @@ require 'path/header.php';?>
 			</div>
 				<?php endif; ?>
   		</div>
-  	</div><?php endforeach;?>
+  	</div><?php  endforeach;?>
 <?php require 'path/footer.php';?>
