@@ -9,25 +9,12 @@
 	}
 	require 'path/header.php';
 	$id_s = $_SESSION['user']['id'];
-	require 'config/bd.php';
-	$query = "select name_m, id_meet from movie join meeting using(id_m) left join (select * from expert_rate where id_exp = '$id') as e using(id_meet) where id_rate is NULL;";
-	$res = mysqli_query($conn, $query);
+	require 'model/GetBase.php';
 	
-	$query_m = "SELECT (row_number() OVER (ORDER BY `our_rate` DESC)) as `top`, `name_m`, `our_rate`, `rate`, `id_meet` FROM `movie` join `meeting` USING(`id_m`) join `expert_rate` using(`id_meet`) where `id_exp` = '$id'";
-	$res_m = mysqli_query($conn, $query_m);
-	$query_test = "SELECT count(*) as a from expert_rate WHERE id_exp = '$id'";
-	$res_nam = mysqli_query($conn, $query_test);
-	$nam = mysqli_fetch_assoc($res_nam);
-	if($nam['a']==0){ 	
-		$query_data = "SELECT name, avatar from expert where id_e = '$id'";
-		$res_data = mysqli_query($conn, $query_data);
-		$dat = mysqli_fetch_assoc($res_data);
-		$dat['module']=0;
-		$dat['amount']=0;
-	} else {
-	$query_data = "SELECT ROUND(AVG(rate), 1) as module, count(id_meet) as amount, name, avatar from expert_rate join expert on id_e=id_exp where id_exp = '$id'";
-			$res_data = mysqli_query($conn, $query_data);
-		$dat = mysqli_fetch_assoc($res_data); }
+	$res = GetAcceptedRate($id);
+	
+	$res_m = GetUserRates($id);
+	$dat = GetUserInfo($id);
 ?>
 
   	<div class="container">

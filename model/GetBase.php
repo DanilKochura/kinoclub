@@ -122,6 +122,38 @@
 		}
 		return $thirds;
 	}
+
+	function GetAcceptedRate($id)
+	{
+		$query = "select name_m, id_meet from movie join meeting using(id_m) left join (select * from expert_rate where id_exp = '$id') as e using(id_meet) where id_rate is NULL;";
+		$res = Query_try($query);
+		return $res;
+	}
+	function GetUserRates($id)
+	{
+		$query_m = "SELECT (row_number() OVER (ORDER BY `our_rate` DESC)) as `top`, `name_m`, `our_rate`, `rate`, `id_meet` FROM `movie` join `meeting` USING(`id_m`) join `expert_rate` using(`id_meet`) where `id_exp` = '$id'";
+		$res_m = Query_try($query_m);
+		return($res_m);
+	}
+	function GetUserInfo($id)
+	{
+		$query_test = "SELECT count(*) as a from expert_rate WHERE id_exp = '$id'";
+		$res_nam = Query_try($query_test);
+		$nam = mysqli_fetch_assoc($res_nam);
+		if($nam['a']==0){ 	
+			$query_data = "SELECT name, avatar from expert where id_e = '$id'";
+			$res_data = Query_try($query_data);
+			$dat = mysqli_fetch_assoc($res_data);
+			$dat['module']=0;
+			$dat['amount']=0;
+		} else 
+		{
+		$query_data = "SELECT ROUND(AVG(rate), 1) as module, count(id_meet) as amount, name, avatar from expert_rate join expert on id_e=id_exp where id_exp = '$id'";
+				$res_data = Query_try($query_data);
+		$dat = mysqli_fetch_assoc($res_data); 
+		}
+		return $dat;
+	}
 	function debug($arr)
 	{
 		echo "<pre>";
