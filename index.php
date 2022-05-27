@@ -2,8 +2,8 @@
 
 require 'model/GetBase.php';
 
-
-$meetings= GetAllMovies();
+$base = new GetBase();
+$meetings= $base->GetAllMovies();
 
 ?>
 <?php session_start();

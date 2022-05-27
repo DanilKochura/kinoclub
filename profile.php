@@ -10,11 +10,13 @@
 	require 'path/header.php';
 	$id_s = $_SESSION['user']['id'];
 	require 'model/GetBase.php';
+
+	$base = new GetBase();
 	
-	$res = GetAcceptedRate($id);
+	$res = $base->GetAcceptedRate($id);
 	
-	$res_m = GetUserRates($id);
-	$dat = GetUserInfo($id);
+	$res_m = $base->GetUserRates($id);
+	$dat = $base->GetUserInfo($id);
 ?>
 
   	<div class="container">

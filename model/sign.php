@@ -1,6 +1,7 @@
 <?php 
 	require_once '../config/bd.php';
 	session_start();
+    $db = new DB();
 	$name = $_POST['full_name'];
     $login = $_POST['login'];
     $email = $_POST['email'];
@@ -8,7 +9,7 @@
         
         $password = md5($_POST['password']);
         $query = "INSERT INTO `expert` (`id_e`, `name`, `login`, `password`) VALUES (NULL, '$name', '$login', '$password');";
-        $d = mysqli_query($conn, $query);
+        $d = $db->Query_try($query);
         if(!$d) {die("TI SUKA TUPOY CHTOLE");}
 
         

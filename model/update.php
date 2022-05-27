@@ -1,7 +1,7 @@
 <?php
 	require_once '../config/bd.php';
 	session_start();
-
+	$db = new DB();
 	print_r($_POST);
 	if(!$_POST['name'])
 	{
@@ -17,7 +17,7 @@
 		}
 	$id = $_SESSION['user']['id'];
 	$q = "SELECT password from expert where id_e ='$id'";
-	$pw = mysqli_query($conn, $q);
+	$pw = $db->Query_try($q);
 	$pw = mysqli_fetch_assoc($pw);
 
 	if($pw['password']!=md5($_POST['old-pass']))
@@ -45,7 +45,7 @@
             header('Location: ../profile.php');
         }
         $query = "UPDATE `expert` set `avatar` = '$path', `name`= '$name', `password` = '$pass' where `id_e` = '$id';";
-        $d = mysqli_query($conn, $query);
+        $d = $db->Query_try($query);
         if(!$d) {die("TI SUKA TUPOY CHTOLE");}
         $_SESSION['user']['avatar'] = $path;
         $_SESSION['user']['name'] = $name;

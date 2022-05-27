@@ -2,11 +2,13 @@
 	ini_set('display_errors', 0);
 	ini_set('display_startup_errors', 0);
 	error_reporting(E_ALL);
-	session_start();
-	if($_SESSION['user']['id']!=29){header('Location: profile.php');}
-	require 'path/header.php';
+		require 'path/header.php';
 	include 'parser/parser.php';
 	require 'config/bd.php';
+
+	session_start();
+	$db = new DB();
+	if($_SESSION['user']['id']!=29){header('Location: profile.php');}
 	$a = array(
 		'name'=>"Name",
 		'original'=>"Original Name",
@@ -26,11 +28,11 @@
 	}
 	$q1 = "select count(*) from director"; /*количество режиссеров*/
 	$query = "SELECT id_d, name_d from director"; /*список режиссеров*/
-	$res=Query_try($query);
+	$res=$db->Query_try($query);
 	$q = "SELECT id_g, name_g from genre"; /*список жанров*/
-	$q = Query_try($q);
+	$q = $db->Query_try($q);
 	$query_meet = "SELECT name_m, id_m from movie left join meeting using(id_m) where id_meet is NULL";
-	$momeet = Query_try($query_meet);
+	$momeet = $db->Query_try($query_meet);
 	function checkGenre($r, $g)
 	{
 		foreach ($g as $gen) {
