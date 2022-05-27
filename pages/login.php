@@ -17,7 +17,7 @@ if(isset($_SESSION['user']))
 <body>
 <!-- Форма авторизации -->
     <main class="form-signin">
-      <form action="../model/log.php" method="post" >
+      <form action="../model/AuthFormController.php?type=log" method="post" >
         <img class="mb-4" src="../image/logogo.png" alt="" width="300" height="100">
         <h1 class="h3 mb-3 fw-normal text-center">Вход</h1>
 
