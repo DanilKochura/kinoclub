@@ -49,7 +49,7 @@
 		<div class="col-sm-5">
 			<div class="forum-card new">
 				<h1 class="text-center">Новый фильм</h1>
-			<form action="model/AdminFormControler.php?type=mov" method="post" enctype="multipart/form-data">
+			<form action="controller/AdminFormController.php?type=mov" method="post" enctype="multipart/form-data">
 				<div class="form-gr">
 					<div class="form-path">
 						<label>Название</label>
@@ -121,11 +121,11 @@
 			<form>
 				<label>Имя режиссера</label>
 				<input type="text" name="name" class="form-control" value="<?=$a['director']?>">
-				<button type="submit" class="btn btn-warning" formaction="model/AdminFormControler.php?type=dir" formmethod="post">Добавить режиссера</button>
+				<button type="submit" class="btn btn-warning" formaction="controller/AdminFormController.php?type=dir" formmethod="post">Добавить режиссера</button>
 			</form>
 			</div>
 			<div>
-			<form action="path/AdminFormControler.php?type=install" enctype="multipart/form-data" method="post">
+			<form action="controller/AdminFormController.php?type=install" enctype="multipart/form-data" method="post">
 				<div class="form-al">
 						<label>Название файла</label>
 						<input class="form-control" name="file-to-parse"type="file" id="formFile">
@@ -136,7 +136,7 @@
 		</div>
 		
 		<div class="col-sm-2">
-			<form method="post" action="model/AdminFormControler.php?type=meet">
+			<form method="post" action="controller/AdminFormController.php?type=meet">
 				<label>Выберите фильм</label>
 				<select class="form-select" name="film"aria-label="Фильм">
 						<?php while($r=mysqli_fetch_assoc($momeet)): ?>

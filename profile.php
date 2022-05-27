@@ -13,8 +13,8 @@
 
 	$base = new GetBase();
 	
-	$res = $base->GetAcceptedRate($id);
 	
+	$res = $base->GetAcceptedRate($id);
 	$res_m = $base->GetUserRates($id);
 	$dat = $base->GetUserInfo($id);
 ?>
@@ -40,7 +40,7 @@
        									 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
       							</div>
       						<div class="modal-body">
-       						 <form action="model/update.php" method="post" enctype="multipart/form-data">
+       						 <form action="controller/UserFormController.php?type=update" method="post" enctype="multipart/form-data">
 									  <div class="mb-3">
 									    <div class="mb-3">
 											  <input class="form-control" name="avatar"type="file" id="formFile">
@@ -80,7 +80,7 @@
        									 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
       							</div>
       						<div class="modal-body">
-       						  <form action="model/new-rate.php" method="post">
+       						  <form action="controller/UserFormController.php?type=add" method="post">
 										  <select class="form-select" name="movie"aria-label="Пример выбора по умолчанию">
 											  <option selected>Выберите фильм</option>
 											  <?php while($r=mysqli_fetch_assoc($res)): ?>
@@ -125,7 +125,7 @@
  								<td class="rate-ch"><?=$r['our_rate']?></td>
  								<td><?=$r['id_meet']?></td>
  								<td><?=$r['top']?></td>
- 								<td><a class="unrate" href="model/unrate.php?id=<?=$tmp_id?>">Удалить запись</a></td>
+ 								<td><a class="unrate" href="controller/UserFormController.php?type=unrate&id=<?=$tmp_id?>">Удалить запись</a></td>
  							</tr>
  						<?php endwhile;?>
   					</tbody>
