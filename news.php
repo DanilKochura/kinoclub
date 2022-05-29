@@ -2,7 +2,8 @@
 	session_start();
 	require 'path/header.php';
 	require 'model/GetBase.php';
-	$thirds = GetAllThirds();
+	$base = new GetBase();
+	$thirds = $base->GetAllThirds();
 	//debug($thirds);
 	$j=0;
 	foreach ($thirds as $third):
@@ -56,22 +57,13 @@
   					</div>
   				</div>
   				<div class="row description">
-  					<div class="col-sm-12 thirds"><?=$film['description']?></div>
+  					<div class="col-sm-12 thirds description"><?=$film['description']?></div>
   				</div>
   			</div>
   		<?php endforeach; ?>
   			
   		</div>
   	</div>
-  <?php ++$j; endforeach; ?>
-
-<div class="container-fluid forum-card footer">
-	<div class="row">
-		FOOOOOOTER
-	</div>
-</div>
- <script src="scripts\bootstrap.bundle.min.js"></script>
- <script src="scripts\main.js"></script>
-  </body>
-</html>
+  <?php ++$j; endforeach; 
+  require 'path/footer.php';
 

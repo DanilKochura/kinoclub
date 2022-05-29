@@ -2,11 +2,13 @@
 	ini_set('display_errors', 0);
 	ini_set('display_startup_errors', 0);
 	error_reporting(E_ALL);
-	session_start();
-	if($_SESSION['user']['id']!=29){header('Location: profile.php');}
-	require 'path/header.php';
+		require 'path/header.php';
 	include 'parser/parser.php';
 	require 'config/bd.php';
+
+	session_start();
+	$db = new DB();
+	if($_SESSION['user']['id']!=29){header('Location: profile.php');}
 	$a = array(
 		'name'=>"Name",
 		'original'=>"Original Name",
@@ -26,11 +28,11 @@
 	}
 	$q1 = "select count(*) from director"; /*количество режиссеров*/
 	$query = "SELECT id_d, name_d from director"; /*список режиссеров*/
-	$res=Query_try($query);
+	$res=$db->Query_try($query);
 	$q = "SELECT id_g, name_g from genre"; /*список жанров*/
-	$q = Query_try($q);
+	$q = $db->Query_try($q);
 	$query_meet = "SELECT name_m, id_m from movie left join meeting using(id_m) where id_meet is NULL";
-	$momeet = Query_try($query_meet);
+	$momeet = $db->Query_try($query_meet);
 	function checkGenre($r, $g)
 	{
 		foreach ($g as $gen) {
@@ -47,7 +49,7 @@
 		<div class="col-sm-5">
 			<div class="forum-card new">
 				<h1 class="text-center">Новый фильм</h1>
-			<form action="model/addfilm.php" method="post" enctype="multipart/form-data">
+			<form action="controller/AdminFormController.php?type=mov" method="post" enctype="multipart/form-data">
 				<div class="form-gr">
 					<div class="form-path">
 						<label>Название</label>
@@ -119,11 +121,11 @@
 			<form>
 				<label>Имя режиссера</label>
 				<input type="text" name="name" class="form-control" value="<?=$a['director']?>">
-				<button type="submit" class="btn btn-warning" formaction="model/newDirector.php" formmethod="post">Добавить режиссера</button>
+				<button type="submit" class="btn btn-warning" formaction="controller/AdminFormController.php?type=dir" formmethod="post">Добавить режиссера</button>
 			</form>
 			</div>
 			<div>
-			<form action="path/install.php" enctype="multipart/form-data" method="post">
+			<form action="controller/AdminFormController.php?type=install" enctype="multipart/form-data" method="post">
 				<div class="form-al">
 						<label>Название файла</label>
 						<input class="form-control" name="file-to-parse"type="file" id="formFile">
@@ -134,7 +136,7 @@
 		</div>
 		
 		<div class="col-sm-2">
-			<form method="post" action="model/addMeet.php">
+			<form method="post" action="controller/AdminFormController.php?type=meet">
 				<label>Выберите фильм</label>
 				<select class="form-select" name="film"aria-label="Фильм">
 						<?php while($r=mysqli_fetch_assoc($momeet)): ?>
