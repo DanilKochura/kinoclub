@@ -64,15 +64,6 @@
   			
   		</div>
   	</div>
-  <?php ++$j; endforeach; ?>
-
-<div class="container-fluid forum-card footer">
-	<div class="row">
-		FOOOOOOTER
-	</div>
-</div>
- <script src="scripts\bootstrap.bundle.min.js"></script>
- <script src="scripts\main.js"></script>
-  </body>
-</html>
+  <?php ++$j; endforeach; 
+  require 'path/footer.php';
 
