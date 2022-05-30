@@ -38,7 +38,9 @@
 			}
 			while($cit = mysqli_fetch_assoc($citates))
 			{
-				$meetings[$cit['id_m']]['citate'][]['text']=$cit['text'];
+				$meetings[$cit['id_m']]['citate'][] = array(
+					'text'=> $cit['text'],
+					'author' =>$cit['author']);
 			}
 
 			while($res = mysqli_fetch_assoc($res_genres))

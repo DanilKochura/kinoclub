@@ -65,18 +65,14 @@ foreach($meetings as $m):
 					  </tbody>
   					</table>
   			</div>
-  			<?php if($m['id_meet']==9): ?>
-				<div class="col-md-4 text-center">Цитаты
-  			<blockquote class="blockquote text-center">
-  				Дима нихуя не понимают, а анимешники ему объясняют!<br><br>
-  				<footer class="blockquote-footer">Альвар</footer>
-				</blockquote>
-			</div>
-		<?php else: ?>
   			<div class="col-md-4 text-center">Цитаты
   			<blockquote class="blockquote text-center">
-  				<?=$m['citate'][0]['text']?><br><br>
-  				<footer class="blockquote-footer">Кто-то знаменитый в <cite title="Название источника">Название источника</cite></footer>
+  				<?php if(isset($m['citate'])):
+  						if(isset($m['citate'][0]['text'])) echo $m['citate'][0]['text'];
+  						else echo "Упс! Тут ничего нет! Возможно, скоро появится."
+  				?>
+  				<br><br>
+  				<footer class="blockquote-footer"><?php if(isset($m['citate'][0]['author'])) echo $m['citate'][0]['author']; ?></cite></footer>
 				</blockquote>
 			</div>
 				<?php endif; ?>
