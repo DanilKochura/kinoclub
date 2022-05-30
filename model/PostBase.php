@@ -150,11 +150,14 @@
 			
 			print_r($_FILES['avatar']);
 		    $path = $_SESSION['user']['login'].".jpg";
-		    if (!move_uploaded_file($_FILES['avatar']['tmp_name'], "../uploads/".$path)) 
+		    if(isset($_FILES['avatar']))
 		    {
-		        $_SESSION['message'] = $path;
-		        header('Location: ../profile.php');
-		    }
+			    if (!move_uploaded_file($_FILES['avatar']['tmp_name'], "../uploads/".$path)) 
+			    {
+			        $_SESSION['message'] = $path;
+			        header('Location: ../profile.php');
+			    }
+			}	
 		    $query = "UPDATE `expert` set `avatar` = '$path', `name`= '$name', `password` = '$pass' where `id_e` = '$id';";
 		    $d = $this->Query_try($query);
 	        $_SESSION['user']['avatar'] = $path;

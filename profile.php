@@ -125,7 +125,9 @@
  								<td class="rate-ch"><?=$r['our_rate']?></td>
  								<td><?=$r['id_meet']?></td>
  								<td><?=$r['top']?></td>
+ 								<?php if($id===$id_s):?> 
  								<td><a class="unrate" href="controller/UserFormController.php?type=unrate&id=<?=$tmp_id?>">Удалить запись</a></td>
+ 							<?php endif; ?>
  							</tr>
  						<?php endwhile;?>
   					</tbody>
@@ -134,4 +136,11 @@
   			<div class="col-sm-1"></div>
   		</div>
   	</div>
+  </p>
+</span>
+</span>
+</p>
+</div>
+</div>
+</div>
 <?php require 'path/footer.php'; ?>
