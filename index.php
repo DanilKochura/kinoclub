@@ -75,7 +75,7 @@ foreach($meetings as $m):
 		<?php else: ?>
   			<div class="col-md-4 text-center">Цитаты
   			<blockquote class="blockquote text-center">
-  				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante<br><br>
+  				<?=$m['citate'][0]['text']?><br><br>
   				<footer class="blockquote-footer">Кто-то знаменитый в <cite title="Название источника">Название источника</cite></footer>
 				</blockquote>
 			</div>

@@ -18,6 +18,8 @@
 			$exp_q = "SELECT id_rate, id_meet, id_exp, avatar, name, rate from expert join expert_rate on id_e=id_exp  order by id_meet, rate desc;";  // получение списка эксепрт-оценка
 
 			$genre_q ="SELECT name_g, id_meet from genre  join gen_to_mov using(id_g) join meeting using(id_m) order by id_meet;"; //получение списка жанров для фильма
+			$citates = "SELECT text, author, id_m from citate";
+			$citates = $this->Query_try($citates);
 
 			$res_description=$this->Query_try($descr_q);
 			$res_experts = $this->Query_try($exp_q);
@@ -27,11 +29,16 @@
 			{
 				$movie['rates']=array();
 				$movie['genre']=array();
+				$movie['citate']=array();
 				$movie['num'] = $i;
 				$meetings[$movie['id_meet']] = $movie;
 				++$i;
 
 		
+			}
+			while($cit = mysqli_fetch_assoc($citates))
+			{
+				$meetings[$cit['id_m']]['citate'][]['text']=$cit['text'];
 			}
 
 			while($res = mysqli_fetch_assoc($res_genres))
