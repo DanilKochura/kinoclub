@@ -1,7 +1,7 @@
 <?php
 	session_start();
 
-	if(!isset($_SESSION['user'])) { header("Location: path/login.php");}
+	if(!isset($_SESSION['user'])) { header("Location: pages/login.php");}
 	$id=$_SESSION['user']['id'];
 	if(isset($_GET['id']))
 	{	
@@ -19,7 +19,7 @@
 	$dat = $base->GetUserInfo($id);
 ?>
 
-  	<div class="container">
+  	<div class="container main">
   		<div class="row user-info">
   			<div class="col-sm-1"></div>
   			<div class="col-sm-2"><img class="user-avatar" src="uploads\<?=$dat['avatar']?>"></div>

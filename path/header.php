@@ -28,8 +28,8 @@
 	        </ul>
 
 	        <div class="text-end">
-	          <button type="button" onclick="document.location='../imdibil/pages/login.php'" class="btn btn-outline-light me-2">Профиль</button>
-	          <button type="button" onclick="document.location='../imdibil/pages/login.php'" class="btn btn-warning">Вход</button>
+	          <button type="button" onclick="document.location='pages/login.php'" class="btn btn-outline-light me-2">Профиль</button>
+	          <button type="button" onclick="document.location='pages/login.php'" class="btn btn-warning">Вход</button>
 	        </div>
 	      </div>
 	    </div>
