@@ -6,6 +6,7 @@ session_start();
 	switch ($_GET['type']) {
     case "add":
         $base->AddRate();
+
         break;
     case "unrate":
         $base->Unrate();

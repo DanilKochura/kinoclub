@@ -426,3 +426,35 @@ html, body
 {
   flex: 0 0 auto;
 }
+
+.rating-area {
+  overflow: hidden;
+  width: 310px;
+  margin: 0 auto;
+}
+.rating-area:not(:checked) > input {
+  display: none;
+}
+.rating-area:not(:checked) > label {
+  float: right;
+  width: 30px;
+  padding: 0;
+  cursor: pointer;
+  font-size: 30px;
+  line-height: 70px;
+  color: lightgrey;
+}
+.rating-area:not(:checked) > label:before {
+  content: '★';
+}
+
+.rating-area > input:checked ~ label,
+.rating-area > label:hover ~ input:checked,
+.rating-area:not(:checked) > label:hover,
+.rating-area:not(:checked) > label:hover ~ label {
+  color: gold;
+}
+
+.rate-area > label:active {
+  position: relative;
+}

@@ -82,7 +82,7 @@
 		public function AddRate()
 		{
 			$meet = $_POST['movie'];
-			$rate = $_POST['rate'];
+			$rate = $_POST['rating'];
 			$id = $_SESSION['user']['id'];
 			$query = "INSERT INTO `expert_rate`(`id_rate`, `id_meet`, `id_exp`, `rate`) VALUES(NULL, '$meet', '$id', '$rate')";
 
