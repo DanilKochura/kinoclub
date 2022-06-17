@@ -458,3 +458,10 @@ html, body
 .rate-area > label:active {
   position: relative;
 }
+
+.charts{
+  max-height: 400px;
+  max-width: 100%;
+  padding: 20px;
+  background-color: #23282b;
+}

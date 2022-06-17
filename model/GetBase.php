@@ -153,8 +153,77 @@
 		}
 		public function GetUserRates($id)  //получение оценок одного пользователя
 		{
-			$query_m = "SELECT (row_number() OVER (ORDER BY `our_rate` DESC)) as `top`, `name_m`, `our_rate`, `rate`, `id_meet` FROM `movie` join `meeting` USING(`id_m`) join `expert_rate` using(`id_meet`) where `id_exp` = '$id'";
+			$query_m = "SELECT  `name_m`, `our_rate`, `rate`, `id_meet` FROM `movie` join `meeting` USING(`id_m`) join `expert_rate` using(`id_meet`) where `id_exp` = '$id'";
 			$res_m = $this->Query_try($query_m);
+			return($res_m);
+		}
+
+		
+		public function GetAllRates()  //получение оценок
+		{
+			$query_u = "SELECT `name_m`, `our_rate`, `rate`, `name` FROM `movie` join `meeting` USING(`id_m`) join `expert_rate` using(`id_meet`) join expert on id_e=id_exp order by name, id_m";
+			$query = "select count(*) as n from meeting";
+			$res = mysqli_fetch_assoc($this->Query_try($query));
+			$num =  $res['n'];
+			$res_u = $this->Query_try($query_u);
+			$res_m = array(
+				'user'=> array(),
+				'avg'=> array(),
+				'movies'=>array());
+				
+					
+			$i=0;
+			while($i<6)
+			{
+				for($j = 0; $j<$num; ++$j)
+				{
+					$res = mysqli_fetch_assoc($res_u);
+					$res_m['user'][$i]['data'][]=$res['rate'];
+					$res_m['user'][$i]['name'] = $res['name'];
+
+				}
+				++$i;
+					
+			}
+			for($j = 0; $j<$num; ++$j)
+				{
+					$res = mysqli_fetch_assoc($res_u);
+					$res_m['user'][$i]['data'][]=$res['rate'];
+					$res_m['user'][$i]['name'] = $res['name'];
+					$res_m['avg']['data'][]= $res['our_rate'];
+					$res_m['avg']['name']= "Оценка сообщества";
+					$res_m['movies'][]=$res['name_m'];
+
+
+				}
+			return($res_m);
+		}
+
+		public function GetUserChartRates($id)  //получение оценок одного пользователя
+		{
+			$query_u = "SELECT  `name_m`, `rate`, `name`, `our_rate` FROM `movie` join `meeting` USING(`id_m`) join `expert_rate` using(`id_meet`) join expert on id_e=id_exp where id_exp = '$id'";
+			$res_u = $this->Query_try($query_u);
+			$res_m = array(
+				'user'=>array(
+					'data'=> array()
+				),
+				'avg'=>array(
+					'data'=> array(),
+					'name'=>"Средний балл сообщества",
+				),
+				'movie'=>array()
+			);
+				
+				
+
+			while ($row = mysqli_fetch_assoc($res_u))
+			{
+				$res_m['user']['data'][]=$row['rate'];
+				$res_m['user']['name']=$row['name'];
+				$res_m['avg']['data'][]=$row['our_rate'];
+				//$res_m['avg']['name']="Средний балл сообщества";
+				$res_m['movie'][]=$row['name_m'];	
+			}
 			return($res_m);
 		}
 		public function GetUserInfo($id)  //получение информации о польователе
