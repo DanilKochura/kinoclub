@@ -18,7 +18,7 @@
   		</div>
   	</div>
     <div class="container forum-card">
-  		<div class="row">
+  		<div class="row th">
   			<?php foreach($third as $film): ?>
 
   			<div class="col-sm-4 thirds" id="id-<?=$film['id_m']?>">
@@ -52,6 +52,12 @@
 		              				<th><img src="image/kp.png" class="res_logo"></th>
 		              				<td class="rate-ch"><?=$film['rating_kp']?></td>
 		              			</tr>
+                                <?php if($film['our_rate']): ?>
+                                <tr>
+                                    <th><img src="image/logogo.png" class="res_logo"></th>
+                                    <td class="rate-ch"><?=$film['our_rate']?></td>
+                                </tr>
+                                <?php endif; ?>
 		              		</tbody>
 		                </table>
   					</div>

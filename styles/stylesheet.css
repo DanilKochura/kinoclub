@@ -62,7 +62,6 @@ header
 .rating-tab::-webkit-scrollbar {
   width: 10px;
   background-color: #23282b;
-  color: ;
 }
 
 .rating-tab::-webkit-scrollbar-thumb {
@@ -127,7 +126,7 @@ h5.name {
 }
 #IM {
   width: 100%;
-  object-fit: content;
+  object-fit: contain;
   transition: 1s;
   border-radius: 20%;
 
@@ -150,7 +149,9 @@ h5.name {
 .rate {
   vertical-align: inherit;
 }
-
+.row.th {
+  margin: -5px -6px 0px -19px;
+}
 .original {
   font-weight: 100;
   font-size: 12px;
@@ -158,7 +159,7 @@ h5.name {
 }
 .logo {
   max-height: 40px;
-  object-fit: content;
+  object-fit: contain;
   transition: 1s;
 }
 #lgg {
@@ -268,9 +269,11 @@ h5.name {
 table a {
   text-decoration: none;
   color: white;
+  cursor: pointer;
 }
-.mov-nam:hover {
-  color: #ffc107;
+a:hover{
+  color: black;
+
 }
 
 #customRange {
