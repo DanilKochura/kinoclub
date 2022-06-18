@@ -45,8 +45,8 @@ foreach($meetings as $m):
                     </table>
                 </div>
 	  		</div>
-  			<div class="rating-tab col-md-2 text-center">
-  				<table class="table-rate">
+  			<div class="rating-tab col-md-3 text-center">
+  				<!--<table class="table-rate">
   					<thead>
 					    <tr>
 					      <th scope="col">Эксперт</th>
@@ -54,18 +54,59 @@ foreach($meetings as $m):
 					    </tr>
 					  </thead>
 					  <tbody>
-					  	<?php 
+					  	<?php /*
 					  	$n = count($m['rates']);
-					  	for($i=0; $i<$n; ++$i): ?>
+					  	for($i=0; $i<$n; ++$i): */?>
 					    <tr>
-					      <th scope="row"  class="ex-name"><a href="profile.php?id=<?=$m['rates'][$i]['id']?>"><img  src="uploads\<?=$m['rates'][$i]['avatar']?>" alt="Ваня" class="avatar"></th>
-					      <td class="rate-ch"><?=$m['rates'][$i]['rate']?></td>
+					      <th scope="row"  class="ex-name"><a href="profile.php?id=<?/*=$m['rates'][$i]['id']*/?>"><img  src="uploads\<?/*=$m['rates'][$i]['avatar']*/?>" alt="Ваня" class="avatar"></th>
+					      <td class="rate-ch"><?/*=$m['rates'][$i]['rate']*/?></td>
 					    </tr>
-						<?php endfor; ?>
+						<?php /*endfor; */?>
 					  </tbody>
-  					</table>
-  			</div>
-  			<div class="col-md-4 text-center">Цитаты
+  					</table>-->
+                <?php
+				$n = count($m['rates']);
+                $i=0;
+                $j=0;?>
+                <table class="table-rate text-center" style="margin-top: 30px">
+                    <tbody>
+
+
+
+                <tr>
+                <?php for($i; $i<$n/2; ++$i): ?>
+                    <td scope="row"  class="ex-name">
+                        <a href="profile.php?id=<?=$m['rates'][$i]['id']?>">
+                            <img  src="uploads\<?=$m['rates'][$i]['avatar']?>" alt="Ваня" class="avatar">
+                        </a>
+                    </td>
+                    <?php endfor; ?>
+                </tr>
+                    <tr>
+                <?php for($j; $j<$n/2; ++$j): ?>
+                    <td class="rate-ch"><?=$m['rates'][$j]['rate']?></td>
+                <?php endfor; ?>
+                    </tr>
+
+                <tr><td scope="row" colspan="4"><hr style="color: gold; border: 1px solid gold; border-radius: 1px; opacity: 0.8"></td></tr>
+                <tr>
+                    <?php for($i; $i<$n; ++$i): ?>
+                        <td scope="row"  class="ex-name">
+                            <a href="profile.php?id=<?=$m['rates'][$i]['id']?>">
+                                <img  src="uploads\<?=$m['rates'][$i]['avatar']?>" alt="Ваня" class="avatar">
+                            </a>
+                        </td>
+                    <?php endfor; ?>
+                </tr>
+                <tr>
+                    <?php for($j; $j<$n; ++$j): ?>
+                        <td class="rate-ch"><?=$m['rates'][$j]['rate']?></td>
+                    <?php endfor; ?>
+                </tr>
+                    </tbody>
+                </table>
+                </div>
+  			<div class="col-md-3 text-center">Цитаты
   			<blockquote class="blockquote text-center">
   				<?php if(isset($m['citate'])):
   						if(isset($m['citate'][0]['text'])) echo $m['citate'][0]['text'];
