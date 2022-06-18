@@ -1,9 +1,8 @@
 <?php require 'path/header.php'; 
-require 'model/getbase.php';
-session_start();
+require 'model/GetBase.php';
 $m = new GetBase();
 $arr = $m->GetAllRates();
-setcookie("id", $_SESSION['user']['id']) ;
+
 ?>
 
 
@@ -30,7 +29,21 @@ setcookie("id", $_SESSION['user']['id']) ;
   {
       display: none;
   }
+.charts
+{
+    max-height: 400px;
+}
+.block {
 
+    display: block;
+    margin: 10px;
+
+}
+.legend
+{
+    border: 4px dotted gold;
+
+}
 
 
 

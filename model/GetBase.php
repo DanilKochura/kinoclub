@@ -15,7 +15,7 @@
 			$descr_q = "SELECT id_meet, url, id_m, name_m, original, year_of_cr, name_d,duration,rating, our_rate,rating_kp, poster from movie
 					join director on id_d=director join meeting using(id_m);";  //получение карточки фильма
 
-			$exp_q = "SELECT id_rate, id_meet, id_exp, avatar, name, rate from expert join expert_rate on id_e=id_exp  order by id_meet, rate desc;";  // получение списка эксепрт-оценка
+			$exp_q = "SELECT id_rate, id_meet, id_exp, avatar, name, rate from expert join expert_rate on id_e=id_exp where rate is not null   order by id_meet, rate desc;";  // получение списка эксепрт-оценка
 
 			$genre_q ="SELECT name_g, id_meet from genre  join gen_to_mov using(id_g) join meeting using(id_m) order by id_meet;"; //получение списка жанров для фильма
 			$citates = "SELECT text, author, id_m from citate";
@@ -153,7 +153,7 @@
 		}
 		public function GetUserRates($id)  //получение оценок одного пользователя
 		{
-			$query_m = "SELECT  `name_m`, `our_rate`, `rate`, `id_meet` FROM `movie` join `meeting` USING(`id_m`) join `expert_rate` using(`id_meet`) where `id_exp` = '$id'";
+			$query_m = "SELECT  `name_m`, `our_rate`, `rate`, `id_meet`, `url` FROM `movie` join `meeting` USING(`id_m`) join `expert_rate` using(`id_meet`) where `id_exp` = '$id' and rate is not null  order by rate desc";
 			$res_m = $this->Query_try($query_m);
 			return($res_m);
 		}
@@ -161,7 +161,7 @@
 		
 		public function GetAllRates()  //получение оценок
 		{
-			$query_u = "SELECT `name_m`, `our_rate`, `rate`, `name` FROM `movie` join `meeting` USING(`id_m`) join `expert_rate` using(`id_meet`) join expert on id_e=id_exp order by name, id_m";
+			$query_u = "SELECT `name_m`, `our_rate`,`rating`,`rating_kp`, `rate`, `name` FROM `movie` join `meeting` USING(`id_m`) join `expert_rate` using(`id_meet`) join expert on id_e=id_exp order by name, id_m";
 			$query = "select count(*) as n from meeting";
 			$res = mysqli_fetch_assoc($this->Query_try($query));
 			$num =  $res['n'];
@@ -193,9 +193,14 @@
 					$res_m['avg']['data'][]= $res['our_rate'];
 					$res_m['avg']['name']= "Оценка сообщества";
 					$res_m['movies'][]=$res['name_m'];
+					$res_m['kp']['name']="Кинопоиск";
+					$res_m['kp']['data'][] = $res['rating_kp'];
+					$res_m['imdb']['name']="IMDB";
+					$res_m['imdb']['data'][] = $res['rating'];
 
 
 				}
+			//debug($res_m);
 			return($res_m);
 		}
 
