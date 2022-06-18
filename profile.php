@@ -129,20 +129,16 @@
   							<td>Название</td>
   							<td>Оценка</td>
   							<td>Средний балл</td>
-  							<td>Номер встречи</td>
-  							<td>Место в топе</td>
   						</tr>
   					</thead>
   					<tbody>
   						<?php while($r=mysqli_fetch_assoc($res_m)):
   							$tmp_id = $r['id_meet']; ?>
   						<tr>
-  							<td><a class="mov-nam"href="dfd"><?=$r['name_m']?></a></td>
+  							<td><a class="mov-nam"href="<?=$r['url']?>"><?=$r['name_m']?></a></td>
   							<td class="rate-ch"><?=$r['rate']?></td>
  
  								<td class="rate-ch"><?=$r['our_rate']?></td>
- 								<td><?=$r['id_meet']?></td>
- 								<td><?=$r['top']?></td>
  								<?php if($id===$id_s):?> 
  								<td><a class="unrate" href="controller/UserFormController.php?type=unrate&id=<?=$tmp_id?>">Удалить запись</a></td>
  							<?php endif; ?>
