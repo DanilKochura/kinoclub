@@ -99,10 +99,10 @@ $arr = $m->GetAllRates();
 </div>
 
 <div class="hidden json" style="display: none;"><?php echo json_encode($arr);?></div>
-<script src="scripts\bootstrap.bundle.min.js"></script>
+<script src="<?=ROOT?>scripts\bootstrap.bundle.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js" integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
- 	 <script type="text/javascript" src="scripts/chart_scr.js"></script>
+ 	 <script type="text/javascript" src="<?=ROOT?>scripts/chart_scr.js"></script>
 	
 </body>
 </html>

@@ -1,7 +1,7 @@
 <?php
 	session_start();
 
-	if(!isset($_SESSION['user'])) { header("Location: pages/login.php");}
+	if(!isset($_SESSION['user'])) { header("Location: login.php");}
 	$id=$_SESSION['user']['id'];
 	if(isset($_GET['id']))
 	{	
@@ -22,12 +22,12 @@
   	<div class="container main">
   		<div class="row user-info">
   			<div class="col-sm-1"></div>
-  			<div class="col-sm-2"><img class="user-avatar" src="uploads\<?=$dat['avatar']?>"></div>
+  			<div class="col-sm-2"><img class="user-avatar" src="<?=ROOT?>uploads/<?=$dat['avatar']?>"></div>
   			<div class="col-sm-4"><h1><?=$dat['name']?></h1><p>Средняя оценка: <span class="rate-ch"><?=$dat['module']?><span></p><p>Количество встреч: <?=$dat['amount']?></p><p>Дата регистрации: 12.03.2022</div>
   				<div class="col-sm-4">
   					<?php if($id===$id_s):?> 
   						<div>
-  							<button type="button" onclick="document.location='pages/logout.php'" class="btn btn-danger btn-user">Выход</button>
+  							<button type="button" onclick="document.location='<?=ROOT?>logout'" class="btn btn-danger btn-user">Выход</button>
   						</div>
   						<div>
   							<button type="button" class="btn btn-primary btn-user" data-bs-toggle="modal" data-bs-target="#userModal">Редактировать личные данные</button>
@@ -40,7 +40,7 @@
        									 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
       							</div>
       						<div class="modal-body">
-       						 <form action="controller/UserFormController.php?type=update" method="post" enctype="multipart/form-data">
+       						 <form action="<?=ROOT?>controller/UserFormController.php?type=update" method="post" enctype="multipart/form-data">
 									  <div class="mb-3">
 									    <div class="mb-3">
 											  <input class="form-control" name="avatar"type="file" id="formFile">
@@ -80,7 +80,7 @@
        									 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
       							</div>
       						<div class="modal-body">
-       						  <form action="controller/UserFormController.php?type=add" method="post">
+       						  <form action="<?=ROOT?>controller/UserFormController.php?type=add" method="post">
 										  <select class="form-select" name="movie"aria-label="Пример выбора по умолчанию">
 											  <option selected>Выберите фильм</option>
 											  <?php while($r=mysqli_fetch_assoc($res)): ?>
@@ -140,7 +140,7 @@
  
  								<td class="rate-ch"><?=$r['our_rate']?></td>
  								<?php if($id===$id_s):?> 
- 								<td><a class="unrate" href="controller/UserFormController.php?type=unrate&id=<?=$tmp_id?>">Удалить запись</a></td>
+ 								<td><a class="unrate" href="<?=ROOT?>controller/UserFormController.php?type=unrate&id=<?=$tmp_id?>">Удалить запись</a></td>
  							<?php endif; ?>
  							</tr>
  						<?php endwhile;?>

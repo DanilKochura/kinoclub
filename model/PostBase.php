@@ -14,7 +14,7 @@
 			$id=$_POST['film'];
 			$q = "INSERT INTO meeting values(NULL, '$id')";
 			$q = $this->Query_try($q);
-			header('Location: ../admin.php');
+			header('Location: ../admin');
 		}
 
 		public function AddDirector()
@@ -32,7 +32,8 @@
 			{
 				$id=$this->Query_try($query);
 			}
-			header('Location: ../admin.php?name='.$id);
+
+			header('Location: ../admin');
 		}
 		public function AddParseFile()
 		{
@@ -42,7 +43,7 @@
         		echo "Err";
        		}
 			$_SESSION['file'] = $path;
-      		header('Location: ../admin.php?name='.$path);
+      		header('Location: ../admin');
 		}
 
 		public function AddMovie()
@@ -76,7 +77,7 @@
 		    	$d = $this->Query_try($q);
 			}
 			unlink('../parser/pages/'.$name.'.html');
-		    header('Location: ../admin.php');
+		    header('Location: ../admin');
 		}
 		
 		public function AddRate()
@@ -88,7 +89,7 @@
 
 			$d = $this->Query_try($query);
 			if(!$d) {die("Query Error!");}
-			header("Location: ../profile.php?id=".$_SESSION['user']['id']);
+			header("Location: ../profile/".$_SESSION['user']['id']);
 		}
 
 		public function Unrate()
@@ -96,7 +97,7 @@
 			$id=$_SESSION['user']['id'];
 			if(!isset($_GET['id']))
 			{
-				header('Location: ../profile.php?id='.$id);
+				header('Location: ../profile/'.$id);
 			}
 			$id_m = $_GET['id'];
 
@@ -107,7 +108,7 @@
 				echo "Fatal error";
 			} else
 			{
-				header('Location: ../profile.php?id='.$id);
+				header('Location: ../profile/'.$id);
 			}
 		}
 			
@@ -124,7 +125,7 @@
             $id = $_SESSION['user']['id'];
 			if(!$_POST['old-pass'])
 				{
-					header('Location: ../profile.php?id='.$id);
+					header('Location: ../profile/'.$id);
 				}
 			//$id = $_SESSION['user']['id'];
 			$q = "SELECT password from expert where id_e ='$id'";
@@ -145,7 +146,7 @@
 				}
 				else
 				{
-					header('Location: ../profile.php?id='.$id);
+					header('Location: ../profile/'.$id);
 				}
 			}
 			
@@ -156,18 +157,19 @@
 			    if (!move_uploaded_file($_FILES['avatar']['tmp_name'], "../uploads/".$path))
 			    {
 			        $_SESSION['message'] = $path;
-			        header('Location: ../profile.php');
+			        header('Location: ../profile');
 			    }
 			}	
 		    $query = "UPDATE `expert` set `avatar` = '$path', `name`= '$name', `password` = '$pass' where `id_e` = '$id';";
 		    $d = $this->Query_try($query);
 	        $_SESSION['user']['avatar'] = $path;
 	        $_SESSION['user']['name'] = $name;
-	        header('Location: ../profile.php?id='.$id);
+	        header('Location: ../profile/'.$id);
 		}	
 
         public function NewMessage()
         {
+            debug($_POST);
             $user = $_POST['id'];
             $re = $_POST['re'];
             $text = $_POST['text'];
@@ -183,6 +185,7 @@
                 if (!move_uploaded_file($_FILES['atatch']['tmp_name'], "../uploads/messages/".$path))
                 {
                     echo 'pizdec';
+                    return;
                 }
             }
 
@@ -191,7 +194,8 @@
 VALUES (NULL, '$user', '$re', '$text', CURRENT_TIMESTAMP, '$type', '$path')";
             echo $query;
             $t = $this->Query_try($query);
-            header('Location: ../feedback.php?page=1&type='.$type);
+            echo 'redirecting';
+            header('Location: ../feedback');
         }
 
         function __destruct()

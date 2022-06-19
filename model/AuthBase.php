@@ -24,14 +24,14 @@
 		        
 		        
 		        $_SESSION['message'] = 'Регистрация прошла успешно!';
-		        header('Location: ../index.php');
+		        header('Location: ../');
 
 
 		    } 
 		    else 
 		    {
 		        $_SESSION['message'] = 'Пароли не совпадают';
-		        header('Location: ../model/sign.php');
+		        header('Location: ../login');
 		    }   
 		}
 
@@ -57,7 +57,7 @@
 		    else 
 		    {
 		        $_SESSION['message'] = 'Неверный логин или пароль';
-		        header('Location: ../pages/login.php');
+		        header('Location: ../login');
 		        print_r($check_user);
 		    }
 				

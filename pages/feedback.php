@@ -11,6 +11,8 @@ if(!isset($_GET['type']))
 {
     $_GET['type']='advice';
 }
+$page= $_GET['page'];
+//echo $page;
 $base = new GetBase();
 require 'path/header.php';
 $query = "SELECT COUNT(*) from forum";
@@ -19,7 +21,7 @@ $res = mysqli_fetch_array($res);
 $amount = $res[0];
 $type = $_GET['type'];
 
-$mes = $base->GetSomeMessages($_GET['page'], $type);
+$mes = $base->GetSomeMessages($page, $type);
 
 ?>
 <style>
@@ -99,10 +101,10 @@ $mes = $base->GetSomeMessages($_GET['page'], $type);
 <div class="container forum-card">
     <div class="row">
         <div class="col-sm-3">
-            <a href="?type=tech&page=1">Технические вопросы</a>
+            <a href="<?=ROOT?>feedback/tech/1">Технические вопросы</a>
         </div>
         <div class="col-sm-7">
-            <a href="?type=advice&page=1">Предложения</a>
+            <a href="<?=ROOT?>feedback/advice/1">Предложения</a>
         </div>
         <div class="col-sm-2 text-right">
             <button type="button" class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#userModal">Новое сообщение</button>
@@ -116,7 +118,7 @@ $mes = $base->GetSomeMessages($_GET['page'], $type);
     <div class="row message">
         <div class="col-sm-1 user  text-center">
             <div class="user-av">
-                <a href="../profile?id=<?=$row['id_e']?>" ><img src="uploads\<?=$row['avatar']?>" class="user-av"></a>
+                <a href="<?=ROOT?>profile/<?=$row['id_e']?>" ><img src="<?=ROOT?>uploads\<?=$row['avatar']?>" class="user-av"></a>
                 <p><?=$row['name']?></p>
             </div>
         </div>
@@ -128,7 +130,7 @@ $mes = $base->GetSomeMessages($_GET['page'], $type);
             <h2><?=$row['re_m']?></h2>
             <p><?=$row['text_m']?></p>
             <?php if(isset($row['attachments'])): ?>
-                <img src="uploads\messages\<?=$row['attachments']?>" class="attachments">
+                <img src="<?=ROOT?>uploads\messages\<?=$row['attachments']?>" class="attachments">
             <?php endif; ?>
         </div>
     </div>
@@ -155,7 +157,7 @@ $mes = $base->GetSomeMessages($_GET['page'], $type);
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="controller/UserFormController.php?type=feedback" class="new"method="post" enctype="multipart/form-data">
+                    <form action="<?=ROOT?>controller/UserFormController.php?type=feedback" class="new" method="post" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label for="theme" class="form-label" id="re">Тема сообщения</label>
                             <input type="text" aria-label="Тема сообщения" name="re"class="form-control" id="theme">
@@ -182,5 +184,6 @@ $mes = $base->GetSomeMessages($_GET['page'], $type);
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <?php
+//print_r($_GET);
 require 'path/footer.php';
 ?>

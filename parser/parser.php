@@ -20,9 +20,9 @@ function Parse($param)
 	$d = findS($a, '<script id="__NEXT_DATA__" type="application/json', '</script>');
 	$d = json_decode($d, true);
 	$s = json_decode($s, true);
-	/*echo "<pre>";
+	echo "<pre>";
 	print_r($d);
-	echo "</pre>";*/
+	echo "</pre>";
 	$id = $d['query']['id'];
 	$film_index="Film:".$id;
 	

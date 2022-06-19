@@ -24,7 +24,7 @@
   			<div class="col-sm-4 thirds" id="id-<?=$film['id_m']?>">
   				<div class="row">
   					<div class="col-sm-6">
-  						<a href="<?=$film['url']?>">	<img src="<?=$film['poster']?>"class="img-fluid rounded" id="IM"></a>
+  						<a href="<?=$film['url']?>">	<img src="<?=ROOT?><?=$film['poster']?>"class="img-fluid rounded" id="IM"></a>
   					</div>
   					<div class="col-sm-6">
   						<h5 class="name"><?=$film['name_m']?></h5>
@@ -45,16 +45,16 @@
 		                <table class="table-rate text-center" style="height: 100px;">
 		              	    <tbody>
 		              			<tr>
-		              				<td><img src="image/imdb.png" class="res_logo"></td>
+		              				<td><img src="<?=ROOT?>image/imdb.png" class="res_logo"></td>
 		              				<td class="rate-ch"><?=$film['rating']?></td>
 		              			</tr>
 		              			<tr>
-		              				<th><img src="image/kp.png" class="res_logo"></th>
+		              				<th><img src="<?=ROOT?>image/kp.png" class="res_logo"></th>
 		              				<td class="rate-ch"><?=$film['rating_kp']?></td>
 		              			</tr>
                                 <?php if($film['our_rate']): ?>
                                 <tr>
-                                    <th><img src="image/logogo.png" class="res_logo"></th>
+                                    <th><img src="<?=ROOT?>image/logogo.png" class="res_logo"></th>
                                     <td class="rate-ch"><?=$film['our_rate']?></td>
                                 </tr>
                                 <?php endif; ?>

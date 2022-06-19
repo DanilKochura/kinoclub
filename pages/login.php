@@ -3,22 +3,23 @@ session_start();
 if(isset($_SESSION['user']))
 {
 
-	header("Location: ../profile.php?id=".$_SESSION['user']['id']);
+	header("Location: profile/".$_SESSION['user']['id']);
 }?>
 
 <!doctype html>
 <html lang="en">
 <head>
+    <base href="localhost/">
     <meta charset="UTF-8">
     <title>Авторизация и регистрация</title>
-    <link rel="stylesheet" href="..\styles\log.css">
-    <link rel="stylesheet" href="..\styles\bootstrap.min.css">
+    <link rel="stylesheet" href="<?=ROOT?>styles\log.css">
+    <link rel="stylesheet" href="<?=ROOT?>styles\bootstrap.min.css">
 </head>
 <body>
 <!-- Форма авторизации -->
     <main class="form-signin">
-      <form action="../controller/AuthFormController.php?type=log" method="post" >
-        <img class="mb-4" src="../image/logogo.png" alt="" width="300" height="100">
+      <form action="<?=ROOT?>controller/AuthFormController.php?type=log" method="post" >
+        <img class="mb-4" src="<?=ROOT?>image/logogo.png" alt="" width="300" height="100">
         <h1 class="h3 mb-3 fw-normal text-center">Вход</h1>
 
         <div class="form-floating">
