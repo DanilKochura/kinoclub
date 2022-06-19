@@ -121,11 +121,12 @@
 			{
 				$name = $_POST['name'];
 			}
+            $id = $_SESSION['user']['id'];
 			if(!$_POST['old-pass'])
 				{
 					header('Location: ../profile.php?id='.$id);
 				}
-			$id = $_SESSION['user']['id'];
+			//$id = $_SESSION['user']['id'];
 			$q = "SELECT password from expert where id_e ='$id'";
 			$pw = $this->Query_try($q);
 			$pw = mysqli_fetch_assoc($pw);
@@ -152,7 +153,7 @@
 		    $path = $_SESSION['user']['login'].".jpg";
 		    if(isset($_FILES['avatar']))
 		    {
-			    if (!move_uploaded_file($_FILES['avatar']['tmp_name'], "../uploads/".$path)) 
+			    if (!move_uploaded_file($_FILES['avatar']['tmp_name'], "../uploads/".$path))
 			    {
 			        $_SESSION['message'] = $path;
 			        header('Location: ../profile.php');
@@ -165,8 +166,35 @@
 	        header('Location: ../profile.php?id='.$id);
 		}	
 
+        public function NewMessage()
+        {
+            $user = $_POST['id'];
+            $re = $_POST['re'];
+            $text = $_POST['text'];
+            //$file = $_POST['id'];
+            $type=$_POST['type'];
+            $path = null;
+            debug($_FILES);
+            if(isset($_FILES['atatch']))
+            {
+                echo 'ok';
+                $path = uniqid('photo').'.jpg';
+                echo '<br>'.$path.'<br>';
+                if (!move_uploaded_file($_FILES['atatch']['tmp_name'], "../uploads/messages/".$path))
+                {
+                    echo 'pizdec';
+                }
+            }
 
-		function __destruct()
+            $query = "INSERT INTO `forum` 
+    (`id`, `id_u`, `re_m`, `text_m`, `date_o`, `part`, `attachments`)
+VALUES (NULL, '$user', '$re', '$text', CURRENT_TIMESTAMP, '$type', '$path')";
+            echo $query;
+            $t = $this->Query_try($query);
+            header('Location: ../feedback.php?type='.$type);
+        }
+
+        function __destruct()
 		{
 			parent::__destruct();
 		}

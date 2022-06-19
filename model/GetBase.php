@@ -250,19 +250,28 @@
 			}
 			return $dat;
 		}
+		public function GetSomeMessages($page, $type)
+		{
+			$result = array();
+			$p = intval($page)-1;
+			$limit = 10;
+			$start = $limit * $p;
+			$query = "SELECT * from forum join expert on id_u=id_e where part='$type' limit ". $limit ." OFFSET ".$start;
+			$res = $this->Query_try($query);
+			while($row = mysqli_fetch_assoc($res))
+			{
+				$result[]=$row;
+			}
+			return $result;
 
+		}
 		function __destruct()
 		{
 			parent::__destruct();
 		}
 	}
 	
-	function debug($arr)
-	{
-		echo "<pre>";
-		print_r($arr);
-		echo "</pre>";
-	}
+
 
 ?>
 

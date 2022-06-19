@@ -19,6 +19,7 @@ Class DB
 		{
 			if(!($result = mysqli_query($this->conn, $query)))
 			{
+                echo $query;
 				die("Query error");
 			}
 			return $result;
@@ -29,5 +30,10 @@ Class DB
 		}
 	}
 
-
+function debug($array)
+{
+    echo '<pre>';
+    print_r($array);
+    echo '</pre>';
+}
 ?>

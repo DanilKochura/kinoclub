@@ -24,6 +24,7 @@
 	          <li><a href="index.php" class="nav-link px-2 text-secondary">Главная</a></li>
 	          <li><a href="statistics.php" class="nav-link px-2 text-white">Статистка (демо)</a></li>
 	          <li><a href="news.php" class="nav-link px-2 text-white">Новости</a></li>
+                <li><a href="feedback.php?type=advice&page=1" class="nav-link px-2 text-white">Форум</a></li>
 	          <li><a href="#" class="nav-link px-2 text-white">Викторина</a></li>
 	        </ul>
 

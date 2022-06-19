@@ -14,4 +14,10 @@ session_start();
     case "update":
         $base->UpdateProfile();
         break;
+
+        case "feedback":
+            $base->NewMessage();
+            break;
+
+
     }
