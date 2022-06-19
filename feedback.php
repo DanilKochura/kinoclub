@@ -1,8 +1,16 @@
 <?php
-
-
-require 'model/GetBase.php';
 session_start();
+if(!isset($_SESSION['user'])) { header("Location: pages/login.php");}
+$id=$_SESSION['user']['id'];
+require 'model/GetBase.php';
+if(!isset($_GET['page']))
+{
+    $_GET['page']=1;
+}
+if(!isset($_GET['type']))
+{
+    $_GET['type']='advice';
+}
 $base = new GetBase();
 require 'path/header.php';
 $query = "SELECT COUNT(*) from forum";
@@ -30,6 +38,7 @@ $mes = $base->GetSomeMessages($_GET['page'], $type);
     .attachments:hover
     {
         transform: scale(5);
+        background-position: center;
     }
     .tab
     {
@@ -89,10 +98,10 @@ $mes = $base->GetSomeMessages($_GET['page'], $type);
 </style>
 <div class="container forum-card">
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <a href="?type=tech&page=1">Технические вопросы</a>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-7">
             <a href="?type=advice&page=1">Предложения</a>
         </div>
         <div class="col-sm-2 text-right">
@@ -114,15 +123,18 @@ $mes = $base->GetSomeMessages($_GET['page'], $type);
         <div class="col body text-left">
 
             <div class="row tab">
-                <div class="text-left tab"><?=$row['date_o']?></div><div class="text-right tab">#<?=$j?></div>
+                <div class="text-left tab text-small text-secondary"><?=$row['date_o']?></div><div class="text-right tab">#<?=$j?></div>
             </div>
+            <h2><?=$row['re_m']?></h2>
             <p><?=$row['text_m']?></p>
-            <img src="uploads\messages\<?=$row['attachments']?>" class="attachments">
+            <?php if(isset($row['attachments'])): ?>
+                <img src="uploads\messages\<?=$row['attachments']?>" class="attachments">
+            <?php endif; ?>
         </div>
     </div>
 
 </div>
-<?php endforeach; ?>
+<?php ++$j; endforeach; ?>
 
 
 <div class="container text-center">
@@ -143,13 +155,13 @@ $mes = $base->GetSomeMessages($_GET['page'], $type);
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="controller/UserFormController.php?type=feedback" method="post" enctype="multipart/form-data">
+                    <form action="controller/UserFormController.php?type=feedback" class="new"method="post" enctype="multipart/form-data">
                         <div class="mb-3">
-                            <label for="theme" class="form-label">Тема сообщения</label>
+                            <label for="theme" class="form-label" id="re">Тема сообщения</label>
                             <input type="text" aria-label="Тема сообщения" name="re"class="form-control" id="theme">
                         </div>
                         <div class="mb-3">
-                            <label for="exampleFormControlTextarea1" class="form-label">Пример текстового поля</label>
+                            <label for="exampleFormControlTextarea1" class="form-label" id="text">Пример текстового поля</label>
                             <textarea class="form-control" name="text" id="exampleFormControlTextarea1" rows="3"></textarea>
                         </div>
 
@@ -168,6 +180,7 @@ $mes = $base->GetSomeMessages($_GET['page'], $type);
             </div>
         </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <?php
 require 'path/footer.php';
 ?>

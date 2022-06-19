@@ -191,7 +191,7 @@
 VALUES (NULL, '$user', '$re', '$text', CURRENT_TIMESTAMP, '$type', '$path')";
             echo $query;
             $t = $this->Query_try($query);
-            header('Location: ../feedback.php?type='.$type);
+            header('Location: ../feedback.php?page=1&type='.$type);
         }
 
         function __destruct()

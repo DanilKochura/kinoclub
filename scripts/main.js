@@ -1,3 +1,17 @@
+/*$('.new').submit(function(e) {  //обработка и отправка формы
+	e.preventDefault();
+	let re = $('#re').val().trim();
+	let text = $('#text').val().trim();
+	let date= new Date();
+	let time = $('.time').text();
+	alert(time);
+	alert(date);
+	let ti = date-time;
+	alert(ti)
+
+});*/
+//controller/UserFormController.php?type=feedback
+
 
 const RateCl = document.querySelectorAll('.rate-ch');
 RateCl.forEach(element => {
@@ -32,4 +46,4 @@ function SelectCheck(el)
 	RateC.classList.add("selected"); }
 
 }
-RateC[0];
+
