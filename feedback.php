@@ -37,8 +37,7 @@ $mes = $base->GetSomeMessages($_GET['page'], $type);
     }
     .attachments:hover
     {
-        transform: scale(5);
-        background-position: center;
+        transform: scale(5) translateX(100px) translateY(-20px);
     }
     .tab
     {
@@ -116,7 +115,7 @@ $mes = $base->GetSomeMessages($_GET['page'], $type);
     <div class="row message">
         <div class="col-sm-1 user  text-center">
             <div class="user-av">
-                <a href="../profile?id=<?=$row['id_e']?>" ><img src="uploads\<?=$row['avatar']?>" class="user-av"></a>
+                <a href="profile.php?id=<?=$row['id_e']?>" ><img src="uploads\<?=$row['avatar']?>" class="user-av"></a>
                 <p><?=$row['name']?></p>
             </div>
         </div>
