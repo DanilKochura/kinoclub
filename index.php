@@ -1,11 +1,92 @@
 <?php
 session_start();
 require 'model/GetBase.php';
+$base = new DB();
+$res =$base->Query_try("SELECT COUNT(*) from meeting");
+$num = mysqli_fetch_array($res);
+$num = $num[0];
 
+$page = $_GET['page'] ?: 1;
+$sort = $_GET['sort'] ?:'id_meet';
+$order = $_GET['order'] ?:'desc';
+
+//function cmp($a, $b)
+//{
+//     $first = floatval($a[$_GET['sort']]);
+//     $second = floatval($b[$_GET['sort']]);
+//     echo $first, $second;
+//     echo $_GET['sort'];
+//     $cmp = ($first - $second);
+//     $order = ($_GET['order']);
+//    if($cmp>0)
+//    {
+//        return ($order == 'up') ? -1 : 1;
+//    }
+//
+//    elseif ($cmp<0)
+//    {
+//        return ($order == 'down') ? 1 : -1;
+//    }
+//    elseif ($cmp == 0)
+//    {
+//        return 0;
+//    }
+//}
+//function cmp_function($a, $b){
+//    $ab = floatval($a['rating']);
+//    $ba = floatval($b['rating']);
+//    $order = $_POST['order'];
+////    echo $order; exit;
+//    $cmp = $ab-$ba;
+//    if($order == 'rating')
+//    {
+//        return $cmp>0 ? 1 : -1;
+//    }else
+//    {
+//        return $cmp>0 ? -1 : 1;
+//    }
+//    //return ($ab > $ba);
+//}
+//
+//function cmp_num($a, $b){
+//    return (intval($a['num'])-intval($b['num']));
+//}
+//function cmp_rating($a, $b){
+//    return (floatval($a['rating'])-floatval($b['rating']));
+//}
 $base = new GetBase();
-$meetings= $base->GetAllMovies();
+$meetings= $base->GetAllMovies($sort, $order);
+//
+//$func = 'cmp_'.$_GET['sort'];
+//uorder($meetings, $func);
 //debug($meetings);
-require 'path/header.php';
+//exit;
+//exit;
+require 'path/header.php';?>
+<div class="container">
+    <div class="row">
+        <div class="col rounded forum-card">
+            <div class="text-center">
+                <form sort="get" action="">
+                <select name="sort" id="">
+                    <option value="id_meet">По номеру встречи</option>
+                    <option value="rating_kp">По оценке КП</option>
+                    <option value="rating">По оценке IMDB</option>
+                    <option value="our_rate">По оценке IMDBil</option>
+                </select>
+                <select name="order" id="">
+                    <option value="asc">По возрастанию</option>
+                    <option value="desc">По убыванию</option>
+                </select>
+                    <button type="submit" class="btn btn-warning btn-sm">Подтвердить</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<?php
 foreach($meetings as $m):
 	?>
   	<div class="row"> '<div class="three"><h1>Заседание #<?=$m['num']+1?></h1></div></div>
@@ -109,7 +190,7 @@ foreach($meetings as $m):
   			<div class="col-md-3 text-center">Цитаты
   			<blockquote class="blockquote text-center">
   				<?php if(isset($m['citate'])):
-  						if(isset($m['citate'][0]['text'])) echo $m['citate'][0]['text'];
+  						if(isset($m['citate']['text'])) echo $m['citate']['text'];
   						else echo "Упс! Тут ничего нет! Возможно, скоро появится."
   				?>
   				<br><br>

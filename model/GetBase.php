@@ -9,16 +9,16 @@
 			parent::__construct();
 		}
 
-		public function GetAllMovies() //функция получения супер-массива с данными о всех встречах
+		public function GetAllMovies($sort , $order) //функция получения супер-массива с данными о всех встречах
 		{
 			$meetings= array();
 			$descr_q = "SELECT id_meet, url, id_m, name_m, original, year_of_cr, name_d,duration,rating, our_rate,rating_kp, poster from movie
-					join director on id_d=director join meeting using(id_m) order by id_meet;";  //получение карточки фильма
+					join director on id_d=director join meeting using(id_m) order by ".$sort." ".$order;  //получение карточки фильма
 
-			$exp_q = "SELECT id_rate, id_meet, id_exp, avatar, name, rate from expert join expert_rate on id_e=id_exp where rate is not null   order by id_meet, rate desc;";  // получение списка эксепрт-оценка
+			$exp_q = "SELECT id_rate, id_meet, id_exp, avatar, name, rate from expert join expert_rate on id_e=id_exp join meeting USING(id_meet) join movie using(id_m) where rate is not null order by ".$sort." ".$order;  // получение списка эксепрт-оценка
 
-			$genre_q ="SELECT name_g, id_meet from genre  join gen_to_mov using(id_g) join meeting using(id_m) order by id_meet;"; //получение списка жанров для фильма
-			$citates = "SELECT text, author, id_m from citate";
+			$genre_q ="SELECT name_g, id_meet from genre  join gen_to_mov using(id_g) join meeting using(id_m) join movie using(id_m) order by  ".$sort." ".$order; //получение списка жанров для фильма
+			$citates = "SELECT text, author, id_meet from citate join movie using(id_m) join meeting using(id_m) order by ".$sort." ".$order;
 			$citates = $this->Query_try($citates);
 
 			$res_description=$this->Query_try($descr_q);
@@ -27,18 +27,20 @@
 			$i=0;
 			while ($movie = mysqli_fetch_assoc($res_description)) 
 			{
+				$movie['num'] = $movie['id_meet'];
 				$movie['rates']=array();
 				$movie['genre']=array();
 				$movie['citate']=array();
-				$movie['num'] = $i;
+
 				$meetings[$movie['id_meet']] = $movie;
 				++$i;
+
 
 		
 			}
 			while($cit = mysqli_fetch_assoc($citates))
 			{
-				$meetings[$cit['id_m']]['citate'][] = array(
+				$meetings[$cit['id_meet']]['citate'] = array(
 					'text'=> $cit['text'],
 					'author' =>$cit['author']);
 			}
