@@ -6,68 +6,24 @@ $res =$base->Query_try("SELECT COUNT(*) from meeting");
 $num = mysqli_fetch_array($res);
 $num = $num[0];
 
+$show = $_GET['show'] ?: 5;
 $page = $_GET['page'] ?: 1;
 $sort = $_GET['sort'] ?:'id_meet';
 $order = $_GET['order'] ?:'desc';
 
-//function cmp($a, $b)
-//{
-//     $first = floatval($a[$_GET['sort']]);
-//     $second = floatval($b[$_GET['sort']]);
-//     echo $first, $second;
-//     echo $_GET['sort'];
-//     $cmp = ($first - $second);
-//     $order = ($_GET['order']);
-//    if($cmp>0)
-//    {
-//        return ($order == 'up') ? -1 : 1;
-//    }
-//
-//    elseif ($cmp<0)
-//    {
-//        return ($order == 'down') ? 1 : -1;
-//    }
-//    elseif ($cmp == 0)
-//    {
-//        return 0;
-//    }
-//}
-//function cmp_function($a, $b){
-//    $ab = floatval($a['rating']);
-//    $ba = floatval($b['rating']);
-//    $order = $_POST['order'];
-////    echo $order; exit;
-//    $cmp = $ab-$ba;
-//    if($order == 'rating')
-//    {
-//        return $cmp>0 ? 1 : -1;
-//    }else
-//    {
-//        return $cmp>0 ? -1 : 1;
-//    }
-//    //return ($ab > $ba);
-//}
-//
-//function cmp_num($a, $b){
-//    return (intval($a['num'])-intval($b['num']));
-//}
-//function cmp_rating($a, $b){
-//    return (floatval($a['rating'])-floatval($b['rating']));
-//}
+$start = ($page-1)*$show;
+
+
 $base = new GetBase();
-$meetings= $base->GetAllMovies($sort, $order);
-//
-//$func = 'cmp_'.$_GET['sort'];
-//uorder($meetings, $func);
-//debug($meetings);
-//exit;
-//exit;
+//$meetings= $base->GetAllMovies($sort, $order);
+$meetings= $base->GetMoviesPage($sort, $order, $start, $show);
 require 'path/header.php';?>
 <div class="container">
     <div class="row">
         <div class="col rounded forum-card">
             <div class="text-center">
-                <form sort="get" action="">
+                <form method="get" action="">
+                    <div style="display: inline-flex">
                 <select name="sort" id="">
                     <option value="id_meet">По номеру встречи</option>
                     <option value="rating_kp">По оценке КП</option>
@@ -78,7 +34,15 @@ require 'path/header.php';?>
                     <option value="asc">По возрастанию</option>
                     <option value="desc">По убыванию</option>
                 </select>
+                    <select name="show" id="">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                </select>
+                    </div>
+                    <div style="display: inline-flex">
                     <button type="submit" class="btn btn-warning btn-sm">Подтвердить</button>
+                        <div>
                 </form>
             </div>
 
@@ -200,4 +164,86 @@ foreach($meetings as $m):
 				<?php endif; ?>
   		</div>
   	</div><?php  endforeach;?>
+<style>
+    .user-av
+    {
+        max-width: 100%;
+    }
+    .body{
+        border-left: 2px solid white;
+    }
+    .attachments
+    {
+        max-height: 100px;
+        transition: 1s;
+    }
+    .attachments:hover
+    {
+        transform: scale(5) translateX(100px) translateY(-20px);
+    }
+    .tab
+    {
+        display: table-cell;
+    }
+    .row.tab
+    {
+        display: table;
+    }
+    .pagination {
+        width:100%;
+        text-align:center;
+        padding: 10px;
+        margin:10px auto;
+        border: 1px solid #ddd;
+    }
+    .pagination ul{
+        width:100%;
+        padding:0px;
+        margin:0px;
+    }
+    .pagination ul li {
+        display:inline-block;
+        list-style:none;
+        margin:5px 5px;
+        font-size:14px;
+        text-align:center;
+    }
+    .pagination ul li a, .pagination ul li a:visited {
+        display:block;
+        text-decoration:none;
+        color: black;
+        background: repeat-x scroll 0 0 gold;
+
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -ms-border-radius: 50%;
+        border-radius: 50%;
+
+        height: 28px;
+        width: 28px;
+        line-height: 26px;
+        top: -1px;
+
+    }
+    a{
+        text-decoration: none;
+        color: white;
+        font-size: 20px;
+    }
+    a:hover
+    {
+        color: gold;
+        cursor: pointer;
+    }
+
+</style>
+<div class="container text-center">
+    <div class="pagination">
+        <ul>
+            <?php for($i=1; $i<$num/$show+1; $i++):?>
+                <li><a href="?page=<?=$i?>&sort=<?=$sort?>&order=<?=$order?>&show=<?=$show?>" title="Страница <?=$i?>"><?=$i?></a></li>
+            <?php endfor; ?>
+        </ul>
+    </div>
+</div>
 <?php require 'path/footer.php';?>

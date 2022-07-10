@@ -62,6 +62,69 @@
 			}
 			return $meetings;
 		}
+		public function GetMoviesPage($sort , $order, $start, $limit=null) //функция получения супер-массива с данными о встречах постранично
+		{
+			$meetings= array();
+
+			//$start = $limit ? $limit*($page-1) : 0;
+			$page = ($limit == 'all') ? "" : " LIMIT ".$limit." OFFSET ".$start;
+			$descr_q = "SELECT id_meet, url, id_m, name_m, original, year_of_cr, name_d,duration,rating, our_rate,rating_kp, poster from movie
+					join director on id_d=director join meeting using(id_m) order by ".$sort." ".$order.$page;  //получение карточки фильма
+
+			$res_description=$this->Query_try($descr_q);
+
+			$i=0;
+			while ($movie = mysqli_fetch_assoc($res_description))
+			{
+				$movie['num'] = $movie['id_meet'];
+				$movie['rates']=array();
+				$movie['genre']=array();
+				$movie['citate']=array();
+
+
+				$id = $movie['id_m'];
+				++$i;
+				$exp_q = "SELECT id_rate, id_meet, id_exp, avatar, name, rate from expert join expert_rate on id_e=id_exp join meeting USING(id_meet) join movie using(id_m) where rate is not null and id_m='$id'";;
+				// получение списка эксепрт-оценка
+				$res_experts = $this->Query_try($exp_q);
+				while($res = mysqli_fetch_assoc($res_experts))
+				{
+					$expert = [
+						'avatar' => $res['avatar'],
+						'name' => $res['name'],
+						'id' => $res['id_exp'],
+						'rate' =>$res['rate']];
+					$movie['rates'][] = $expert;
+
+				}
+
+				$genre_q ="SELECT name_g, id_meet from genre  join gen_to_mov using(id_g) join meeting using(id_m) join movie using(id_m) where id_m='$id'";
+				$res_genres = $this->Query_try($genre_q);
+				while($res = mysqli_fetch_assoc($res_genres))
+				{
+					$movie['genre'][] = $res['name_g'];
+				}
+
+				$citates = "SELECT text, author, id_meet from citate join movie using(id_m) join meeting using(id_m) where id_m='$id'";;
+				$citates = $this->Query_try($citates);
+				while($cit = mysqli_fetch_assoc($citates))
+				{
+					$movie['citate'] = array(
+						'text'=> $cit['text'],
+						'author' =>$cit['author']);
+				}
+				$meetings[$movie['id_meet']]=$movie;
+
+
+
+
+			}
+
+			return $meetings;
+
+
+
+		}
 		public function GetMovieDescription($id)  //получение данных на один фильм
 		{
 			//$movie= array();
