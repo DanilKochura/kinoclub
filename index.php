@@ -56,9 +56,9 @@ foreach($meetings as $m):
   	<div class="row"><div class="three"><h1>Заседание #<?=$m['num']+1?></h1></div></div>
   	
   		<div class="container rounded forum-card">
-  		<div class="row">
+  		<div class="row ">
   			<div class="col-md-2 poster"><a href="<?=$m['url'];?>"><img src="<?=$m['poster'];?>" class="img-fluid rounded"id="IM"></a></div>
-  			<div class="col-md-4 text-left description">
+  			<div class="col-md-4 text-left text-sm-center description">
 		  		<p class="name"><?=$m['name_m'];?></p>
 		  		<div class="original"><?=$m['original'];?></div>
 		  		<div class="year">Год: <?=$m['year_of_cr'];?></div>
@@ -90,7 +90,7 @@ foreach($meetings as $m):
                     </table>
                 </div>
 	  		</div>
-  			<div class="rating-tab col-md-3 text-center">
+  			<div class="rating-tab text-sm-center col-md-3 text-center">
   				<!--<table class="table-rate">
   					<thead>
 					    <tr>
