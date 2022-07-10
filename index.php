@@ -53,7 +53,7 @@ require 'path/header.php';?>
 <?php
 foreach($meetings as $m):
 	?>
-  	<div class="row"> '<div class="three"><h1>Заседание #<?=$m['num']+1?></h1></div></div>
+  	<div class="row"><div class="three"><h1>Заседание #<?=$m['num']+1?></h1></div></div>
   	
   		<div class="container rounded forum-card">
   		<div class="row">
@@ -245,5 +245,7 @@ foreach($meetings as $m):
             <?php endfor; ?>
         </ul>
     </div>
+</div>
+</div>
 </div>
 <?php require 'path/footer.php';?>
