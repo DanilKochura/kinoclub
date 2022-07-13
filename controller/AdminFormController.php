@@ -16,4 +16,8 @@
     case "install":
         $base->AddParseFile();
         break;
+        case "third":
+            $base->AddThird();
+                break;
+
     }

@@ -26,6 +26,8 @@
 		$a = Parse($_GET['name']);
 		
 	}
+    $query_u = "SELECT id_e, name from expert where id_e != 29";
+    $experts = $db->Query_try($query_u);
 	$q1 = "select count(*) from director"; /*количество режиссеров*/
 	$query = "SELECT id_d, name_d from director"; /*список режиссеров*/
 	$res=$db->Query_try($query);
@@ -33,6 +35,11 @@
 	$q = $db->Query_try($q);
 	$query_meet = "SELECT name_m, id_m from movie left join meeting using(id_m) where id_meet is NULL";
 	$momeet = $db->Query_try($query_meet);
+    $films = array();
+    while($row = mysqli_fetch_assoc($momeet))
+    {
+        $films[]=$row;
+    }
 	function checkGenre($r, $g)
 	{
 		foreach ($g as $gen) {
@@ -117,14 +124,14 @@
 				</div>
 		</div>
 		<div class="col-sm-5">
-			<div>
+			<div class="row">
 			<form>
 				<label>Имя режиссера</label>
 				<input type="text" name="name" class="form-control" value="<?=$a['director']?>">
 				<button type="submit" class="btn btn-warning" formaction="controller/AdminFormController.php?type=dir" formmethod="post">Добавить режиссера</button>
 			</form>
 			</div>
-			<div>
+			<div class = "row">
 			<form action="controller/AdminFormController.php?type=install" enctype="multipart/form-data" method="post">
 				<div class="form-al">
 						<label>Название файла</label>
@@ -133,19 +140,53 @@
 				<button type="submit" class="btn btn-warning">Проверить фильм</button>
 			</form>
 			</div>
+            <div class="row">
+                <div class="row">
+                    <form method="post" action="controller/AdminFormController.php?type=third">
+                        <label>Выберите фильм</label>
+                        <select class="form-select" name="film1"aria-label="Фильм">
+                            <?php foreach ($films as $film): ?>
+                                <option name="<?=$film['name_m']?>"value="<?=$film['id_m']?>"><?=$film['name_m']?></option>
+                            <?php endforeach;?>
+                        </select>
+                        <select class="form-select" name="film2"aria-label="Фильм">
+                            <?php foreach ($films as $film): ?>
+                                <option name="<?=$film['name_m']?>"value="<?=$film['id_m']?>"><?=$film['name_m']?></option>
+                            <?php endforeach;?>
+                        </select>
+                        <select class="form-select" name="film3"aria-label="Фильм">
+                            <?php foreach ($films as $film): ?>
+                                <option name="<?=$film['name_m']?>"value="<?=$film['id_m']?>"><?=$film['name_m']?></option>
+                            <?php endforeach;?>
+                        </select>
+                        <select class="form-select" name="user"aria-label="Пользователь">
+                            <?php while($e = mysqli_fetch_assoc($experts)): ?>
+                                <option name="<?=$e['name']?>"value="<?=$e['id_e']?>"><?=$e['name']?></option>
+                            <?php endwhile;?>
+                        </select>
+                        <button type="submit" onclick="#" class="btn btn-warning">Добавить тройку</button>
+                    </form>
+                </div>
+            </div>
 		</div>
 		
 		<div class="col-sm-2">
+            <div class="row">
 			<form method="post" action="controller/AdminFormController.php?type=meet">
 				<label>Выберите фильм</label>
 				<select class="form-select" name="film"aria-label="Фильм">
-						<?php while($r=mysqli_fetch_assoc($momeet)): ?>
-						<option name="<?=$r['name_m']?>"value="<?=$r['id_m']?>"><?=$r['name_m']?></option>
-								<?php endwhile;?>
+                    <?php foreach ($films as $film): ?>
+                        <option name="<?=$film['name_m']?>"value="<?=$film['id_m']?>"><?=$film['name_m']?></option>
+                    <?php endforeach;?>
 						</select>
-				<button type="submit" onclick="#" class="btn btn-warning">Проверить фильм</button>
+				<button type="submit" onclick="#" class="btn btn-warning">Добавить встречу</button>
 			</form>
+            </div>
+
 		</div>
+        <div class="row">
+
+        </div>
 	</div>
 
 	
