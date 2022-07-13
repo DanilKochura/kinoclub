@@ -9,6 +9,16 @@
 			parent::__construct();
 		}
 
+        public function AddThird()
+        {
+            $id1 = $_POST['film1'];
+            $id3 = $_POST['film3'];
+            $id2 = $_POST['film2'];
+            $id_e = $_POST['user'];
+            $this->Query_try("INSERT INTO thirds(first, second, third, selected, id_e) values ('$id1','$id2','$id3',NULL, '$id_e')");
+            header('Location: ../admin.php');
+        }
+
 		public function AddMeet()
 		{
 			$id=$_POST['film'];
@@ -57,8 +67,9 @@
 			$imdb = $_POST['imdb']; 
 			$file = $_POST['file'];
 			$descr = $_POST['descr'];
+            $fname = $or ?: uniqid();
 			echo $file;
-		    $path = "image/".$or.".jpg";
+		    $path = "image/".$fname.".jpg";
 		        if (!move_uploaded_file($_FILES['avatar']['tmp_name'], "../".$path)) {
 		        		error_log("d");
 		        }

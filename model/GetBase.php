@@ -84,7 +84,7 @@
 
 				$id = $movie['id_m'];
 				++$i;
-				$exp_q = "SELECT id_rate, id_meet, id_exp, avatar, name, rate from expert join expert_rate on id_e=id_exp join meeting USING(id_meet) join movie using(id_m) where rate is not null and id_m='$id'";;
+				$exp_q = "SELECT id_rate, id_meet, id_exp, avatar, name, rate from expert join expert_rate on id_e=id_exp join meeting USING(id_meet) join movie using(id_m) where rate is not null and id_m='$id' order by rate desc";;
 				// получение списка эксепрт-оценка
 				$res_experts = $this->Query_try($exp_q);
 				while($res = mysqli_fetch_assoc($res_experts))
@@ -184,29 +184,21 @@
 					$i=0;
 					++$j;
 				}
+				$query_g = "select name_g from genre join gen_to_mov using(id_g) where id_m='{$res['id_m']}'";
+				$res_g=$this->Query_try($query_g);
+				$gen = array();
+				while($roow = mysqli_fetch_assoc($res_g))
+				{
+					$gen[]=$roow['name_g'];
+				}
+				$res['genre'] = $gen;
+
+
 				$thirds[$j][]=$res;
 				++$i;
 					
 			}
-			$i = 0;
-			$j=0;
-			$res = mysqli_fetch_assoc($gen_res);
-			$id = $res['id_m'];
-			for($k = 0; $k<($gen_res->num_rows)-1; ++$k){
-				if($id!=$res['id_m'])
-				{
-					$id=$res['id_m'];
-					++$i;
-					if($i==3)
-					{
-						$i=0;
-						++$j;
-					}
-				}
-				$thirds[$j][$i]['genre'][]=$res['name_g'];
-				$res = mysqli_fetch_assoc($gen_res);
-				//debug($res);
-			}
+
 			return $thirds;
 		}
 
