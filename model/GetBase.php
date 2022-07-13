@@ -215,7 +215,16 @@
 			return($res_m);
 		}
 
-		
+		public function GetMeetRates($id)
+		{
+			$rates = [];
+			$r = $this->Query_try("SELECT name, id_e, rate FROM `expert` join expert_rate on id_e=id_exp where id_meet = '$id' order by id_e");
+			while($res = mysqli_fetch_assoc($r))
+			{
+				$rates[$res['id_e']] = $res['rate'];
+			}
+			return $rates;
+		}
 		public function GetAllRates()  //получение оценок
 		{
 			$query_u = "SELECT `name_m`, `our_rate`,`rating`,`rating_kp`, `rate`, `name` FROM `movie` join `meeting` USING(`id_m`) join `expert_rate` using(`id_meet`) join expert on id_e=id_exp order by name, id_meet";
@@ -322,6 +331,8 @@
 			return $result;
 
 		}
+
+
 		function __destruct()
 		{
 			parent::__destruct();

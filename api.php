@@ -1,8 +1,10 @@
 <?php 
-require 'model/getbase.php';
+require 'model/GetBase.php';
 
-$m = new GetBase();
-$arr = $m->GetAllRates();
+$db = new GetBase();
+$id= $_GET['id'];
+$rates = $db->GetMeetRates($id);
+//print_r($rates);
+$rates = json_encode($rates);
 
-
-echo json_encode($arr);
+echo $rates;

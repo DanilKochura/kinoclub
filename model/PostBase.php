@@ -205,6 +205,19 @@ VALUES (NULL, '$user', '$re', '$text', CURRENT_TIMESTAMP, '$type', '$path')";
             header('Location: ../feedback.php?page=1&type='.$type);
         }
 
+        public function NewRates()
+        {
+
+            $id_m = $_POST['meet'];
+//            debug($_POST);
+//            echo $id_m;
+//            exit;
+            for($i=1; $i<count($_POST['rate'])+1; $i++){
+                $rate = $_POST['rate'][$i-1];
+                $this->Query_try("INSERT INTO `expert_rate`(`id_meet`, `id_exp`, `rate`) VALUES ('$id_m', '$i', '$rate')");
+                header('Location: ../admin.php');
+            }
+        }
         function __destruct()
 		{
 			parent::__destruct();

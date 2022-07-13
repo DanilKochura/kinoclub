@@ -26,8 +26,14 @@
 		$a = Parse($_GET['name']);
 		
 	}
+    $meet = $db->Query_try("SELECT name_m, id_meet from meeting join movie using(id_m)");
     $query_u = "SELECT id_e, name from expert where id_e != 29";
     $experts = $db->Query_try($query_u);
+    $users = [];
+    while($user = mysqli_fetch_assoc($experts))
+    {
+        $users[] = $user;
+    }
 	$q1 = "select count(*) from director"; /*количество режиссеров*/
 	$query = "SELECT id_d, name_d from director"; /*список режиссеров*/
 	$res=$db->Query_try($query);
@@ -160,13 +166,66 @@
                             <?php endforeach;?>
                         </select>
                         <select class="form-select" name="user"aria-label="Пользователь">
-                            <?php while($e = mysqli_fetch_assoc($experts)): ?>
-                                <option name="<?=$e['name']?>"value="<?=$e['id_e']?>"><?=$e['name']?></option>
-                            <?php endwhile;?>
+                            <?php foreach ($users as $user): ?>
+                                <option name="<?=$user['name']?>"value="<?=$user['id_e']?>"><?=$user['name']?></option>
+                            <?php endforeach;?>
                         </select>
                         <button type="submit" onclick="#" class="btn btn-warning">Добавить тройку</button>
                     </form>
                 </div>
+            </div>
+            <div class="row" style="margin-top: 20px;">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Launch demo modal
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container ">
+                                <form action="" class="formAjax">
+                                    <select name="meeting" id="mm">
+                                    <?php while($rrr = $meet->fetch_assoc()): ?>
+                                        <option value="<?=$rrr['id_meet']?>"><?=$rrr['name_m']?></option>
+                                    <?php endwhile; ?>
+                                    </select>
+                                </form>
+                                </div>
+                                <hr>
+                                <div class="container">
+                                    <div class="form">
+                                        <form method="post" action="controller/AdminFormController.php?type=rates">
+                                            <input type="hidden" name="meet" id="meet_id">
+                                        <div>
+                                            <?php foreach ($users as $user): ?>
+                                            <div class="col-md-4">
+                                                <div class="row">
+                                                    <div class="col-sm-5"><p><?=$user['name']?></p></div>
+                                                    <div class="col-sm-3" ><input type="text" name="rate[]"id="<?=$user['id_e']?>" value=""></div>
+                                                </div>
+                                            </div>
+                                            <?php endforeach; ?>
+                                            <button type="submit" class="btn btn-yellow">Записать</button>
+                                        </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 		</div>
 		
@@ -181,13 +240,23 @@
 						</select>
 				<button type="submit" onclick="#" class="btn btn-warning">Добавить встречу</button>
 			</form>
+
+            </div>
+
+            <div class="row">
+                <!-- Button trigger modal -->
+                <label for="">Редактировать оценки</label>
+
             </div>
 
 		</div>
-        <div class="row">
 
-        </div>
 	</div>
 
 	
 </div>
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+<?php require_once 'path/footer.php';

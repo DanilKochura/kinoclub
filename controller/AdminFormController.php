@@ -19,5 +19,8 @@
         case "third":
             $base->AddThird();
                 break;
+        case "rates":
+            $base->NewRates();
+            break;
 
     }

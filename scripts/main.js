@@ -47,3 +47,23 @@ function SelectCheck(el)
 
 }
 
+$('#mm').change(function(){
+	var data_to= $(this).val();
+	$('#meet_id').val(data_to);
+	//alert(data_to);
+	$.ajax({
+		url: '/api.php',         /* Куда отправить запрос */
+		method: 'get',             /* Метод запроса (post или get) */
+		dataType: 'json',          /* Тип данных в ответе (xml, json, script, html). */
+		data: {id: data_to},     /* Данные передаваемые в массиве */
+		success: function(data){   /* функция которая будет выполнена после успешного запроса.  */
+			console.log(data); /* В переменной data содержится ответ от index.php. */
+			$.each(data, function(key,val){
+				console.log("key : "+key+" ; value : "+val);
+				let id= '#'+key;
+				$(id).val(val);
+
+			});
+		}
+	});
+});
