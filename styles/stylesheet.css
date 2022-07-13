@@ -476,12 +476,12 @@ html, body
   background-color: #23282b;
 }
 
-@media(max-width: 500px) {
-  body{
-    text-align: center;
-  }
-  #IM:hover
-  {
-    transform: none;
-  }
-}
+/*@media(max-width: 500px) {*/
+/*  body{*/
+/*    text-align: center;*/
+/*  }*/
+/*  #IM:hover*/
+/*  {*/
+/*    transform: none;*/
+/*  }*/
+/*}*/
