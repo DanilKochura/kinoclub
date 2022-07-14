@@ -44,6 +44,7 @@
 			}
 			header('Location: ../admin.php?name='.$id);
 		}
+
 		public function AddParseFile()
 		{
 		 	$path = $_FILES['file-to-parse']['name'];
@@ -124,6 +125,12 @@
 			
 		public function UpdateProfile()
 		{
+            $id = $_SESSION['user']['id'];
+            if(!$_POST['old-pass'])
+            {
+                header('Location: ../profile.php?id='.$id);
+                exit;
+            }
 			if(!$_POST['name'])
 			{
 				$name = $_SESSION['user']['name'];
@@ -132,11 +139,9 @@
 			{
 				$name = $_POST['name'];
 			}
-            $id = $_SESSION['user']['id'];
-			if(!$_POST['old-pass'])
-				{
-					header('Location: ../profile.php?id='.$id);
-				}
+
+
+
 			//$id = $_SESSION['user']['id'];
 			$q = "SELECT password from expert where id_e ='$id'";
 			$pw = $this->Query_try($q);
@@ -145,25 +150,32 @@
 			if($pw['password']!=md5($_POST['old-pass']))
 				{
 					header('Location: ../profile.php?id='.$id);
+                    exit;
 				}
+
 			$pass = $pw['password'];
-			echo $pass;
-			if(isset($_POST['new-pass']))
+			//echo $pass;
+			if($_POST['new-pass'])
 			{
+
 				if($_POST['new-pass']==$_POST['new-pass-confirm'])
 				{
+
 					$pass = md5($_POST['new-pass']);
+
 				}
 				else
 				{
 					header('Location: ../profile.php?id='.$id);
+                    exit;
 				}
 			}
 			
 			print_r($_FILES['avatar']);
 		    $path = $_SESSION['user']['login'].".jpg";
-		    if(isset($_FILES['avatar']))
+		    if($_FILES['avatar']['name'])
 		    {
+
 			    if (!move_uploaded_file($_FILES['avatar']['tmp_name'], "../uploads/".$path))
 			    {
 			        $_SESSION['message'] = $path;
@@ -171,7 +183,8 @@
 			    }
 			}	
 		    $query = "UPDATE `expert` set `avatar` = '$path', `name`= '$name', `password` = '$pass' where `id_e` = '$id';";
-		    $d = $this->Query_try($query);
+           
+            $d = $this->Query_try($query);
 	        $_SESSION['user']['avatar'] = $path;
 	        $_SESSION['user']['name'] = $name;
 	        header('Location: ../profile.php?id='.$id);
@@ -218,6 +231,7 @@ VALUES (NULL, '$user', '$re', '$text', CURRENT_TIMESTAMP, '$type', '$path')";
                 header('Location: ../admin.php');
             }
         }
+
         function __destruct()
 		{
 			parent::__destruct();
