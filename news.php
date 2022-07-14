@@ -21,7 +21,7 @@
   		<div class="row th">
   			<?php foreach($third as $film): ?>
 
-  			<div class="col-sm-4 thirds" id="id-<?=$film['id_m']?>">
+  			<div class="col-md-4 thirds" id="id-<?=$film['id_m']?>">
   				<div class="row">
   					<div class="col-sm-6">
   						<a href="<?=$film['url']?>">	<img src="<?=$film['poster']?>"class="img-fluid rounded" id="IM"></a>

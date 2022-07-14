@@ -476,12 +476,40 @@ html, body
   background-color: #23282b;
 }
 
-/*@media(max-width: 500px) {*/
-/*  body{*/
-/*    text-align: center;*/
-/*  }*/
-/*  #IM:hover*/
-/*  {*/
-/*    transform: none;*/
-/*  }*/
-/*}*/
+@media(max-width: 600px) {
+  .row{
+    text-align: center;
+  }
+  .forum-card
+  {
+    padding: 5px;
+  }
+  .rating-tab
+  {
+    padding: 0;
+    /*width: 100%;*/
+    margin: 20px;
+    overflow: hidden;
+    padding-left: 5px;
+    display: contents;
+    width: -webkit-fill-available;
+
+
+  }
+  .thirds
+  {
+    margin: 0 0 0 19px;
+    width: fit-content;
+  }
+  .row.th{
+    padding: 10px 10px 10px 5px;
+  }
+  table{
+    width: 100%;
+    margin: 20px;
+  }
+  #IM:hover
+  {
+    transform: none;
+  }
+}
