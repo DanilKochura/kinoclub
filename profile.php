@@ -23,22 +23,22 @@
   	<div class="container main">
   		<div class="row user-info">
   			<div class="col-sm-1"></div>
-  			<div class="col-sm-2">
+  			<div class="col-sm-2 col-6">
                 <img class="user-avatar" src="uploads\<?=$dat['avatar']?>">
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-4 col-6">
                 <h1><?=$dat['name']?></h1>
                 <p>Средняя оценка: <span class="rate-ch"><?=$dat['module']?></span></p>
                 <p>Количество встреч: <?=$dat['amount']?></p>
-                <p>Дата регистрации: 12.03.2022</p>
+                <p class="d-none">Дата регистрации: 12.03.2022</p>
             </div>
   				<div class="col-sm-4">
   					<?php if($id===$id_s):?> 
   						<div>
-  							<button type="button" onclick="document.location='pages/logout.php'" class="btn btn-danger btn-user">Выход</button>
+  							<button type="button" onclick="document.location='pages/logout.php'" class="btn btn-danger mt-2 btn-user m-0">Выход</button>
   						</div>
   						<div>
-  							<button type="button" class="btn btn-primary btn-user" data-bs-toggle="modal" data-bs-target="#userModal">Редактировать личные данные</button>
+  							<button type="button" class="btn btn-primary btn-user m-0 mt-2" data-bs-toggle="modal" data-bs-target="#userModal">Редактировать личные данные</button>
   						</div>
   							<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
  							 <div class="modal-dialog">
@@ -79,7 +79,7 @@
 						  </div>
 								</div>
 
-  				<button type="button" class="btn btn-warning btn-user" data-bs-toggle="modal" data-bs-target="#movieAddModal">Добавить фильм</button><?php endif; ?></div>
+  				<button type="button" class="btn btn-warning btn-user m-0 mt-2" data-bs-toggle="modal" data-bs-target="#movieAddModal">Добавить фильм</button><?php endif; ?></div>
   				<div class="modal fade" id="movieAddModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
  							 <div class="modal-dialog">
    							 <div class="modal-content">
@@ -128,31 +128,33 @@
   			<div class="col-sm-1"></div>
         </div>
         <div class="row" style="margin: 30px 0 0; overflow: hidden">
-            <div class="row">
-                <div class="col-sm-1">
-                </div>
-                <div class="col">
-                    <p class="h2">Упущенные возможности</p>
-                </div>
-            </div>
-            <div class="row">
+
             <div class="col-sm-1"></div>
-            <div class="your-class col-sm-10" style="height: 250px;">
+                <div class="col-sm-10 selected mt-3" style="overflow: hidden">
+                    <div class="row">
+                        <div class="col">
+                            <p class="h2">Упущенные возможности</p>
+                        </div>
+                    </div>
+                    <div class="row">
+            <div class="your-class" style="height: 250px;">
                 <?php foreach($dat['advice'] as $movie): ?>
                 <div class="slide-cust" style="">
-                    <a href="<?=$movie['url']?>"><img src="<?=$movie['poster']?>" id="IM"class="img-fluid"  alt=""></a>
+                    <a href="<?=$movie['url']?>"><img src="<?=$movie['poster']?>" class="img-fluid"  alt=""></a>
                 </div>
 
                 <?php endforeach; ?>
             </div>
+                </div>
+                </div>
             <div class="col-sm-1"></div>
             </div>
-        </div>
+
   		<div class="row">
   			<div class="col-sm-1"></div>
-  			<div class="col-sm-10">
+  			<div class="col-sm-10 p-0">
   				<h4 class="text-center">Мои оценки</h4>
-  				<table class="table-user-rate table table-hover ">
+  				<table class="table-user-rate table table-hover m-0 ">
   					<thead>
   						<tr>
   							<td>Название</td>
