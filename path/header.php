@@ -10,6 +10,8 @@ $uri = explode('/',(explode('?', $uri))[0])[1];
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="Информационный портал киноклуба">
+      <meta name="yandex-verification" content="242eb7336dec418c" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="styles/bootstrap.min.css">
       <?php if($uri=='profile.php'): ?>
@@ -27,23 +29,28 @@ $uri = explode('/',(explode('?', $uri))[0])[1];
   <body>
   	<header class="p-3 text-white">
 	    <div class="container">
-	      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-	        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-	          <img src="image\logogo.png" class="logo" id="lgg">
-	        </a>
+            <nav class="navbar navbar-expand-md navbar-dark" aria-label="Fourth navbar example">
+                <div class="container-fluid">
+                    <a href="/" class="d-flex align-items-center mb-lg-0 text-white text-decoration-none">
+                        <img src="image\logogo.png" class="logo" id="lgg">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-	        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-	          <li><a href="index.php" class="nav-link px-2 text-secondary">Главная</a></li>
-	          <li><a href="statistics.php" class="nav-link px-2 text-white">Статистка (демо)</a></li>
-	          <li><a href="news.php" class="nav-link px-2 text-white">Новости</a></li>
-                <li><a href="feedback.php?type=advice&page=1" class="nav-link px-2 text-white">Форум</a></li>
-	          <li><a href="#" class="nav-link px-2 text-white">Викторина</a></li>
-	        </ul>
-
-	        <div class="text-end">
-	          <button type="button" onclick="document.location='pages/login.php'" class="btn btn-outline-light me-2">Профиль</button>
-	          <button type="button" onclick="document.location='pages/login.php'" class="btn btn-warning">Вход</button>
-	        </div>
-	      </div>
+                    <div class="collapse navbar-collapse" id="navbarsExample04">
+                        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                            <li><a href="index.php" class="nav-link px-2 text-secondary">Главная</a></li>
+                            <li><a href="statistics.php" class="nav-link px-2 text-white">Статистка (демо)</a></li>
+                            <li><a href="news.php" class="nav-link px-2 text-white">Новости</a></li>
+                            <li><a href="feedback.php?type=advice&page=1" class="nav-link px-2 text-white">Форум</a></li>
+                            <li><a href="#" class="nav-link px-2 text-white">Викторина</a></li>
+                        </ul>
+                    </div>
+                    <div class="text-end">
+                        <button type="button" onclick="document.location='pages/login.php'" class="btn btn-outline-light me-2">Профиль</button>
+                    </div>
+                </div>
+            </nav>
 	    </div>
   	</header>

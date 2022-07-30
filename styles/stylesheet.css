@@ -476,7 +476,7 @@ html, body
   background-color: #23282b;
 }
 
-@media(max-width: 600px) {
+@media(max-width: 720px) {
   .row{
     text-align: center;
   }
@@ -498,11 +498,17 @@ html, body
   }
   .thirds
   {
-    margin: 0 0 0 19px;
+    /*margin: 0px;*/
+    margin: 5px 3px 0 13px;
     width: fit-content;
   }
   .row.th{
-    padding: 10px 10px 10px 5px;
+    padding: 0;
+  }
+  .row.description
+  {
+    padding: 0 5px 0 15px;
+
   }
   table{
     width: 100%;
@@ -512,6 +518,18 @@ html, body
   {
     transform: none;
   }
+  #IM
+  {
+    /*/height: 200px;*/
+    /*margin-top: 20px;*/
+    width: 70%;
+  }
+  .logo-and-rates
+  {
+    margin: 5px 0;
+
+  }
+
 }
 .slide-cust
 {
