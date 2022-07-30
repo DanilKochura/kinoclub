@@ -18,9 +18,9 @@ $base = new GetBase();
 //$meetings= $base->GetAllMovies($sort, $order);
 $meetings= $base->GetMoviesPage($sort, $order, $start, $show);
 require 'path/header.php';?>
-<div class="container">
+<div class="container ">
     <div class="row">
-        <div class="col rounded forum-card">
+        <div class="col rounded forum-card d-none">
             <div class="text-center">
                 <form method="get" action="">
                     <div style="display: inline-flex">
@@ -53,7 +53,7 @@ require 'path/header.php';?>
 <?php
 foreach($meetings as $m):
 	?>
-  	<div class="row" style="justify-content: center"><div class="three"><h1>Заседание #<?=$m['num']?></h1></div></div>
+  	<div class="row m-0" style="justify-content: center"><div class="three"><h1>Заседание #<?=$m['num']?></h1></div></div>
   	
   		<div class="container rounded forum-card">
   		<div class="row " >
@@ -151,7 +151,7 @@ foreach($meetings as $m):
                     </tbody>
                 </table>
                 </div>
-  			<div class="col-md-3 text-center">Цитаты
+  			<div class="col-md-3 text-center d-none">Цитаты
   			<blockquote class="blockquote text-center">
   				<?php if(isset($m['citate'])):
   						if(isset($m['citate']['text'])) echo $m['citate']['text'];
