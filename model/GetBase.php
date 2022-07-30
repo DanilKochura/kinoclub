@@ -310,7 +310,7 @@
 				$dat['amount']=0;
 			} else 
 			{
-			$query_data = "SELECT ROUND(AVG(rate), 1) as module, count(id_meet) as amount, name, avatar from expert_rate join expert on id_e=id_exp where id_exp = '$id'";
+			$query_data = "SELECT ROUND(AVG(rate), 1) as module, count(id_meet) as amount, name, avatar from expert_rate join expert on id_e=id_exp where id_exp = '$id' and rate is not null";
 					$res_data = $this->Query_try($query_data);
 			$dat = mysqli_fetch_assoc($res_data); 
 			}
