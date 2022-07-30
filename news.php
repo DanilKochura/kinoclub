@@ -22,11 +22,11 @@
   			<?php foreach($third as $film): ?>
 
   			<div class="col-md-4 thirds" id="id-<?=$film['id_m']?>">
-  				<div class="row">
-  					<div class="col-sm-6">
+  				<div class="row logo-and-rates">
+  					<div class="col-sm-6 col-6">
   						<a href="<?=$film['url']?>">	<img src="<?=$film['poster']?>"class="img-fluid rounded" id="IM"></a>
   					</div>
-  					<div class="col-sm-6">
+  					<div class="col-sm-6 col-6">
   						<h5 class="name"><?=$film['name_m']?></h5>
 		  				<div class="original"><?=$film['original']?></div>
 		  				<div class="year">Год: <?=$film['year_of_cr']?></div>
@@ -42,6 +42,33 @@
 		  				</div>
 		  				<div class="director">Режиссер: <?=$film['name_d']?></div>
 		  				<div class="time">Длительность: <?=$film['duration']?>мин.</div>
+                        <div class="row d-sm-none mt-2">
+                            <div class="col">
+                                <img src="image/imdb.png" class="res_logo">
+                            </div>
+                            <div class="col">
+                                <img src="image/kp.png" class="res_logo">
+                            </div>
+                            <?php if($film['our_rate']): ?>
+                            <div class="col">
+                                <img src="image/logogo.png" class="res_logo">
+                            </div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="row d-sm-none">
+                            <div class="col rate-ch">
+                                <?=$film['rating']?>
+                            </div>
+                            <div class="col rate-ch">
+                                <?=$film['rating_kp']?>
+                            </div>
+                            <?php if($film['our_rate']): ?>
+                            <div class="col rate-ch">
+                                <?=$film['our_rate']?>
+                            </div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="d-none d-sm-block">
 		                <table class="table-rate text-center" style="height: 100px;">
 		              	    <tbody>
 		              			<tr>
@@ -60,10 +87,11 @@
                                 <?php endif; ?>
 		              		</tbody>
 		                </table>
+                    </div>
   					</div>
   				</div>
   				<div class="row description">
-  					<div class="col-sm-12 thirds description"><?=$film['description']?></div>
+  					<div class="col-sm-12 description"><?=$film['description']?></div>
   				</div>
   			</div>
   		<?php endforeach; ?>

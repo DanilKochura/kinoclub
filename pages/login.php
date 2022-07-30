@@ -11,6 +11,7 @@ if(isset($_SESSION['user']))
 <head>
     <meta charset="UTF-8">
     <title>Авторизация и регистрация</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="..\styles\log.css">
     <link rel="stylesheet" href="..\styles\bootstrap.min.css">
 </head>
@@ -34,10 +35,16 @@ if(isset($_SESSION['user']))
             У вас нет аккаунта? - <a href="register.php">зарегистрируйтесь</a>!
         </p>
       </form>
-      <?php if(isset($_SESSION['message'])){
-        echo $_SESSION['message'];
-        unset($_SESSION['message']);
-      }?>
+        <?php if($_SESSION['message']):?>
+            <div class="success text-center" style="border: 1px dotted red; color:red; margin-top: 10px">
+                <p style="padding: 10px">
+                    <?php
+                    echo $_SESSION['message'];
+                    unset($_SESSION['message']);
+                    ?>
+                </p>
+            </div>
+        <?php endif?>
     </main>
    <!-- <form action="../path/log.php" method="post">
         <label>Логин</label>
