@@ -513,3 +513,17 @@ html, body
     transform: none;
   }
 }
+.slide-cust
+{
+  height: 100%;
+  padding: 0 5px;
+
+}
+.slide-cust img
+{
+  height: 220px;
+}
+.slide-cust #IM
+{
+  border-radius: 0;
+}

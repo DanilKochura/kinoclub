@@ -1,3 +1,9 @@
+<?php
+$uri = $_SERVER['REQUEST_URI'];
+
+$uri = explode('/',(explode('?', $uri))[0])[1];
+?>
+
 <!DOCTYPE html>
 <html lang="ru">
   <head>
@@ -6,11 +12,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="styles/bootstrap.min.css">
+      <?php if($uri=='profile.php'): ?>
+          <link href="styles/slick.css" type="text/css" rel="stylesheet"/>
+          <link href="styles/slick-theme.css" type="text/css" rel="stylesheet"/>
+
+      <?php endif; ?>
 
     <link href="styles/stylesheet.css" type="text/css" rel="stylesheet"/>
 
     <title>IMDibil</title>
 		<link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon">
+
   </head>
   <body>
   	<header class="p-3 text-white">

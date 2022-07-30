@@ -11,7 +11,36 @@
 
 });*/
 //controller/UserFormController.php?type=feedback
-
+$(document).ready(function(){
+	$('.your-class').slick({
+		slidesToShow: 5,
+		slidesToScroll: 1,
+		//autoplay: true,
+		autoplaySpeed: 2000,
+		dots: true,
+		arrows: true,
+		variableWidth: true,
+		// centerPadding: '10px',
+		infinite: true,
+		responsive: [
+			{
+				breakpoint: 800,
+				settings: {
+					infinite: true,
+					slidesToShow: 2
+				}
+			},
+			{
+				breakpoint: 480,
+				settings: {
+					infinite: true,
+					centerMode: true,
+					slidesToShow: 1
+				}
+			}
+		]
+});
+});
 
 const RateCl = document.querySelectorAll('.rate-ch');
 RateCl.forEach(element => {

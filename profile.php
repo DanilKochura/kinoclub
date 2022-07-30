@@ -1,7 +1,7 @@
 <?php
 	session_start();
 
-	if(!isset($_SESSION['user'])) { header("Location: pages/login.php");}
+//	if(!isset($_SESSION['user'])) { header("Location: pages/login.php");}
 	$id=$_SESSION['user']['id'];
 	if(isset($_GET['id']))
 	{	
@@ -12,18 +12,26 @@
 	require 'model/GetBase.php';
 
 	$base = new GetBase();
-	
-	
+
+
 	$res = $base->GetAcceptedRate($id);
 	$res_m = $base->GetUserRates($id);
 	$dat = $base->GetUserInfo($id);
+    debug($dat);
 ?>
 
   	<div class="container main">
   		<div class="row user-info">
   			<div class="col-sm-1"></div>
-  			<div class="col-sm-2"><img class="user-avatar" src="uploads\<?=$dat['avatar']?>"></div>
-  			<div class="col-sm-4"><h1><?=$dat['name']?></h1><p>Средняя оценка: <span class="rate-ch"><?=$dat['module']?><span></p><p>Количество встреч: <?=$dat['amount']?></p><p>Дата регистрации: 12.03.2022</div>
+  			<div class="col-sm-2">
+                <img class="user-avatar" src="uploads\<?=$dat['avatar']?>">
+            </div>
+            <div class="col-sm-4">
+                <h1><?=$dat['name']?></h1>
+                <p>Средняя оценка: <span class="rate-ch"><?=$dat['module']?></span></p>
+                <p>Количество встреч: <?=$dat['amount']?></p>
+                <p>Дата регистрации: 12.03.2022</p>
+            </div>
   				<div class="col-sm-4">
   					<?php if($id===$id_s):?> 
   						<div>
@@ -118,7 +126,28 @@
 						</div>
 					</div>
   			<div class="col-sm-1"></div>
-  	
+        </div>
+        <div class="row" style="margin: 30px 0 0; overflow: hidden">
+            <div class="row">
+                <div class="col-sm-1">
+                </div>
+                <div class="col">
+                    <p class="h2">Упущенные возможности</p>
+                </div>
+            </div>
+            <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="your-class col-sm-10" style="height: 250px;">
+                <?php foreach($dat['advice'] as $movie): ?>
+                <div class="slide-cust" style="">
+                    <a href="<?=$movie['url']?>"><img src="<?=$movie['poster']?>" id="IM"class="img-fluid"  alt=""></a>
+                </div>
+
+                <?php endforeach; ?>
+            </div>
+            <div class="col-sm-1"></div>
+            </div>
+        </div>
   		<div class="row">
   			<div class="col-sm-1"></div>
   			<div class="col-sm-10">
@@ -150,11 +179,5 @@
   			<div class="col-sm-1"></div>
   		</div>
   	</div>
-  </p>
-</span>
-</span>
-</p>
-</div>
-</div>
-</div>
+
 <?php require 'path/footer.php'; ?>
