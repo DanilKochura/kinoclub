@@ -41,7 +41,7 @@ $uri = explode('/',(explode('?', $uri))[0])[1];
                     <div class="collapse navbar-collapse" id="navbarsExample04">
                         <ul class="navbar-nav me-auto mb-2 mb-md-0">
                             <li><a href="index.php" class="nav-link px-2 text-secondary">Главная</a></li>
-                            <li><a href="statistics.php" class="nav-link px-2 text-white">Статистка (демо)</a></li>
+                            <li><a href="statistics.php" class="nav-link px-2 text-white">Аналитика</a></li>
                             <li><a href="news.php" class="nav-link px-2 text-white">Новости</a></li>
                             <li><a href="feedback.php?type=advice&page=1" class="nav-link px-2 text-white">Форум</a></li>
                             <li><a href="#" class="nav-link px-2 text-white">Викторина</a></li>
