@@ -1,4 +1,4 @@
-<?php require 'path/header.php'; 
+<?php //require 'path/header.php';
 require 'model/GetBase.php';
 $m = new GetBase();
 $arr = $m->GetAllRates();

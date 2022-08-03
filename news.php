@@ -1,6 +1,5 @@
-<?php 
-	session_start();
-	require 'path/header.php';
+<?php
+//	require 'path/header.php';
 	require 'model/GetBase.php';
 	$base = new GetBase();
 	$thirds = $base->GetAllThirds();

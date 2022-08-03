@@ -52,12 +52,12 @@
 		            "avatar"=> $user['avatar']
 		        ];
 
-		        header('Location: ../profile.php?id='.$_SESSION['user']['id']);
+		        header('Location: ../profile');
 		    } 
 		    else 
 		    {
 		        $_SESSION['message'] = 'Неверный логин или пароль';
-		        header('Location: ../pages/login.php');
+		        header('Location: /login');
 		        print_r($check_user);
 		    }
 				

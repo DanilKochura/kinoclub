@@ -1,13 +1,15 @@
 <?php
-	session_start();
-
-//	if(!isset($_SESSION['user'])) { header("Location: pages/login.php");}
+//print_r($_GET);
+//	if(empty($_SESSION['user'])) { header("Location: /login");}
 	$id=$_SESSION['user']['id'];
-	if(isset($_GET['id']))
-	{	
-		$id = $_GET['id'];
+	if($_GET[0])
+	{
+		$id = $_GET[0];
 	}
-	require 'path/header.php';
+  /// echo $id;
+//$id = 4;
+    //print_r($_SESSION);
+//	require 'path/header.php';
 	$id_s = $_SESSION['user']['id'];
 	require 'model/GetBase.php';
 
@@ -17,14 +19,15 @@
 	$res = $base->GetAcceptedRate($id);
 	$res_m = $base->GetUserRates($id);
 	$dat = $base->GetUserInfo($id);
-    debug($dat);
+//    debug($dat['advice']); exit;
+
 ?>
 
   	<div class="container main">
   		<div class="row user-info">
   			<div class="col-sm-1"></div>
   			<div class="col-sm-2 col-6">
-                <img class="user-avatar" src="uploads\<?=$dat['avatar']?>">
+                <img class="user-avatar" src="<?=ROOT?>/uploads/<?=$dat['avatar']?>">
             </div>
             <div class="col-sm-4 col-6">
                 <h1><?=$dat['name']?></h1>
@@ -35,7 +38,7 @@
   				<div class="col-sm-4">
   					<?php if($id===$id_s):?> 
   						<div>
-  							<button type="button" onclick="document.location='pages/logout.php'" class="btn btn-danger mt-2 btn-user m-0">Выход</button>
+  							<button type="button" onclick="document.location='logout'" class="btn btn-danger mt-2 btn-user m-0">Выход</button>
   						</div>
   						<div>
   							<button type="button" class="btn btn-primary btn-user m-0 mt-2" data-bs-toggle="modal" data-bs-target="#userModal">Редактировать личные данные</button>
@@ -138,9 +141,11 @@
                     </div>
                     <div class="row">
             <div class="your-class" style="height: 250px;">
-                <?php foreach($dat['advice'] as $movie): ?>
+                <?php foreach($dat['advice'] as $mo): ?>
                 <div class="slide-cust" style="">
-                    <a href="<?=$movie['url']?>"><img src="<?=$movie['poster']?>" class="img-fluid"  alt=""></a>
+                    <a href="<?=$mo['url']?>">
+                        <img src="<?=ROOT?>/<?=$mo['poster']?>" class="img-fluid"  alt="">
+                    </a>
                 </div>
 
                 <?php endforeach; ?>

@@ -1,6 +1,6 @@
 <?php
-session_start();
-if(!isset($_SESSION['user'])) { header("Location: pages/login.php");}
+//session_start();
+//if(!isset($_SESSION['user'])) { header("Location: /login");}
 $id=$_SESSION['user']['id'];
 require 'model/GetBase.php';
 if(!isset($_GET['page']))
@@ -12,7 +12,7 @@ if(!isset($_GET['type']))
     $_GET['type']='advice';
 }
 $base = new GetBase();
-require 'path/header.php';
+//require 'path/header.php';
 $query = "SELECT COUNT(*) from forum";
 $res = $base->Query_try($query);
 $res = mysqli_fetch_array($res);

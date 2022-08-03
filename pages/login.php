@@ -3,7 +3,7 @@ session_start();
 if(isset($_SESSION['user']))
 {
 
-	header("Location: ../profile.php?id=".$_SESSION['user']['id']);
+	header("Location: /profile/".$_SESSION['user']['id']);
 }?>
 
 <!doctype html>

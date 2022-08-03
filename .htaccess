@@ -1,0 +1,16 @@
+RewriteEngine On
+#RewriteCond %{REQUEST_FILENAME} !-f     #Если файл не существует
+#RewriteCond %{REQUEST_FILENAME} !-d    #И если папка не существует
+#RewriteRule ^.*$ index.php [QSA,L]
+#
+##RewriteEngine On
+#Options +FollowSymlinks
+#RewriteBase /
+#
+#DirectoryIndex index.php
+#
+#RewriteRule ^(.*)$ index.php [L]
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{SCRIPT_FILENAME} !-f
+
+RewriteRule ^(.*)$ ./index.php

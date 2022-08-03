@@ -142,6 +142,10 @@ h5.name {
   border-radius: 50%;
   transition: 1s;
 }
+.avatar.header:hover
+{
+  transform: none;
+}
 .avatar:hover {
   transform: scale(2.0);
 }
