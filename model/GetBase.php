@@ -314,7 +314,7 @@
 					$res_data = $this->Query_try($query_data);
 			$dat = mysqli_fetch_assoc($res_data); 
 			}
-			$q = "SELECT poster, url from  movie left join meeting USING(id_m) join thirds on (first = id_m or second = id_m or third=id_m) where id_e = '$id' and meeting.id_m is null";
+			$q = "SELECT DISTINCT poster, url from  movie left join meeting USING(id_m) join thirds on (first = id_m or second = id_m or third=id_m) where id_e = '$id' and meeting.id_m is null";
 			$adv=$this->Query_try($q);
 			$advices = [];
 			//echo $q;
@@ -326,7 +326,9 @@
 				$advices[]=$row_a;
 			}
 			$dat['advice'] = $advices;
-			return $dat;//exit;
+			return $dat;
+//			debug($dat);
+//			exit;
 		}
 		public function GetSomeMessages($page, $type)
 		{
