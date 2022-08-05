@@ -16,7 +16,7 @@
             $id2 = $_POST['film2'];
             $id_e = $_POST['user'];
             $this->Query_try("INSERT INTO thirds(first, second, third, selected, id_e) values ('$id1','$id2','$id3',NULL, '$id_e')");
-            header('Location: ../admin.php');
+            header('Location: ../admin');
         }
 
 		public function AddMeet()
@@ -24,7 +24,7 @@
 			$id=$_POST['film'];
 			$q = "INSERT INTO meeting values(NULL, '$id')";
 			$q = $this->Query_try($q);
-			header('Location: ../admin.php');
+			header('Location: ../admin/');
 		}
 
 		public function AddDirector()
@@ -42,7 +42,7 @@
 			{
 				$id=$this->Query_try($query);
 			}
-			header('Location: ../admin.php?name='.$id);
+			header('Location: ../admin/name='.$id);
 		}
 
 		public function AddParseFile()
@@ -53,7 +53,7 @@
         		echo "Err";
        		}
 			$_SESSION['file'] = $path;
-      		header('Location: ../admin.php?name='.$path);
+      		header('Location: ../admin/name='.$path);
 		}
 
 		public function AddMovie()
@@ -88,7 +88,7 @@
 		    	$d = $this->Query_try($q);
 			}
 			unlink('../parser/pages/'.$name.'.html');
-		    header('Location: ../admin.php');
+		    header('Location: ../admin');
 		}
 		
 		public function AddRate()
@@ -100,7 +100,7 @@
 
 			$d = $this->Query_try($query);
 			if(!$d) {die("Query Error!");}
-			header("Location: ../profile.php?id=".$_SESSION['user']['id']);
+			header("Location: ../profile/".$_SESSION['user']['id']);
 		}
 
 		public function Unrate()
@@ -108,7 +108,7 @@
 			$id=$_SESSION['user']['id'];
 			if(!isset($_GET['id']))
 			{
-				header('Location: ../profile.php?id='.$id);
+				header('Location: ../profile/'.$id);
 			}
 			$id_m = $_GET['id'];
 
@@ -119,7 +119,7 @@
 				echo "Fatal error";
 			} else
 			{
-				header('Location: ../profile.php?id='.$id);
+				header('Location: ../profile/'.$id);
 			}
 		}
 			
@@ -128,7 +128,7 @@
             $id = $_SESSION['user']['id'];
             if(!$_POST['old-pass'])
             {
-                header('Location: ../profile.php?id='.$id);
+                header('Location: ../profile/'.$id);
                 exit;
             }
 			if(!$_POST['name'])
@@ -149,7 +149,7 @@
 
 			if($pw['password']!=md5($_POST['old-pass']))
 				{
-					header('Location: ../profile.php?id='.$id);
+					header('Location: ../profile/'.$id);
                     exit;
 				}
 
@@ -166,7 +166,7 @@
 				}
 				else
 				{
-					header('Location: ../profile.php?id='.$id);
+					header('Location: ../profile/'.$id);
                     exit;
 				}
 			}
@@ -179,7 +179,7 @@
 			    if (!move_uploaded_file($_FILES['avatar']['tmp_name'], "../uploads/".$path))
 			    {
 			        $_SESSION['message'] = $path;
-			        header('Location: ../profile.php');
+			        header('Location: ../profile');
 			    }
 			}	
 		    $query = "UPDATE `expert` set `avatar` = '$path', `name`= '$name', `password` = '$pass' where `id_e` = '$id';";
@@ -187,7 +187,7 @@
             $d = $this->Query_try($query);
 	        $_SESSION['user']['avatar'] = $path;
 	        $_SESSION['user']['name'] = $name;
-	        header('Location: ../profile.php?id='.$id);
+	        header('Location: ../profile/'.$id);
 		}	
 
         public function NewMessage()
@@ -215,7 +215,7 @@
 VALUES (NULL, '$user', '$re', '$text', CURRENT_TIMESTAMP, '$type', '$path')";
             echo $query;
             $t = $this->Query_try($query);
-            header('Location: ../feedback.php?page=1&type='.$type);
+            header('Location: ../feedback?page=1&type='.$type);
         }
 
         public function NewRates()
@@ -228,7 +228,7 @@ VALUES (NULL, '$user', '$re', '$text', CURRENT_TIMESTAMP, '$type', '$path')";
             for($i=1; $i<count($_POST['rate'])+1; $i++){
                 $rate = $_POST['rate'][$i-1];
                 $this->Query_try("INSERT INTO `expert_rate`(`id_meet`, `id_exp`, `rate`) VALUES ('$id_m', '$i', '$rate')");
-                header('Location: ../admin.php');
+                header('Location: ../admin');
             }
         }
 
