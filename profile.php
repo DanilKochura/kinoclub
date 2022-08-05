@@ -51,7 +51,7 @@
        									 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
       							</div>
       						<div class="modal-body">
-       						 <form action="controller/UserFormController.php?type=update" method="post" enctype="multipart/form-data">
+       						 <form action="https://imdibil.ru/controller/UserFormController.php?type=update" method="post" enctype="multipart/form-data">
 									  <div class="mb-3">
 									    <div class="mb-3">
 											  <input class="form-control" name="avatar"type="file" id="formFile">
@@ -72,7 +72,7 @@
 										</div>
 										<div class="input-group">
 										  <span class="input-group-text">Текущий пароль</span>
-										  <input type="password" aria-label="Текущий пароль" name="old-pass"class="form-control">
+										  <input type="password" required aria-label="Текущий пароль" name="old-pass"class="form-control">
 										</div>
 									  <button type="submit" class="btn btn-primary">Отправить</button>
 									</form>
@@ -91,7 +91,7 @@
        									 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
       							</div>
       						<div class="modal-body">
-       						  <form action="controller/UserFormController.php?type=add" method="post">
+       						  <form action="https://imdibil.ru/controller/UserFormController.php?type=add" method="post">
 										  <select class="form-select" name="movie"aria-label="Пример выбора по умолчанию">
 											  <option selected>Выберите фильм</option>
 											  <?php while($r=mysqli_fetch_assoc($res)): ?>
