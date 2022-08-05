@@ -51,7 +51,7 @@ session_start();
 <!--                    </div>-->
                     <div class="text-end">
                         <div class="dropdown dropstart">
-                            <div class="bi bi-person-circle dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="bi bi-person-circle"  data-bs-toggle="dropdown" aria-expanded="false">
                             <?php if(isset($_SESSION['user']['avatar'])): ?>
                                 <img  src="<?=ROOT?>/uploads/<?=$_SESSION['user']['avatar']?>" alt="Ваня" class="avatar header">
                             <?php else: ?>
@@ -64,9 +64,13 @@ session_start();
                             </div>
 
                             <ul class="dropdown-menu forum-card bg-gradient" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="text-decoration-none text-white" href="/login">Вход</a></li>
+                                <?php if(!$_SESSION['user']): ?>
+                                    <li><a class="text-decoration-none text-white" href="/login">Вход</a></li>
+                                <?php endif; ?>
                                 <li><a class="text-decoration-none text-white" href="/profile">Профиль</a></li>
-                                <li><a class="text-decoration-none text-white" href="/logout">Выход</a></li>
+                                <?php if($_SESSION['user']): ?>
+                                    <li><a class="text-decoration-none text-white" href="/logout">Выход</a></li>
+                                <?php endif; ?>
                             </ul>
                         </div>
 
