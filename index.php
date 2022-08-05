@@ -13,6 +13,8 @@ $GLOBALS['sitemap'] = array (
     '/feedback' => 'feedback.php',  // С числовым параметром
     '/logout' => 'pages/logout.php',  // С числовым параметром
     '/login' => 'pages/login.php',  // С числовым параметром
+    '/admin' => 'admin.php',  // С числовым параметром
+    '/test' => 'test.php',  // С числовым параметром
     // Больше правил
 );
 // Код роутера
@@ -95,7 +97,7 @@ $_GET[0] = ($sm->params[1]) ?: '';
 //print_r($sm->params);
 //print_r($_GET);
 //print_r($_SESSION);
-//$get = $sm->params;
+$get = $sm->params;
 require_once $routed_file;
 
 // Подключаем файл
