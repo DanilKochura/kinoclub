@@ -145,6 +145,13 @@ h5.name {
 .avatar.header:hover
 {
   transform: none;
+
+}
+.avatar.header
+{
+  transition: none;
+  border: 2px solid white;
+
 }
 .avatar:hover {
   transform: scale(2.0);

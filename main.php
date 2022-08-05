@@ -87,7 +87,7 @@ foreach($meetings as $m):
                 </table>
             </div>
         </div>
-        <div class="rating-tab col-md-3">
+        <div class="rating-tab col-md-4 col-xl-3">
             <!--<table class="table-rate">
   					<thead>
 					    <tr>
@@ -148,7 +148,7 @@ foreach($meetings as $m):
                 </tbody>
             </table>
         </div>
-        <div class="col-md-3 text-center d-sm-none d-md-block">Цитаты
+        <div class="col-md-3 text-center d-none d-xl-block">Цитаты
             <blockquote class="blockquote text-center">
                 <?php if(isset($m['citate'])):
                 if(isset($m['citate']['text'])) echo $m['citate']['text'];
