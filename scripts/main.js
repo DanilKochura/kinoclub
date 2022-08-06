@@ -96,3 +96,125 @@ $('#mm').change(function(){
 		}
 	});
 });
+
+let jsonnn = $('.json').text();
+let text = JSON.parse(jsonnn);
+console.log(text);
+var shuffled = text.sort(function(){
+	return Math.random() - 0.5;
+});
+let stage = shuffled.length/2;
+// console.log(stage);
+let movie_iterator = 0;
+// console.log(text);
+
+/**
+ * функция генерации новой турнирной пары
+ * @constructor
+ */
+function NextTwo()
+{
+	console.log('func started: shuffled: '+shuffled.length+' i='+movie_iterator);
+
+	let elems = $(".f-1");
+	// console.log(shuffled.length - movie_iterator)
+	if(shuffled.length - movie_iterator < 2)
+	{
+		if(shuffled.length == 1)
+		{
+			//console.log(choises);
+			elems.addClass('d-none');
+			let resultdiv = $('.result');
+			resultdiv.removeClass('d-none');
+			for(let j = 0; j<tour.length; j++)
+			{
+				resultdiv.append($('<p class="h2 text-danger"> Round:'+(j+1)+'</p>'));
+				for (let k =0; k<tour[j].length; k++)
+				{
+					//console.log(tour[0][0])
+					resultdiv.append($('<p> #'+k+' : '+tour[j][k]['name']+'</p>'));
+				}
+
+			}
+			return false;
+		}
+		// console.log('game_over');
+		// console.log(choises);
+		shuffled.length =0;
+		tour.push(new Array(...choises));
+		stage/=2;
+		shuffled.push(...choises);
+		choises.length = 0;
+		console.log(tour);
+		movie_iterator = 0;
+		flag = 1;
+		NextTwo();
+		return;
+
+	}
+	$.each(elems, function (index, element){
+
+		  let src = $($(element).children('img')[0]).attr('src', shuffled[movie_iterator]['poster']);
+		  $(element).attr('id', movie_iterator);
+		  movie_iterator++;
+		console.log(movie_iterator);
+
+		  // console.log(src);
+	});
+	// if(flag == 1)
+	// {
+	// 	flag = 0;
+	// 	NextTwo();
+	// 	// movie_iterator = 0;
+	// }
+
+}
+
+/**
+ * функция подмены невыбранного фильма на новый (режим "царь горы")
+ * @param id_m
+ * @constructor
+ */
+function NextFilm(id_m)
+{
+	let elems = $(".f-1");
+	if(shuffled.length - movie_iterator < 2)
+	{
+		console.log('game_over');
+		console.log(choises);
+		elems.addClass('d-none');
+		let resultdiv = $('.result');
+		resultdiv.removeClass('d-none');
+		for(let j = 0; j<choises.length; j++)
+		{
+			resultdiv.append($('<p>'+shuffled[choises[j]]['name']+'</p>'));
+		}
+
+	}
+	$.each(elems, function (index, element){
+		console.log($(element).attr('id')+' selected: '+ id_m);
+		if($(element).attr('id') == id_m)
+		{
+			return;
+		}
+		let src = $($(element).children('img')[0]).attr('src', shuffled[movie_iterator]['poster']);
+		$(element).attr('id', movie_iterator);
+		movie_iterator++;
+		console.log(src);
+	});
+}
+let flag = 0;
+
+let tour = [];
+let choises = [];
+let first = $('.f-1');
+NextTwo();
+first.on('click', function(){
+	let id = $(this).attr('id');
+	choises.push(shuffled[id]);
+	// console.log(id);
+	// 	console.log(choises);
+	NextTwo();///турнир
+//NextFilm(id);//царь горы
+	}
+);

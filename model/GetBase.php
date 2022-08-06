@@ -346,6 +346,17 @@
 
 		}
 
+		public function GetGameFilms()
+		{
+			$films = array();
+			$res = $this->Query_try("SELECT name_m as name, id_m as id, poster from movie join meeting USING(id_m)");
+			while($row = $res->fetch_assoc())
+			{
+				$i =  (int)$row['id'];
+				$films[]= $row;
+			}
+			return json_encode($films);
+		}
 
 		function __destruct()
 		{
