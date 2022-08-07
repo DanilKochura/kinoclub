@@ -130,7 +130,7 @@ h5.name {
   width: 100%;
   object-fit: contain;
   transition: 1s;
-  border-radius: 20%;
+  border-radius: 10%;
 
 }
 #IM:hover {
@@ -164,7 +164,7 @@ h5.name {
   vertical-align: inherit;
 }
 .row.th {
-  margin: -5px -6px 0px -19px;
+  margin: -5px -6px 0px -9px;
 }
 .original {
   font-weight: 100;
@@ -555,4 +555,304 @@ html, body
 .slide-cust #IM
 {
   border-radius: 0;
+}
+.tour-table
+{
+  display: flex;
+  max-height: 300px;
+}
+.col-25{
+  width: 20%;
+  /*height: 20px;*/
+  /*background-color: white;*/
+  /*border: 1px solid red;*/
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+.cell
+{
+  border-radius: 5px;
+  font-size: 13px;
+  width: 30px;
+  height: 20px;
+  background-color: black;
+  margin: 10px;
+}
+:root {
+  --first-color: black;
+  --active-color: black;
+  --passive-color: grey;
+  --first-bg: white;
+  --active-bg: #ffc107;
+  --passive-bg: grey;
+  --dark-grey: #23282b;
+}
+.final
+{
+  display: flex;
+
+
+}
+.col-final
+{
+  width: 40%;
+  justify-content: center;
+}
+
+@keyframes win {
+  0%
+  {
+    border: none;
+    background-color: transparent;
+    color: var(--dark-grey);
+
+  }
+  59%
+  {
+    border: none;
+    background-color: transparent;
+    color: var(--dark-grey);
+  }
+  60%
+  {
+    /*background-color: var(--active-bg);*/
+    color: var(--active-bg);
+    border: 2px var(--active-bg) dotted;
+  }
+  100%
+  {
+    /*background-color: var(--active-bg);*/
+    border: 2px var(--active-bg) dotted;
+    color: var(--active-bg);
+  }
+}
+@keyframes active-t1 {
+  0% {
+    background: var(--first-bg);
+    color: var(--first-color);
+  }
+  14% {
+    background: var(--first-bg);
+    color: var(--first-color);
+  }
+  15%
+  {
+    background: var(--active-bg);
+    color: var(--active-color);
+  }
+  100%
+  {
+    background: var(--active-bg);
+    color: var(--active-color);
+  }
+}
+@keyframes passive-t1 {
+  0% {
+    background: var(--first-bg);
+    color: var(--first-color);
+  }
+  14% {
+    background: var(--first-bg);
+    color: var(--first-color);
+  }
+  15%
+  {
+    background: var(--passive-bg);
+    color: var(--passive-color);
+  }
+  100%
+  {
+    background: var(--passive-bg);
+    color: var(--passive-color);
+  }
+}
+@keyframes passive-t2 {
+  0% {
+    background: var(--first-bg);
+    color: var(--first-bg);
+  }
+  14%{
+    color: var(--first-bg)
+  }
+  15%{
+    color: var(--first-color)
+  }
+  29% {
+    background: var(--first-bg);
+  }
+  30%
+  {
+    background: var(--passive-bg);
+    color: var(--passive-color);
+  }
+  100%
+  {
+    background: var(--passive-bg);
+    color: var(--passive-color);
+  }
+}
+@keyframes active-t2 {
+  0% {
+    background: var(--first-bg);
+    color: var(--first-bg);
+  }
+  14%{
+    color: var(--first-bg)
+  }
+  15%{
+    color: var(--first-color)
+  }
+  29% {
+    background: var(--first-bg);
+  }
+  30%
+  {
+    background: var(--active-bg);
+    color: var(--active-color);
+  }
+  100%
+  {
+    background: var(--active-bg);
+    color: var(--active-color);
+  }
+}
+@keyframes passive-t3 {
+  0% {
+    background: var(--first-bg);
+    color: var(--first-bg);
+  }
+  29% {
+    color: var(--first-bg);
+  }
+  30%
+  {
+    /*background: var(--active-bg);*/
+    color: var(--first-color);
+  }
+  44% {
+    background: var(--first-bg);
+  }
+  45%
+  {
+    background: var(--passive-bg);
+    color: var(--passive-color);
+  }
+  100%
+  {
+    background: var(--passive-bg);
+    color: var(--passive-color);
+  }
+}
+@keyframes active-t3 {
+  0% {
+    background: var(--first-bg);
+    color: var(--first-bg);
+  }
+  29% {
+    color: var(--first-bg);
+  }
+  30%
+  {
+    /*background: var(--active-bg);*/
+    color: var(--first-color);
+  }
+  44% {
+    background: var(--first-bg);
+  }
+  45%
+  {
+    background: var(--active-bg);
+    color: var(--active-color);
+  }
+  100%
+  {
+    background: var(--active-bg);
+    color: var(--active-color);
+  }
+}
+.a-t1
+{
+  animation: active-t1 4s linear infinite;
+}
+.p-t1
+{
+  animation: passive-t1 4s linear infinite;
+}
+.a-t2
+{
+  animation: active-t2 4s linear infinite;
+}
+.p-t2
+{
+  animation: passive-t2 4s linear infinite;
+}
+.a-t3
+{
+  animation: active-t3 4s linear infinite;
+}
+.p-t3
+{
+  animation: passive-t3 4s linear infinite;
+}
+.game .row{
+  flex-wrap: nowrap;
+}
+.winner
+{
+  /*position: absolute;*/
+  top: 10%;
+  text-align: center;
+  /*background-color: yellow;*/
+  font-size: 22px;
+  /*border: 2px black dotted;*/
+  animation: win 4s linear infinite;
+}
+.bg-main
+{
+  background-color: var(--dark-grey);
+}
+.mount
+{
+  background-color: var(--passive-bg);
+  height: 50px;
+  margin: 20px;
+}
+.mount-an
+{
+  overflow: hidden;
+}
+
+@keyframes mount {
+  0%
+  {
+    margin-top: -50px;
+    /*trannsform: translate(0, -100px);*/
+  }
+
+  50%
+  {
+    /*transition: 10s;*/
+    /*transform: translate(0, 50px);*/
+    margin: 20px;
+  }
+  /*100%*/
+  /*{*/
+  /*  transition: 0s;*/
+  /*  transform: translate(0, 50px);*/
+  /*}*/
+  100%
+  {
+    /*transition: 10s;*/
+    /*transform: translate(0, 50px);*/
+    transition: 1s;
+    transform: translate(0, 100px);
+  }
+}
+.mount-move
+{
+  animation: mount 5s linear infinite;
 }

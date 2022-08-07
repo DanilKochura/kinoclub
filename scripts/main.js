@@ -218,3 +218,4 @@ first.on('click', function(){
 //NextFilm(id);//царь горы
 	}
 );
+
