@@ -219,3 +219,60 @@ first.on('click', function(){
 	}
 );
 
+function func_set(n1, n2, mo, it)
+{
+	function func_clear(n1, n2, mo, it)
+	{
+		// alert('dfdf');
+
+		$(mo[n2]).removeClass('mo-passive').addClass('mo-first');
+		$(mo[n1]).removeClass('mo-active').addClass('mo-first');
+		// $(mo[n2]).classList.remove('mo-passive');
+		// $(mo[n1]).classList.remove('mo-active');
+		$(mo[n2]).text(it);
+		console.log('clear')
+	}
+	// alert('dfdf');
+	// $(mo[n2]).removeClass('mo-first');
+	// $(mo[n1]).removeClass('mo-first');
+	$(mo[n2]).removeClass('mo-first').addClass('mo-passive');
+	$(mo[n1]).removeClass('mo-first').addClass('mo-active');
+	console.log('set');
+	setTimeout(function(){
+		func_clear(n1, n2, mo, it)
+	}, 1000);
+
+}
+let mount = $('.mo-1');
+console.log(mount);
+let iterator = 2;
+
+setInterval(function (){
+
+
+	if(iterator==9)
+	{
+		iterator = 2;
+		mount[0].text(2);
+		mount[1].text(1);
+	}
+	iterator++;
+	let num = Math.floor(Math.random()*2);
+	let num2 = num == 1 ? 0 : 1;
+	console.log(num+' ' + num2);
+	clearTimeout();
+	setTimeout(function (){
+		func_set(num, num2, mount, iterator)
+	}, 1000);
+	clearTimeout();
+}, 2000);
+//
+// setInterval(function (){
+// 	console.log(iterator++);
+// }, 2000);
+// setTimeout(function (){
+// 	console.log(1);
+// }, 2000);
+// setTimeout( function (){
+// 	console.log(2)
+// }, 2*2000);

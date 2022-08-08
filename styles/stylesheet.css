@@ -818,41 +818,26 @@ html, body
 .mount
 {
   background-color: var(--passive-bg);
-  height: 50px;
+  height: 100px;
+  width: 50%;
+  text-align: center;
   margin: 20px;
+  border-radius: 5px;
 }
 .mount-an
 {
   overflow: hidden;
 }
 
-@keyframes mount {
-  0%
-  {
-    margin-top: -50px;
-    /*trannsform: translate(0, -100px);*/
-  }
 
-  50%
-  {
-    /*transition: 10s;*/
-    /*transform: translate(0, 50px);*/
-    margin: 20px;
-  }
-  /*100%*/
-  /*{*/
-  /*  transition: 0s;*/
-  /*  transform: translate(0, 50px);*/
-  /*}*/
-  100%
-  {
-    /*transition: 10s;*/
-    /*transform: translate(0, 50px);*/
-    transition: 1s;
-    transform: translate(0, 100px);
-  }
-}
-.mount-move
+.mo-active
 {
-  animation: mount 5s linear infinite;
+  color: var(--active-color);
+  background-color: var(--active-bg);
+}
+.mo-1 {
+  --pa-color: var(--passive-bg);
+  --ac-bg: var(--active-bg);
+  --pa-bg: var(--passive-bg);
+  --ac-color: black;
 }
