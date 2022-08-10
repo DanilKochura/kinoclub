@@ -10,6 +10,12 @@ header
   border-width: 1px 0;
   box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
 }
+@media (min-width: 1000px) {
+
+  .h-xl-100{
+    height: 100%;
+  }
+}
 
 .form-control-dark {
   color: #fff;
@@ -293,8 +299,18 @@ a:hover{
 #customRange {
   color: red;
 }
-
-
+.type-descr
+{
+  border-radius: 10px;
+}
+.type-text
+{
+  min-height: 100px;
+}
+.middle
+{
+  min-height: 150px;
+}
 input[type=range] {
   width: 100%;
   margin: 7.3px 0;
@@ -798,8 +814,8 @@ html, body
 {
   animation: passive-t3 4s linear infinite;
 }
-.game .row{
-  flex-wrap: nowrap;
+.nw{
+  /*flex-wrap: nowrap;*/
 }
 .winner
 {
@@ -840,4 +856,15 @@ html, body
   --ac-bg: var(--active-bg);
   --pa-bg: var(--passive-bg);
   --ac-color: black;
+}
+
+.block-center
+{
+  display: flex;
+  justify-content: space-around;
+}
+
+.card-center
+{
+  justify-content: center;
 }
