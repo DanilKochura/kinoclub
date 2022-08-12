@@ -1,0 +1,13 @@
+User-agent: Yandex
+Disallow: https://imdibil.ru/admin.php
+Disallow: /*?*
+Disallow: /*%
+Disallow: /index.php
+Disallow: /*?page=
+Disallow: /*&page=
+Disallow: /*?id=
+Disallow: /*&id=
+Disallow: /*?sort=
+Disallow: /*&sort=
+
+Sitemap: https:://imdibil.ru/sitemap.xml
