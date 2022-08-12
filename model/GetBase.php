@@ -202,18 +202,7 @@
 			return $thirds;
 		}
 
-		public function GetAcceptedRate($id)  //получение списка фильмов, на которых разрешено поставить оценку
-		{
-			$query = "select name_m, id_meet from movie join meeting using(id_m) left join (select * from expert_rate where id_exp = '$id') as e using(id_meet) where id_rate is NULL;";
-			$res = $this->Query_try($query);
-			return $res;
-		}
-		public function GetUserRates($id)  //получение оценок одного пользователя
-		{
-			$query_m = "SELECT  `name_m`, `our_rate`, `rate`, `id_meet`, `url` FROM `movie` join `meeting` USING(`id_m`) join `expert_rate` using(`id_meet`) where `id_exp` = '$id' and rate is not null  order by rate desc";
-			$res_m = $this->Query_try($query_m);
-			return($res_m);
-		}
+
 
 		public function GetMeetRates($id)
 		{
@@ -297,39 +286,7 @@
 			}
 			return($res_m);
 		}
-		public function GetUserInfo($id)  //получение информации о польователе
-		{
-			$query_test = "SELECT count(*) as a from expert_rate WHERE id_exp = '$id'";
-			$res_nam = $this->Query_try($query_test);
-			$nam = mysqli_fetch_assoc($res_nam);
-			if($nam['a']==0){ 	
-				$query_data = "SELECT name, avatar from expert where id_e = '$id'";
-				$res_data = $this->Query_try($query_data);
-				$dat = mysqli_fetch_assoc($res_data);
-				$dat['module']=0;
-				$dat['amount']=0;
-			} else 
-			{
-			$query_data = "SELECT ROUND(AVG(rate), 1) as module, count(id_meet) as amount, name, avatar from expert_rate join expert on id_e=id_exp where id_exp = '$id' and rate is not null";
-					$res_data = $this->Query_try($query_data);
-			$dat = mysqli_fetch_assoc($res_data); 
-			}
-			$q = "SELECT DISTINCT poster, url from  movie left join meeting USING(id_m) join thirds on (first = id_m or second = id_m or third=id_m) where id_e = '$id' and meeting.id_m is null";
-			$adv=$this->Query_try($q);
-			$advices = [];
-			//echo $q;
-			//echo $adv_q->num_rows;
-			while($row_a = $adv->fetch_assoc())
-			{
-				//echo $row_a;
-				//debug($row_a);
-				$advices[]=$row_a;
-			}
-			$dat['advice'] = $advices;
-			return $dat;
-//			debug($dat);
-//			exit;
-		}
+
 		public function GetSomeMessages($page, $type)
 		{
 			$result = array();

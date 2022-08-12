@@ -1,6 +1,7 @@
 <?php
 
 define('ROOT', 'https://imdibil.ru');
+define('PATH', $_SERVER['DOCUMENT_ROOT']);
 /**
  * Sitemap (можно перенести в отдельный файл)
  */
@@ -11,10 +12,11 @@ $GLOBALS['sitemap'] = array (
     '/profile/?([0-9]+)?' => 'profile.php',  // С числовым параметром
     '/statistics' => 'statistics.php',  // С числовым параметром
     '/feedback' => 'feedback.php',  // С числовым параметром
-    '/logout' => 'pages/logout.php',  // С числовым параметром
-    '/login' => 'pages/login.php',  // С числовым параметром
+    '/logout' => 'logout.php',  // С числовым параметром
+    '/login' => 'login.php',  // С числовым параметром
     '/admin' => 'admin.php',  // С числовым параметром
     '/test' => 'test.php',  // С числовым параметром
+    '/game' => 'quiz.php',  // С числовым параметром
     // Больше правил
 );
 // Код роутера
@@ -84,9 +86,10 @@ class uSitemap {
 }
 $sm = new uSitemap();
 $routed_file = $sm->classname; // Получаем имя файла для подключения через require()
-//echo $routed_file;
+$route = 'pages/'.(file_exists('pages/'.$routed_file) ? $routed_file : 'page404.php');
+//echo $route;
 //require_once 'config/bd.php';
-if($routed_file != 'pages/login.php')
+if($routed_file != 'login.php')
 {
     require_once 'path/header.php';
 
@@ -98,7 +101,8 @@ $_GET[0] = ($sm->params[1]) ?: '';
 //print_r($_GET);
 //print_r($_SESSION);
 $get = $sm->params;
-require_once $routed_file;
+
+require_once $route;
 
 // Подключаем файл
 //echo ROOT.'/image/favicon.ico';

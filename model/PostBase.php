@@ -42,7 +42,7 @@
 			{
 				$id=$this->Query_try($query);
 			}
-			header('Location: ../admin/name='.$id);
+			header('Location: ../admin?name='.$id);
 		}
 
 		public function AddParseFile()
@@ -53,7 +53,7 @@
         		echo "Err";
        		}
 			$_SESSION['file'] = $path;
-      		header('Location: ../admin/name='.$path);
+      		header('Location: ../admin?name='.$path);
 		}
 
 		public function AddMovie()
