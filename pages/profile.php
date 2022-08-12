@@ -1,25 +1,19 @@
 <?php
-//print_r($_GET);
-//	if(empty($_SESSION['user'])) { header("Location: /login");}
 	$id=$_SESSION['user']['id'];
-	if($_GET[0])
+	if($_GET[0]!='')
 	{
 		$id = $_GET[0];
 	}
-  /// echo $id;
-//$id = 4;
-    //print_r($_SESSION);
-//	require 'path/header.php';
+
 	$id_s = $_SESSION['user']['id'];
-	require 'model/GetBase.php';
+	require_once PATH.'/model/User.php';
 
-	$base = new GetBase();
+    $user = new User($id);
+//    echo $user->name;
+//$user->debug();
 
 
-	$res = $base->GetAcceptedRate($id);
-	$res_m = $base->GetUserRates($id);
-	$dat = $base->GetUserInfo($id);
-//    debug($dat['advice']); exit;
+
 
 ?>
 
@@ -27,18 +21,18 @@
   		<div class="row user-info">
   			<div class="col-sm-1"></div>
   			<div class="col-sm-2 col-6">
-                <img class="user-avatar" src="<?=ROOT?>/uploads/<?=$dat['avatar']?>">
+                <img class="user-avatar" src="<?=ROOT?>/uploads/<?=$user->avatar?>">
             </div>
             <div class="col-sm-4 col-6">
-                <h1><?=$dat['name']?></h1>
-                <p>Средняя оценка: <span class="rate-ch"><?=$dat['module']?></span></p>
-                <p>Количество встреч: <?=$dat['amount']?></p>
+                <h1><?=$user->name?></h1>
+                <p>Средняя оценка: <span class="rate-ch"><?=$user->module?></span></p>
+                <p>Количество встреч: <?=$user->amount?></p>
                 <p class="d-none">Дата регистрации: 12.03.2022</p>
             </div>
   				<div class="col-sm-4">
   					<?php if($id===$id_s):?> 
   						<div>
-  							<button type="button" onclick="document.location='logout'" class="btn btn-danger mt-2 btn-user m-0">Выход</button>
+  							<button type="button" onclick="document.location='/logout'" class="btn btn-danger mt-2 btn-user m-0">Выход</button>
   						</div>
   						<div>
   							<button type="button" class="btn btn-primary btn-user m-0 mt-2" data-bs-toggle="modal" data-bs-target="#userModal">Редактировать личные данные</button>
@@ -51,7 +45,7 @@
        									 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
       							</div>
       						<div class="modal-body">
-       						 <form action="https://imdibil.ru/controller/UserFormController.php?type=update" method="post" enctype="multipart/form-data">
+       						 <form action="<?=ROOT?>/controller/UserFormController.php?type=update" method="post" enctype="multipart/form-data">
 									  <div class="mb-3">
 									    <div class="mb-3">
 											  <input class="form-control" name="avatar"type="file" id="formFile">
@@ -72,7 +66,7 @@
 										</div>
 										<div class="input-group">
 										  <span class="input-group-text">Текущий пароль</span>
-										  <input type="password" required aria-label="Текущий пароль" name="old-pass"class="form-control">
+										  <input type="password" aria-label="Текущий пароль" name="old-pass"class="form-control">
 										</div>
 									  <button type="submit" class="btn btn-primary">Отправить</button>
 									</form>
@@ -91,12 +85,12 @@
        									 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
       							</div>
       						<div class="modal-body">
-       						  <form action="https://imdibil.ru/controller/UserFormController.php?type=add" method="post">
+       						  <form action="<?=ROOT?>/controller/UserFormController.php?type=add" method="post">
 										  <select class="form-select" name="movie"aria-label="Пример выбора по умолчанию">
 											  <option selected>Выберите фильм</option>
-											  <?php while($r=mysqli_fetch_assoc($res)): ?>
+											  <?php foreach ($user->allowed as $r): ?>
 											  <option name="<?=$r['id_meet']?>"value="<?=$r['id_meet']?>"><?=$r['name_m']?></option>
-											<?php endwhile;?>
+											<?php endforeach;?>
 											</select>
 											<div class="mb-3">
 												<div class="rating-area">
@@ -141,7 +135,7 @@
                     </div>
                     <div class="row">
             <div class="your-class" style="height: 250px;">
-                <?php foreach($dat['advice'] as $mo): ?>
+                <?php foreach($user->advices as $mo): ?>
                 <div class="slide-cust" style="">
                     <a href="<?=$mo['url']?>">
                         <img src="<?=ROOT?>/<?=$mo['poster']?>" class="img-fluid"  alt="">
@@ -168,7 +162,7 @@
   						</tr>
   					</thead>
   					<tbody>
-  						<?php while($r=mysqli_fetch_assoc($res_m)):
+  						<?php foreach($user->rates as $r):
   							$tmp_id = $r['id_meet']; ?>
   						<tr>
   							<td><a class="mov-nam"href="<?=$r['url']?>"><?=$r['name_m']?></a></td>
@@ -176,10 +170,10 @@
  
  								<td class="rate-ch"><?=$r['our_rate']?></td>
  								<?php if($id===$id_s):?> 
- 								<td><a class="unrate" href="controller/UserFormController.php?type=unrate&id=<?=$tmp_id?>">Удалить запись</a></td>
+ 								<td><a class="unrate" href="<?=ROOT?>/controller/UserFormController.php?type=unrate&id=<?=$tmp_id?>">Удалить запись</a></td>
  							<?php endif; ?>
  							</tr>
- 						<?php endwhile;?>
+ 						<?php endforeach;?>
   					</tbody>
   				</table>
   			</div>
@@ -187,4 +181,5 @@
   		</div>
   	</div>
 
-<?php require 'path/footer.php'; ?>
+<?php
+require PATH.'/path/footer.php'; ?>
