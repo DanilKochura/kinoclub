@@ -1,14 +1,12 @@
-<?php 
-	ini_set('display_errors', 0);
-	ini_set('display_startup_errors', 0);
-	error_reporting(E_ALL);
+<?php
 //		require 'path/header.php';
-	include 'parser/parser.php';
-	require 'config/bd.php';
+//echo ROOT.'/config/bd.php';
+	require PATH.'/parser/parser.php';
+	require PATH.'/config/bd.php';
 
 	session_start();
 	$db = new DB();
-	if($_SESSION['user']['id']!=29){header('Location: profile.php');}
+	if($_SESSION['user']['id']!=29){header('Location: /profile');}
 	$a = array(
 		'name'=>"Name",
 		'original'=>"Original Name",
@@ -24,7 +22,7 @@
 	if(isset($_GET['name']))
 	{
 		$a = Parse($_GET['name']);
-		
+
 	}
     $meet = $db->Query_try("SELECT name_m, id_meet from meeting join movie using(id_m)");
     $query_u = "SELECT id_e, name from expert where id_e != 29";
@@ -56,6 +54,7 @@
 	{
 		if($g==$r){echo "selected";}
 	}
+//    echo 'aaa';
 ?>
 <div class="container">
 	<div class="row">
