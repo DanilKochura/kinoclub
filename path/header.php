@@ -43,7 +43,7 @@ session_start();
                             <li><a href="/statistics" class="nav-link px-2 text-white">Аналитика</a></li>
                             <li><a href="/news" class="nav-link px-2 text-white">Новости</a></li>
                             <li><a href="/feedback" class="nav-link px-2 text-white">Форум</a></li>
-                            <li><a href="#" class="nav-link px-2 text-white">Викторина</a></li>
+                            <li><a href="/game" class="nav-link px-2 text-white">Викторина</a></li>
                         </ul>
                     </div>
 <!--                    <div class="text-end">-->
