@@ -10,6 +10,41 @@
 	alert(ti)
 
 });*/
+let uri_dir = 'https://kinopoiskapiunofficial.tech/api/v1/staff?filmId='
+let units = ['description', 'filmLength', 'genres', 'nameOriginal', 'nameRu', 'posterUrl', 'ratingImdb', 'ratingKinopoisk', 'webUrl', 'year'];
+console.log('a');
+console.log($('.search-m'));
+let data = '';
+$('.search-m').submit(function (e){
+	e.preventDefault();
+	let url = 'https://kinopoiskapiunofficial.tech/api/v2.2/films/'+$('#movie_input').val();
+	fetch(url, {
+		method: 'GET',
+		headers: {
+			'X-API-KEY': '897692c5-a85b-4eb2-bf74-369e3cc66f83',
+			'Content-Type': 'application/json',
+		},
+	})
+		.then(response => { return response.json() })
+		.then(resB => {
+			data = resB;
+			console.log(data);
+			$.each(units, function (key, value)
+			{
+				elem = '#'+value
+				$('#'+value).text(data[value]);
+			});
+
+		})
+			// const resp = answer.services;
+
+			// оперируйте данными здесь сколько душе угодно
+		.catch(err => console.log(err))
+	// console.log(res);
+
+
+	return false;
+});
 //controller/UserFormController.php?type=feedback
 $(document).ready(function(){
 	$('.your-class').slick({
@@ -44,7 +79,7 @@ $(document).ready(function(){
 
 const RateCl = document.querySelectorAll('.rate-ch');
 RateCl.forEach(element => {
-  console.log(element.textContent);
+  // console.log(element.textContent);
   rateCheck(element);
 });
 
@@ -59,7 +94,7 @@ function rateCheck(el)
 
 const Select = document.querySelectorAll('.selected');
 Select.forEach(element => {
-  console.log(element.textContent);
+  // console.log(element.textContent);
   SelectCheck(element);
 });
 
@@ -70,7 +105,7 @@ function SelectCheck(el)
     if(el.innerHTML === ""){console.log("Not selected");}
     else {
 	let id = "#id-"+el.textContent;
-	console.log(id);
+	// console.log(id);
 	const RateC = document.querySelector(id);
 	RateC.classList.add("selected"); }
 
@@ -86,9 +121,9 @@ $('#mm').change(function(){
 		dataType: 'json',          /* Тип данных в ответе (xml, json, script, html). */
 		data: {id: data_to},     /* Данные передаваемые в массиве */
 		success: function(data){   /* функция которая будет выполнена после успешного запроса.  */
-			console.log(data); /* В переменной data содержится ответ от index.php. */
+			// console.log(data); /* В переменной data содержится ответ от index.php. */
 			$.each(data, function(key,val){
-				console.log("key : "+key+" ; value : "+val);
+				// console.log("key : "+key+" ; value : "+val);
 				let id= '#'+key;
 				$(id).val(val);
 
@@ -99,7 +134,7 @@ $('#mm').change(function(){
 
 let jsonnn = $('.json').text();
 let text = JSON.parse(jsonnn);
-console.log(text);
+// console.log(text);
 var shuffled = text.sort(function(){
 	return Math.random() - 0.5;
 });
@@ -114,10 +149,11 @@ let movie_iterator = 0;
  */
 function NextTwo()
 {
-	console.log('func started: shuffled: '+shuffled.length+' i='+movie_iterator);
+	// console.log('func started: shuffled: '+shuffled.length+' i='+movie_iterator);
 
 	let elems = $(".f-1");
-	// console.log(shuffled.length - movie_iterator)
+	// console.
+	// (shuffled.length - movie_iterator)
 	if(shuffled.length - movie_iterator < 2)
 	{
 		if(shuffled.length == 1)
@@ -145,7 +181,7 @@ function NextTwo()
 		stage/=2;
 		shuffled.push(...choises);
 		choises.length = 0;
-		console.log(tour);
+		// console.log(tour);
 		movie_iterator = 0;
 		flag = 1;
 		NextTwo();
@@ -157,7 +193,7 @@ function NextTwo()
 		  let src = $($(element).children('img')[0]).attr('src', shuffled[movie_iterator]['poster']);
 		  $(element).attr('id', movie_iterator);
 		  movie_iterator++;
-		console.log(movie_iterator);
+		// console.log(movie_iterator);
 
 		  // console.log(src);
 	});
@@ -181,7 +217,7 @@ function NextFilm(id_m)
 	if(shuffled.length - movie_iterator < 2)
 	{
 		console.log('game_over');
-		console.log(choises);
+		// console.log(choises);
 		elems.addClass('d-none');
 		let resultdiv = $('.result');
 		resultdiv.removeClass('d-none');
@@ -192,7 +228,7 @@ function NextFilm(id_m)
 
 	}
 	$.each(elems, function (index, element){
-		console.log($(element).attr('id')+' selected: '+ id_m);
+		// console.log($(element).attr('id')+' selected: '+ id_m);
 		if($(element).attr('id') == id_m)
 		{
 			return;
@@ -200,7 +236,7 @@ function NextFilm(id_m)
 		let src = $($(element).children('img')[0]).attr('src', shuffled[movie_iterator]['poster']);
 		$(element).attr('id', movie_iterator);
 		movie_iterator++;
-		console.log(src);
+		// console.log(src);
 	});
 }
 let flag = 0;
@@ -230,21 +266,21 @@ function func_set(n1, n2, mo, it)
 		// $(mo[n2]).classList.remove('mo-passive');
 		// $(mo[n1]).classList.remove('mo-active');
 		$(mo[n2]).text(it);
-		console.log('clear')
+		// console.log('clear')
 	}
 	// alert('dfdf');
 	// $(mo[n2]).removeClass('mo-first');
 	// $(mo[n1]).removeClass('mo-first');
 	$(mo[n2]).removeClass('mo-first').addClass('mo-passive');
 	$(mo[n1]).removeClass('mo-first').addClass('mo-active');
-	console.log('set');
+	// console.log('set');
 	setTimeout(function(){
 		func_clear(n1, n2, mo, it)
 	}, 1000);
 
 }
 let mount = $('.mo-1');
-console.log(mount);
+// console.log(mount);
 let iterator = 2;
 
 setInterval(function (){
@@ -259,7 +295,7 @@ setInterval(function (){
 	iterator++;
 	let num = Math.floor(Math.random()*2);
 	let num2 = num == 1 ? 0 : 1;
-	console.log(num+' ' + num2);
+	// console.log(num+' ' + num2);
 	clearTimeout();
 	setTimeout(function (){
 		func_set(num, num2, mount, iterator)

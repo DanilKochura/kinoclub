@@ -28,12 +28,11 @@
                 <p>Средняя оценка: <span class="rate-ch"><?=$user->module?></span></p>
                 <p>Количество встреч: <?=$user->amount?></p>
                 <p class="d-none">Дата регистрации: 12.03.2022</p>
+
+
             </div>
   				<div class="col-sm-4">
-  					<?php if($id===$id_s):?> 
-  						<div>
-  							<button type="button" onclick="document.location='/logout'" class="btn btn-danger mt-2 btn-user m-0">Выход</button>
-  						</div>
+  					<?php if($id===$id_s):?>
   						<div>
   							<button type="button" class="btn btn-primary btn-user m-0 mt-2" data-bs-toggle="modal" data-bs-target="#userModal">Редактировать личные данные</button>
   						</div>
@@ -76,8 +75,8 @@
 						  </div>
 								</div>
 
-  				<button type="button" class="btn btn-warning btn-user m-0 mt-2" data-bs-toggle="modal" data-bs-target="#movieAddModal">Добавить фильм</button><?php endif; ?></div>
-  				<div class="modal fade" id="movieAddModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  				<div><button type="button" class="btn btn-warning btn-user m-0 mt-2" data-bs-toggle="modal" data-bs-target="#rateAddModal">Добавить оценку</button></div>
+  				<div class="modal fade" id="rateAddModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
  							 <div class="modal-dialog">
    							 <div class="modal-content">
     							  <div class="modal-header">
@@ -118,6 +117,87 @@
 												</div>
 										  <button type="submit" class="btn btn-warning">Отправить</button>
 										</form>
+						    </div>
+						  </div>
+						</div>
+					</div>
+                <div><button type="button" class="btn btn-warning btn-user m-0 mt-2" data-bs-toggle="modal" data-bs-target="#thirdAddModal">Добавить тройку</button></div>
+  				    <div class="modal fade" id="thirdAddModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ 							 <div class="modal-dialog">
+   							 <div class="modal-content">
+    							  <div class="modal-header">
+        							<h5 class="modal-title" id="exampleModalLabel">Добавить тройку</h5>
+       									 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+      							</div>
+      						<div class="modal-body">
+       						  <form action="<?=ROOT?>/controller/UserFormController.php?type=add" method="post">
+										  <select class="form-select" name="movie"aria-label="Пример выбора по умолчанию">
+											  <option selected>Выберите фильм</option>
+											  <?php foreach ($user->allowed as $r): ?>
+											  <option name="<?=$r['id_meet']?>"value="<?=$r['id_meet']?>"><?=$r['name_m']?></option>
+											<?php endforeach;?>
+											</select>
+
+										  <button type="submit" class="btn btn-warning">Отправить</button>
+										</form>
+						    </div>
+						  </div>
+						</div>
+					</div>
+               <div></div> <button type="button" class="btn btn-warning btn-user m-0 mt-2" data-bs-toggle="modal" data-bs-target="#movieAddModal">Добавить фильм в базу</button><?php endif; ?></div>
+  				    <div class="modal fade" id="movieAddModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ 							 <div class="modal-dialog">
+   							 <div class="modal-content">
+    							  <div class="modal-header">
+        							<h5 class="modal-title" id="exampleModalLabel">Добавить фильм в бд</h5>
+       									 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+      							</div>
+      						<div class="modal-body">
+                                <form action="/" class="search-m">
+                                <div class="container">
+                                    <div class="row text-center">
+
+                                            <div class="col-7">
+                                                <input type="text" name="name-movie" class="h-100" id="movie_input">
+                                            </div>
+                                        <div class="col-5">
+                                            <input type="submit" class="btn btn-warning">
+                                        </div>
+
+                                    </div>
+                                </div>
+                                </form>
+
+       						    <div class="container">
+                                    <div class="row m-2 p-2 b1-warning">
+                                        <div class="col-5">
+                                            <img src="" id="posterUrl" class="img-fluid rounded"alt="">
+                                        </div>
+                                        <div class="col-7">
+                                            <div class="row name">
+                                                <span id="nameRu"></span>
+                                            </div>
+                                            <div class="row">
+                                                <span id="nameOriginal"></span>
+                                            </div>
+                                            <div class="row">
+                                                <span id="description"></span>
+                                            </div>
+                                            <div class="row name">
+                                                <span id="filmLength"></span>
+                                            </div>
+                                            <div class="row">
+                                                <span id="ratingImdb"></span>
+                                            </div>
+                                            <div class="row">
+                                                <span id="ratingKinopoisk"></span>
+                                            </div>
+                                            <div class="row">
+                                                <span id="year"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 						    </div>
 						  </div>
 						</div>
