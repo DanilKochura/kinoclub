@@ -29,11 +29,37 @@ $('.search-m').submit(function (e){
 		.then(resB => {
 			data = resB;
 			console.log(data);
+            let item= '';
 			$.each(units, function (key, value)
 			{
-				elem = '#'+value
-				$('#'+value).text(data[value]);
+                item ='';
+                if(value == 'genres')
+                {
+                    $.each(data[value], function (key, val)
+                    {
+                        item += ' '+val['genre'];
+                    })
+                }
+                else
+                {
+                    item = data[value]
+                }
+                if(value == 'posterUrl')
+                {
+                    $('#'+value).attr('src', item);
+                }else
+                {
+				    $('#'+value).text(item);
+                }
+
+                let inp = '<input type="hidden" name="'+value+'" value="'+item+'">';
+
+                $('form#addForm').append($(inp));
 			});
+            let inp ='<p>Ты искал этот фильм? Если да, то нажми кнопку "Сохранить" и он сохранится в нашей базе</p>'+
+				'<button type="submit" class="btn btn-warning m-3">Сохранить</button>';
+
+            $('form#addForm').append($(inp));
 
 		})
 			// const resp = answer.services;
@@ -87,8 +113,9 @@ RateCl.forEach(element => {
 RateCl[0];
 function rateCheck(el)
 {
-	if(el.textContent>= 7.0){el.classList.add("green-zone");}
-		else if(el.textContent>=5.0){el.classList.add("grey-zone");}
+	console.log(parseFloat(el.textContent))
+	if(parseFloat(el.textContent)>= 7.0){el.classList.add("green-zone");}
+		else if(parseFloat(el.textContent)>=5.0){el.classList.add("grey-zone");}
 			else el.classList.add("red-zone");
 }
 
