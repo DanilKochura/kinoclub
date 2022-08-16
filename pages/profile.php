@@ -181,21 +181,28 @@
                                                 <span id="nameOriginal"></span>
                                             </div>
                                             <div class="row">
-                                                <span id="description"></span>
-                                            </div>
-                                            <div class="row name">
                                                 <span id="filmLength"></span>
                                             </div>
                                             <div class="row">
-                                                <span id="ratingImdb"></span>
-                                            </div>
-                                            <div class="row">
-                                                <span id="ratingKinopoisk"></span>
+                                                <div class="col-6">
+                                                    <span id="ratingImdb" class=""></span>
+                                                </div>
+                                                <div class="col-6">
+                                                    <span id="ratingKinopoisk" class=""></span>
+                                                </div>
+
                                             </div>
                                             <div class="row">
                                                 <span id="year"></span>
                                             </div>
+
                                         </div>
+
+                                    </div>
+                                    <div class="row  text-center">
+                                        <form action="" id="addForm">
+
+                                        </form>
                                     </div>
                                 </div>
 						    </div>
