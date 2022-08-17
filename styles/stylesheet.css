@@ -868,3 +868,9 @@ html, body
 {
   justify-content: center;
 }
+
+.b1-warning
+{
+  border: 1px solid var(--active-bg);
+}
+
