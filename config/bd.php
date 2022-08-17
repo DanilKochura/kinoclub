@@ -24,10 +24,15 @@ Class DB
 			}
 			return $result;
 		}
+        public function insrtid()
+        {
+            return $this->conn->insert_id;
+        }
 		function __destruct()
 		{
 			mysqli_close($this->conn);
 		}
+
 	}
 
 function debug($array)
