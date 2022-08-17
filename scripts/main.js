@@ -10,10 +10,11 @@
 	alert(ti)
 
 });*/
+let myModal = new bootstrap.Modal(document.getElementById('answerM'), {
+	keyboard: false
+})
 let uri_dir = 'https://kinopoiskapiunofficial.tech/api/v1/staff?filmId='
 let units = ['description', 'filmLength', 'genres', 'nameOriginal', 'nameRu', 'posterUrl', 'ratingImdb', 'ratingKinopoisk', 'webUrl', 'year'];
-console.log('a');
-console.log($('.search-m'));
 let data = '';
 $('.search-m').submit(function (e){
 	e.preventDefault();
@@ -28,7 +29,6 @@ $('.search-m').submit(function (e){
 		.then(response => { return response.json() })
 		.then(resB => {
 			data = resB;
-			console.log(data);
             let item= '';
 			$.each(units, function (key, value)
 			{
@@ -56,6 +56,19 @@ $('.search-m').submit(function (e){
 
                 $('form#addForm').append($(inp));
 			});
+			fetch('https://kinopoiskapiunofficial.tech/api/v1/staff?filmId='+$('#movie_input').val(), {
+				method: 'GET',
+				headers: {
+					'X-API-KEY': '897692c5-a85b-4eb2-bf74-369e3cc66f83',
+					'Content-Type': 'application/json',
+				},
+			})
+				.then(resp => { return resp.json() })
+				.then(res => {
+					let inp = '<input type="hidden" name="director" value="'+res[0]['nameRu']+'">';
+
+					$('form#addForm').append($(inp));
+				});
             let inp ='<p>Ты искал этот фильм? Если да, то нажми кнопку "Сохранить" и он сохранится в нашей базе</p>'+
 				'<button type="submit" class="btn btn-warning m-3">Сохранить</button>';
 
@@ -70,6 +83,31 @@ $('.search-m').submit(function (e){
 
 
 	return false;
+});
+$('form#addForm').submit(function (e){
+	e.preventDefault();
+	$.ajax({
+		url: '/scripts/ajax/addfilm.php',
+		method: 'post',
+		dataType: 'html',
+		data: $(this).serialize(),
+		success: function(data){
+
+            console.log(data);
+            $('form#addForm').empty();
+            // $('.').empty()
+			$('#movieAddModal').modal('hide');
+			$('.answer').text(data);
+			$('#answerM').modal('show');
+			setTimeout(function(){
+				$('#answerM').modal('hide');
+			}, 2000);
+
+		},
+		error: function(error){
+			$('#message').html(error);
+		}
+	});
 });
 //controller/UserFormController.php?type=feedback
 $(document).ready(function(){
