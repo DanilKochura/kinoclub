@@ -10,13 +10,14 @@ $GLOBALS['sitemap'] = array (
     '/' => 'main.php',   // Главная страница
     '/news' => 'news.php',   // Новости - страница без параметров
     '/profile/?([0-9]+)?' => 'profile.php',  // С числовым параметром
-    '/statistics' => 'statistics.php',  // С числовым параметром
-    '/feedback' => 'feedback.php',  // С числовым параметром
-    '/logout' => 'logout.php',  // С числовым параметром
-    '/login' => 'login.php',  // С числовым параметром
-    '/admin' => 'admin.php',  // С числовым параметром
-    '/test' => 'test.php',  // С числовым параметром
-    '/game' => 'quiz.php',  // С числовым параметром
+    '/statistics' => 'statistics.php',  //
+    '/feedback' => 'feedback.php',  //
+    '/logout' => 'logout.php',  //
+    '/login' => 'login.php',  //
+    '/admin' => 'admin.php',
+    '/test' => 'test.php',
+    '/game' => 'game/quiz.php',
+    '/game/tour' => 'game/tour.php',
     // Больше правил
 );
 // Код роутера
