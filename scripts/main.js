@@ -1,18 +1,10 @@
-/*$('.new').submit(function(e) {  //обработка и отправка формы
-	e.preventDefault();
-	let re = $('#re').val().trim();
-	let text = $('#text').val().trim();
-	let date= new Date();
-	let time = $('.time').text();
-	alert(time);
-	alert(date);
-	let ti = date-time;
-	alert(ti)
-
-});*/
-let myModal = new bootstrap.Modal(document.getElementById('answerM'), {
-	keyboard: false
-})
+$('#search').on('input', function (){
+	$.post('/scripts/ajax/search.php',
+		{text: this.value},
+		function(data){
+		alt(JSON.parse(data));
+	});
+});
 let uri_dir = 'https://kinopoiskapiunofficial.tech/api/v1/staff?filmId='
 let units = ['description', 'filmLength', 'genres', 'nameOriginal', 'nameRu', 'posterUrl', 'ratingImdb', 'ratingKinopoisk', 'webUrl', 'year'];
 let data = '';
@@ -93,15 +85,16 @@ $('form#addForm').submit(function (e){
 		data: $(this).serialize(),
 		success: function(data){
 
-            console.log(data);
+            // console.log(data);
             $('form#addForm').empty();
             // $('.').empty()
 			$('#movieAddModal').modal('hide');
-			$('.answer').text(data);
-			$('#answerM').modal('show');
-			setTimeout(function(){
-				$('#answerM').modal('hide');
-			}, 2000);
+			$('#answer').find('.toast-body').text(data)
+			$('#answer').show();
+			setTimeout(function (){
+				$('#answer').hide();
+			}, 3000);
+
 
 		},
 		error: function(error){
@@ -139,6 +132,7 @@ $(document).ready(function(){
 			}
 		]
 });
+
 });
 
 const RateCl = document.querySelectorAll('.rate-ch');
@@ -151,7 +145,7 @@ RateCl.forEach(element => {
 RateCl[0];
 function rateCheck(el)
 {
-	console.log(parseFloat(el.textContent))
+	// console.log(parseFloat(el.textContent))
 	if(parseFloat(el.textContent)>= 7.0){el.classList.add("green-zone");}
 		else if(parseFloat(el.textContent)>=5.0){el.classList.add("grey-zone");}
 			else el.classList.add("red-zone");
@@ -196,184 +190,181 @@ $('#mm').change(function(){
 		}
 	});
 });
-
-let jsonnn = $('.json').text();
-let text = JSON.parse(jsonnn);
-// console.log(text);
-var shuffled = text.sort(function(){
-	return Math.random() - 0.5;
-});
-let stage = shuffled.length/2;
-// console.log(stage);
-let movie_iterator = 0;
-// console.log(text);
-
-/**
- * функция генерации новой турнирной пары
- * @constructor
- */
-function NextTwo()
+if($('.json').length>0)
 {
-	// console.log('func started: shuffled: '+shuffled.length+' i='+movie_iterator);
-
-	let elems = $(".f-1");
-	// console.
-	// (shuffled.length - movie_iterator)
-	if(shuffled.length - movie_iterator < 2)
+	let jsonnn = $('.json').text();
+	let text = JSON.parse(jsonnn);
+// console.log(text);
+	var shuffled = text.sort(function(){
+		return Math.random() - 0.5;
+	});
+	let stage = shuffled.length/2;
+// console.log(stage);
+	let movie_iterator = 0;
+// console.log(text);
+	/**
+	 * функция генерации новой турнирной пары
+	 * @constructor
+	 */
+	function NextTwo()
 	{
-		if(shuffled.length == 1)
+		// console.log('func started: shuffled: '+shuffled.length+' i='+movie_iterator);
+
+		let elems = $(".f-1");
+		// console.
+		// (shuffled.length - movie_iterator)
+		if(shuffled.length - movie_iterator < 2)
 		{
-			//console.log(choises);
+			if(shuffled.length == 1)
+			{
+				//console.log(choises);
+				elems.addClass('d-none');
+				let resultdiv = $('.result');
+				resultdiv.removeClass('d-none');
+				for(let j = 0; j<tour.length; j++)
+				{
+					resultdiv.append($('<p class="h2 text-danger"> Round:'+(j+1)+'</p>'));
+					for (let k =0; k<tour[j].length; k++)
+					{
+						//console.log(tour[0][0])
+						resultdiv.append($('<p> #'+k+' : '+tour[j][k]['name']+'</p>'));
+					}
+
+				}
+				return false;
+			}
+			// console.log('game_over');
+			// console.log(choises);
+			shuffled.length =0;
+			tour.push(new Array(...choises));
+			stage/=2;
+			shuffled.push(...choises);
+			choises.length = 0;
+			// console.log(tour);
+			movie_iterator = 0;
+			flag = 1;
+			NextTwo();
+			return;
+
+		}
+		$.each(elems, function (index, element){
+
+			let src = $($(element).children('img')[0]).attr('src', shuffled[movie_iterator]['poster']);
+			$(element).attr('id', movie_iterator);
+			movie_iterator++;
+			// console.log(movie_iterator);
+
+			// console.log(src);
+		});
+		// if(flag == 1)
+		// {
+		// 	flag = 0;
+		// 	NextTwo();
+		// 	// movie_iterator = 0;
+		// }
+
+	}
+
+	/**
+	 * функция подмены невыбранного фильма на новый (режим "царь горы")
+	 * @param id_m
+	 * @constructor
+	 */
+	function NextFilm(id_m)
+	{
+		let elems = $(".f-1");
+		if(shuffled.length - movie_iterator < 2)
+		{
+			console.log('game_over');
+			// console.log(choises);
 			elems.addClass('d-none');
 			let resultdiv = $('.result');
 			resultdiv.removeClass('d-none');
-			for(let j = 0; j<tour.length; j++)
+			for(let j = 0; j<choises.length; j++)
 			{
-				resultdiv.append($('<p class="h2 text-danger"> Round:'+(j+1)+'</p>'));
-				for (let k =0; k<tour[j].length; k++)
-				{
-					//console.log(tour[0][0])
-					resultdiv.append($('<p> #'+k+' : '+tour[j][k]['name']+'</p>'));
-				}
-
+				resultdiv.append($('<p>'+shuffled[choises[j]]['name']+'</p>'));
 			}
-			return false;
-		}
-		// console.log('game_over');
-		// console.log(choises);
-		shuffled.length =0;
-		tour.push(new Array(...choises));
-		stage/=2;
-		shuffled.push(...choises);
-		choises.length = 0;
-		// console.log(tour);
-		movie_iterator = 0;
-		flag = 1;
-		NextTwo();
-		return;
 
+		}
+		$.each(elems, function (index, element){
+			// console.log($(element).attr('id')+' selected: '+ id_m);
+			if($(element).attr('id') == id_m)
+			{
+				return;
+			}
+			let src = $($(element).children('img')[0]).attr('src', shuffled[movie_iterator]['poster']);
+			$(element).attr('id', movie_iterator);
+			movie_iterator++;
+			// console.log(src);
+		});
 	}
-	$.each(elems, function (index, element){
+	let flag = 0;
 
-		  let src = $($(element).children('img')[0]).attr('src', shuffled[movie_iterator]['poster']);
-		  $(element).attr('id', movie_iterator);
-		  movie_iterator++;
-		// console.log(movie_iterator);
-
-		  // console.log(src);
-	});
-	// if(flag == 1)
-	// {
-	// 	flag = 0;
-	// 	NextTwo();
-	// 	// movie_iterator = 0;
-	// }
-
-}
-
-/**
- * функция подмены невыбранного фильма на новый (режим "царь горы")
- * @param id_m
- * @constructor
- */
-function NextFilm(id_m)
-{
-	let elems = $(".f-1");
-	if(shuffled.length - movie_iterator < 2)
-	{
-		console.log('game_over');
-		// console.log(choises);
-		elems.addClass('d-none');
-		let resultdiv = $('.result');
-		resultdiv.removeClass('d-none');
-		for(let j = 0; j<choises.length; j++)
-		{
-			resultdiv.append($('<p>'+shuffled[choises[j]]['name']+'</p>'));
-		}
-
-	}
-	$.each(elems, function (index, element){
-		// console.log($(element).attr('id')+' selected: '+ id_m);
-		if($(element).attr('id') == id_m)
-		{
-			return;
-		}
-		let src = $($(element).children('img')[0]).attr('src', shuffled[movie_iterator]['poster']);
-		$(element).attr('id', movie_iterator);
-		movie_iterator++;
-		// console.log(src);
-	});
-}
-let flag = 0;
-
-let tour = [];
-let choises = [];
-let first = $('.f-1');
-NextTwo();
-first.on('click', function(){
-	let id = $(this).attr('id');
-	choises.push(shuffled[id]);
-	// console.log(id);
-	// 	console.log(choises);
-	NextTwo();///турнир
+	let tour = [];
+	let choises = [];
+	let first = $('.f-1');
+	NextTwo();
+	first.on('click', function(){
+			let id = $(this).attr('id');
+			choises.push(shuffled[id]);
+			// console.log(id);
+			// 	console.log(choises);
+			NextTwo();///турнир
 //NextFilm(id);//царь горы
-	}
-);
+		}
+	);
 
-function func_set(n1, n2, mo, it)
-{
-	function func_clear(n1, n2, mo, it)
+	function func_set(n1, n2, mo, it)
 	{
+		function func_clear(n1, n2, mo, it)
+		{
+			// alert('dfdf');
+
+			$(mo[n2]).removeClass('mo-passive').addClass('mo-first');
+			$(mo[n1]).removeClass('mo-active').addClass('mo-first');
+			// $(mo[n2]).classList.remove('mo-passive');
+			// $(mo[n1]).classList.remove('mo-active');
+			$(mo[n2]).text(it);
+			// console.log('clear')
+		}
 		// alert('dfdf');
+		// $(mo[n2]).removeClass('mo-first');
+		// $(mo[n1]).removeClass('mo-first');
+		$(mo[n2]).removeClass('mo-first').addClass('mo-passive');
+		$(mo[n1]).removeClass('mo-first').addClass('mo-active');
+		// console.log('set');
+		setTimeout(function(){
+			func_clear(n1, n2, mo, it)
+		}, 1000);
 
-		$(mo[n2]).removeClass('mo-passive').addClass('mo-first');
-		$(mo[n1]).removeClass('mo-active').addClass('mo-first');
-		// $(mo[n2]).classList.remove('mo-passive');
-		// $(mo[n1]).classList.remove('mo-active');
-		$(mo[n2]).text(it);
-		// console.log('clear')
 	}
-	// alert('dfdf');
-	// $(mo[n2]).removeClass('mo-first');
-	// $(mo[n1]).removeClass('mo-first');
-	$(mo[n2]).removeClass('mo-first').addClass('mo-passive');
-	$(mo[n1]).removeClass('mo-first').addClass('mo-active');
-	// console.log('set');
-	setTimeout(function(){
-		func_clear(n1, n2, mo, it)
-	}, 1000);
-
-}
-let mount = $('.mo-1');
+	let mount = $('.mo-1');
 // console.log(mount);
-let iterator = 2;
+	let iterator = 2;
 
-setInterval(function (){
+	setInterval(function (){
 
 
-	if(iterator==9)
-	{
-		iterator = 2;
-		mount[0].text(2);
-		mount[1].text(1);
-	}
-	iterator++;
-	let num = Math.floor(Math.random()*2);
-	let num2 = num == 1 ? 0 : 1;
-	// console.log(num+' ' + num2);
-	clearTimeout();
-	setTimeout(function (){
-		func_set(num, num2, mount, iterator)
-	}, 1000);
-	clearTimeout();
-}, 2000);
-//
-// setInterval(function (){
-// 	console.log(iterator++);
-// }, 2000);
-// setTimeout(function (){
-// 	console.log(1);
-// }, 2000);
-// setTimeout( function (){
-// 	console.log(2)
-// }, 2*2000);
+		if(iterator==9)
+		{
+			iterator = 2;
+			mount[0].text(2);
+			mount[1].text(1);
+		}
+		iterator++;
+		let num = Math.floor(Math.random()*2);
+		let num2 = num == 1 ? 0 : 1;
+		// console.log(num+' ' + num2);
+		// clearTimeout();
+		setTimeout(function (){
+			func_set(num, num2, mount, iterator)
+		}, 1000);
+		clearTimeout();
+	}, 2000);
+}
+
+
+
+
+
+
