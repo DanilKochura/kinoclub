@@ -11,6 +11,7 @@ class User extends DB
     public array $advices = [];
     public array $allowed = [];
     public int $id;
+    public array $allFilms = [];
 
     /**
      * @param $id - id пользователя
@@ -44,6 +45,13 @@ class User extends DB
         {
             $this->allowed[] = $row_al;
         }
+        $query_meet = "SELECT name_m, id_m from movie left join meeting using(id_m) where id_meet is NULL";
+        $momeet = $this->Query_try($query_meet);
+        while($row = mysqli_fetch_assoc($momeet))
+        {
+            $this->allFilms[]=$row;
+        }
+
 
     }
     public function debug()

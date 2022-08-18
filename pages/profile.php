@@ -130,16 +130,34 @@
        									 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
       							</div>
       						<div class="modal-body">
-       						  <form action="<?=ROOT?>/controller/UserFormController.php?type=add" method="post">
-										  <select class="form-select" name="movie"aria-label="Пример выбора по умолчанию">
-											  <option selected>Выберите фильм</option>
-											  <?php foreach ($user->allowed as $r): ?>
-											  <option name="<?=$r['id_meet']?>"value="<?=$r['id_meet']?>"><?=$r['name_m']?></option>
-											<?php endforeach;?>
-											</select>
-
-										  <button type="submit" class="btn btn-warning">Отправить</button>
-										</form>
+<!--       						  <form action="" method="post">-->
+<!--                                  <input type="text" id="search">-->
+<!---->
+<!--										  <button type="submit" class="btn btn-warning">Отправить</button>-->
+<!--										</form>-->
+                                <div class="row">
+                                    <div class="row">
+                                        <form method="post" action="controller/AdminFormController.php?type=third">
+                                            <label>Выберите фильм</label>
+                                            <select class="form-select" name="film1"aria-label="Фильм">
+                                                <?php foreach ($user ->allFilms as $film): ?>
+                                                    <option name="<?=$film['name_m']?>"value="<?=$film['id_m']?>"><?=$film['name_m']?></option>
+                                                <?php endforeach;?>
+                                            </select>
+                                            <select class="form-select" name="film2"aria-label="Фильм">
+                                                <?php foreach ($user ->allFilms as $film): ?>
+                                                    <option name="<?=$film['name_m']?>"value="<?=$film['id_m']?>"><?=$film['name_m']?></option>
+                                                <?php endforeach;?>
+                                            </select>
+                                            <select class="form-select" name="film3"aria-label="Фильм">
+                                                <?php foreach ($user ->allFilms as $film): ?>
+                                                    <option name="<?=$film['name_m']?>"value="<?=$film['id_m']?>"><?=$film['name_m']?></option>
+                                                <?php endforeach;?>
+                                            </select>
+                                            <button type="submit" onclick="#" class="btn btn-warning">Добавить тройку</button>
+                                        </form>
+                                    </div>
+                                </div>
 						    </div>
 						  </div>
 						</div>
@@ -267,28 +285,57 @@
   			<div class="col-sm-1"></div>
   		</div>
   	</div>
-    <div class="modal fade" id="answerM" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row text-center text-success">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
-                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
-                        </svg>
-                    </div>
-                    <div class="row">
-                        <p class="answer text-success text-center">
+<!--    <div class="modal fade" id="answerM" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+<!--        <div class="modal-dialog">-->
+<!--            <div class="modal-content">-->
+<!--                <div class="modal-header">-->
+<!--                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                </div>-->
+<!--                <div class="modal-body">-->
+<!--                    <div class="row text-center text-success">-->
+<!--                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">-->
+<!--                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>-->
+<!--                            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>-->
+<!--                        </svg>-->
+<!--                    </div>-->
+<!--                    <div class="row">-->
+<!--                        <p class="answer text-success text-center">-->
+<!---->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!---->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 
-                        </p>
-                    </div>
-                </div>
+    <div class="toast-container position-absolute bottom-0 end-0 p-3">
+        <div class="toast" id="answer" role="alert" aria-atomic="true">
+            <div class="toast-header text-white bg-success">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                </svg>
+                <strong class="me-auto mx-1">IMDbil</strong>
+                <small class="text-muted">just now</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
 
             </div>
         </div>
+
+<!--        <div class="toast" id="test" role="alert" aria-live="assertive" aria-atomic="true">-->
+<!--            <div class="toast-header">-->
+<!--                <img src="..." class="rounded me-2" alt="...">-->
+<!--                <strong class="me-auto">Bootstrap</strong>-->
+<!--                <small class="text-muted">2 seconds ago</small>-->
+<!--                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>-->
+<!--            </div>-->
+<!--            <div class="toast-body">-->
+<!--                Heads up, toasts will stack automatically-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
 <?php
 require PATH.'/path/footer.php'; ?>
