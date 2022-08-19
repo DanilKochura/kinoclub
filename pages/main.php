@@ -17,7 +17,7 @@ $base = new GetBase();
 $meetings= $base->GetMoviesPage($sort, $order, $start, $show); ?>
 <div class="container ">
     <div class="row">
-        <div class="col rounded forum-card d-none">
+        <div class="col rounded forum-card d-none d-md-block">
             <div class="text-center">
                 <form method="get" action="">
                     <div style="display: inline-flex">
