@@ -104,7 +104,12 @@ $_GET[0] = ($sm->params[1]) ?: '';
 $get = $sm->params;
 
 require_once $route;
+if(!in_array($routed_file, ['login.php', 'statistics.php']))
+{
+    require 'path/footer.php';
 
+
+}
 // Подключаем файл
 //echo ROOT.'/image/favicon.ico';
 // P.S. Внутри подключённого файла Вы можете использовать параметры запроса,

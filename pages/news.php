@@ -98,5 +98,3 @@
   		</div>
   	</div>
   <?php ++$j; endforeach; 
-  require 'path/footer.php';
-

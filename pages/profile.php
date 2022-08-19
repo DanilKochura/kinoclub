@@ -338,4 +338,3 @@
 <!--        </div>-->
     </div>
 <?php
-require PATH.'/path/footer.php'; ?>

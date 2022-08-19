@@ -245,5 +245,5 @@ foreach($meetings as $m):
 </div>
 </div>
 </div>
-<?php require 'path/footer.php';?>
+
 
