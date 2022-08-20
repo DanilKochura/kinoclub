@@ -1,7 +1,7 @@
 <?php
 require_once '../../config/bd.php';
 $db = new DB();
-file_put_contents(__DIR__.'/0.txt', print_r($_POST, 1).PHP_EOL);
+//file_put_contents(__DIR__.'/0.txt', print_r($_POST, 1).PHP_EOL);
 if(!$_POST['description'] or !$_POST['filmLength']
     or !$_POST['genres'] or !$_POST['nameRu'] or !$_POST['posterUrl']
     or !$_POST['ratingImdb'] or !$_POST['ratingKinopoisk'] or !$_POST['webUrl'] or
@@ -13,7 +13,7 @@ if(!$_POST['description'] or !$_POST['filmLength']
 $descr = $_POST['description'];
 $length = $_POST['filmLength'];
 $name = $_POST['nameRu'];
-$origin = $_POST['nameOriginal'] ?: $_POST['nameEn'];
+$origin = $_POST['nameOriginal'] ?: ($_POST['nameEn'] ?: ' ');
 $genres = explode(' ', $_POST['genres']);
 $imdb = $_POST['ratingImdb'];
 $kp = $_POST['ratingKinopoisk'];
@@ -21,6 +21,17 @@ $poster = $_POST['posterUrl'];
 $url = $_POST['webUrl'];
 $director = $_POST['director'];
 $year = $_POST['year'];
+//$p = PATH;
+$path = '../../';
+$root = 'https://imdibil.ru/';
+$name_f= $origin;
+if($origin != ' ')
+{
+    $name_f = uniqid();
+    file_put_contents(__DIR__.'/0.txt', $name_f.' '.$origin.PHP_EOL, 8);
+
+}
+$local = 'image/'.$name_f.'.jpg';
 $test = $db->Query_try("SELECT * from movie where name_m = '$name' and year_of_cr = '$year'");
 if($test->num_rows > 0)
 {
@@ -45,10 +56,10 @@ $increment = "SELECT id_m from movie order by id_m desc limit 1";
 $increment = $db->Query_try($increment);
 $increment = mysqli_fetch_assoc($increment);
 $id_m = $increment['id_m']+1;
-
+$p = file_put_contents($path.$local, file_get_contents($poster)) ? $root.$local : $poster;
 $query = "INSERT INTO `movie`(`id_m`,`name_m`, `rating`, `rating_kp`, `year_of_cr`, 
                     `duration`, `director`, `our_rate`, `original`, `poster`, `url`, 
-                    `description`) VALUES ('$id_m','$name', '$imdb', '$kp', '$year', '$length', '$id_dir', null, '$origin', '$poster', '$url', '$descr')";
+                    `description`) VALUES ('$id_m','$name', '$imdb', '$kp', '$year', '$length', '$id_dir', null, '$origin', '$p', '$url', '$descr')";
 $db->Query_try($query);
 
 
