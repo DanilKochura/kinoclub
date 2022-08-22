@@ -59,7 +59,7 @@
 		public function AddMovie()
 		{
 			$name = $_POST['name']; 
-			$or = $_POST['original']; 
+			$or = $_POST['original'] ?: '';
 			$dir = $_POST['director']; 
 			$ye = $_POST['year']; 
 			$dur = $_POST['duration']; 
@@ -70,16 +70,20 @@
 			$descr = $_POST['descr'];
             $fname = $or ?: uniqid();
 			echo $file;
+            $pa = '../';
+            $root = 'https://imdibil.ru/';
 		    $path = "image/".$fname.".jpg";
-		        if (!move_uploaded_file($_FILES['avatar']['tmp_name'], "../".$path)) {
+		        if (!move_uploaded_file($_FILES['avatar']['tmp_name'], $pa.$path)) {
 		        		error_log("d");
+                        echo $pa.$path;
+                        exit;
 		        }
 		    $increment = "SELECT id_m from movie order by id_m desc limit 1";
 		    $increment = $this->Query_try($increment);
 		    $increment = mysqli_fetch_assoc($increment);
 		    $i = $increment['id_m']+1;
 
-		    $query = "INSERT INTO `movie` (`id_m`, `name_m`, `rating`, `rating_kp`, `year_of_cr`, `duration`, `director`, `our_rate`, `original`, `poster`, `url`, `description`) VALUES ('$i', '$name', '$imdb', '$kp', '$ye', '$dur', '$dir', NULL, '$or', '$path', '$url', '$descr')";
+		    $query = "INSERT INTO `movie` (`id_m`, `name_m`, `rating`, `rating_kp`, `year_of_cr`, `duration`, `director`, `our_rate`, `original`, `poster`, `url`, `description`) VALUES ('$i', '$name', '$imdb', '$kp', '$ye', '$dur', '$dir', NULL, '$or', '".$root.$path."', '$url', '$descr')";
 		    $d = $this->Query_try($query);
 		    if(!$d) {die("TI SUKA TUPOY CHTOLE");}
 		    foreach($_POST['check'] as $gen)

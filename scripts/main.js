@@ -1,10 +1,11 @@
-$('#search').on('input', function (){
-	$.post('/scripts/ajax/search.php',
-		{text: this.value},
-		function(data){
-		alt(JSON.parse(data));
-	});
-});
+// $('#search').on('input', function (){
+// 	$.post('/scripts/ajax/search.php',
+// 		{text: this.value},
+// 		function(data){
+// 		alt(JSON.parse(data));
+// 	});
+// });
+console.log('dd');
 let uri_dir = 'https://kinopoiskapiunofficial.tech/api/v1/staff?filmId='
 let units = ['description', 'filmLength', 'genres', 'nameOriginal', 'nameRu', 'posterUrl', 'ratingImdb', 'ratingKinopoisk', 'webUrl', 'year'];
 let data = '';
@@ -21,32 +22,40 @@ $('.search-m').submit(function (e){
 		.then(response => { return response.json() })
 		.then(resB => {
 			data = resB;
+			console.log(data);
             let item= '';
 			$.each(units, function (key, value)
 			{
-                item ='';
-                if(value == 'genres')
-                {
-                    $.each(data[value], function (key, val)
-                    {
-                        item += ' '+val['genre'];
-                    })
-                }
-                else
-                {
-                    item = data[value]
-                }
-                if(value == 'posterUrl')
-                {
-                    $('#'+value).attr('src', item);
-                }else
-                {
-				    $('#'+value).text(item);
-                }
+				if($('.admin-addfilm').length > 0)
+				{
 
-                let inp = '<input type="hidden" name="'+value+'" value="'+item+'">';
+				}else
+				{
+					item ='';
+					if(value == 'genres')
+					{
+						$.each(data[value], function (key, val)
+						{
+							item += ' '+val['genre'];
+						})
+					}
+					else
+					{
+						item = data[value]
+					}
+					if(value == 'posterUrl')
+					{
+						$('#'+value).attr('src', item);
+					}else
+					{
+						$('#'+value).text(item);
+					}
 
-                $('form#addForm').append($(inp));
+					let inp = '<input type="hidden" name="'+value+'" value="'+item+'">';
+
+					$('form#addForm').append($(inp));
+				}
+
 			});
 			fetch('https://kinopoiskapiunofficial.tech/api/v1/staff?filmId='+$('#movie_input').val(), {
 				method: 'GET',
