@@ -257,7 +257,7 @@
   		<div class="row">
   			<div class="col-sm-1"></div>
   			<div class="col-sm-10 p-0">
-  				<h4 class="text-center">Мои оценки</h4>
+  				<h4 class="text-center"><?=$id===$id_s ? 'Мои оценки' : 'Оценки '.$user->name?></h4>
   				<table class="table-user-rate table table-hover m-0 ">
   					<thead>
   						<tr>
