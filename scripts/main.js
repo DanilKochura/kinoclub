@@ -10,12 +10,13 @@ let uri_dir = 'https://kinopoiskapiunofficial.tech/api/v1/staff?filmId='
 let units = ['description', 'filmLength', 'genres', 'nameOriginal', 'nameRu', 'posterUrl', 'ratingImdb', 'ratingKinopoisk', 'webUrl', 'year'];
 let data = '';
 $('.search-m').submit(function (e){
+	$('form#addForm').empty();
 	e.preventDefault();
 	let url = 'https://kinopoiskapiunofficial.tech/api/v2.2/films/'+$('#movie_input').val();
 	fetch(url, {
 		method: 'GET',
 		headers: {
-			'X-API-KEY': '897692c5-a85b-4eb2-bf74-369e3cc66f83',
+			'X-API-KEY': 'f71d6402-9cb4-4201-bfd5-e1f1536b0605',
 			'Content-Type': 'application/json',
 		},
 	})
@@ -210,6 +211,7 @@ if($('.json').length>0)
 	let stage = shuffled.length/2;
 // console.log(stage);
 	let movie_iterator = 0;
+	let elems = $(".f-1");
 // console.log(text);
 	/**
 	 * функция генерации новой турнирной пары
@@ -217,33 +219,45 @@ if($('.json').length>0)
 	 */
 	function NextTwo()
 	{
+		console.log(shuffled);
 		// console.log('func started: shuffled: '+shuffled.length+' i='+movie_iterator);
 
-		let elems = $(".f-1");
+
 		// console.
 		// (shuffled.length - movie_iterator)
 		if(shuffled.length - movie_iterator < 2)
 		{
 			if(shuffled.length == 1)
 			{
-				//console.log(choises);
+
 				elems.addClass('d-none');
 				let resultdiv = $('.result');
 				resultdiv.removeClass('d-none');
+				console.log(tour);
+				$.ajax({
+					url: '/scripts/ajax/endgame.php',
+					method: 'post',
+					dataType: 'json',
+					data: {mode: 'tour', game: JSON.stringify(tour) },
+					success: function(data){
+
+						},
+					error: function(error){
+						$('#message').html(error);
+					}
+				});
 				for(let j = 0; j<tour.length; j++)
 				{
-					resultdiv.append($('<p class="h2 text-danger"> Round:'+(j+1)+'</p>'));
+					resultdiv.append($('<span class="h2 text-danger"> Round:'+(j+1)+'<br></span>'));
 					for (let k =0; k<tour[j].length; k++)
 					{
 						//console.log(tour[0][0])
-						resultdiv.append($('<p> #'+k+' : '+tour[j][k]['name']+'</p>'));
+						resultdiv.append($('<span class="text-warning"> #'+k+' : '+tour[j][k]['name']+'<br></span>'));
 					}
 
 				}
 				return false;
 			}
-			// console.log('game_over');
-			// console.log(choises);
 			shuffled.length =0;
 			tour.push(new Array(...choises));
 			stage/=2;
