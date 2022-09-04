@@ -1,7 +1,7 @@
 <?php
 require_once '../../config/bd.php';
 $db = new DB();
-//file_put_contents(__DIR__.'/0.txt', print_r($_POST, 1).PHP_EOL);
+file_put_contents(__DIR__.'/0.txt', print_r($_POST, 1).PHP_EOL);
 if(!$_POST['description'] or !$_POST['filmLength']
     or !$_POST['genres'] or !$_POST['nameRu'] or !$_POST['posterUrl']
     or !$_POST['ratingImdb'] or !$_POST['ratingKinopoisk'] or !$_POST['webUrl'] or
