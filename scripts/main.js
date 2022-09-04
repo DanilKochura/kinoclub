@@ -5,9 +5,40 @@
 // 		alt(JSON.parse(data));
 // 	});
 // });
+console.log($('form#Addrate'));
+$('form#Addrate').submit(function (e)
+{
+	e.preventDefault();
+	let obj = '';
+	$.ajax({
+		url: '/scripts/ajax/addrate.php',
+		method: 'post',
+		dataType: 'json',
+		data: $(this).serialize(),
+		success: function(data){
+			console.log(data)
+			if(data['state'] == 1)
+			{
+				obj = $('#answer');
+			}
+			else
+			{
+				obj = $('#err');
+			}
+			obj.find('.toast-body').text(data['text'])
+			obj.show();
+		},
+		error: function(error){
+			console.log(error);
+		}
+	});
+	$('#rateAddModal').modal('hide');
+
+});
 console.log('dd');
 let uri_dir = 'https://kinopoiskapiunofficial.tech/api/v1/staff?filmId='
-let units = ['description', 'filmLength', 'genres', 'nameOriginal', 'nameRu', 'posterUrl', 'ratingImdb', 'ratingKinopoisk', 'webUrl', 'year'];
+let units = [['description', 'Описание: '], ['filmLength', 'Продолжительность: '], ['genres', ''], ['nameOriginal', ''], ['nameRu', ''], ['posterUrl', ''],
+	['ratingImdb', 'IMDB: '], ['ratingKinopoisk', 'КП: '], ['webUrl', ''], ['year', 'Год выпуска: ']];
 let data = '';
 $('.search-m').submit(function (e){
 	$('form#addForm').empty();
@@ -33,26 +64,26 @@ $('.search-m').submit(function (e){
 				}else
 				{
 					item ='';
-					if(value == 'genres')
+					if(value[0] == 'genres')
 					{
-						$.each(data[value], function (key, val)
+						$.each(data[value[0]], function (key, val)
 						{
 							item += ' '+val['genre'];
 						})
 					}
 					else
 					{
-						item = data[value]
+						item = data[value[0]]
 					}
-					if(value == 'posterUrl')
+					if(value[0] == 'posterUrl')
 					{
-						$('#'+value).attr('src', item);
+						$('#'+value[0]).attr('src', item);
 					}else
 					{
-						$('#'+value).text(item);
+						$('#'+value[0]).text(value[1]+item);
 					}
 
-					let inp = '<input type="hidden" name="'+value+'" value="'+item+'">';
+					let inp = '<input type="hidden" name="'+value[0]+'" value="'+item+'">';
 
 					$('form#addForm').append($(inp));
 				}
@@ -61,7 +92,7 @@ $('.search-m').submit(function (e){
 			fetch('https://kinopoiskapiunofficial.tech/api/v1/staff?filmId='+$('#movie_input').val(), {
 				method: 'GET',
 				headers: {
-					'X-API-KEY': '897692c5-a85b-4eb2-bf74-369e3cc66f83',
+					'X-API-KEY': 'f71d6402-9cb4-4201-bfd5-e1f1536b0605',
 					'Content-Type': 'application/json',
 				},
 			})
@@ -88,29 +119,7 @@ $('.search-m').submit(function (e){
 });
 $('form#addForm').submit(function (e){
 	e.preventDefault();
-	$.ajax({
-		url: '/scripts/ajax/addfilm.php',
-		method: 'post',
-		dataType: 'html',
-		data: $(this).serialize(),
-		success: function(data){
 
-            // console.log(data);
-            $('form#addForm').empty();
-            // $('.').empty()
-			$('#movieAddModal').modal('hide');
-			$('#answer').find('.toast-body').text(data)
-			$('#answer').show();
-			setTimeout(function (){
-				$('#answer').hide();
-			}, 3000);
-
-
-		},
-		error: function(error){
-			$('#message').html(error);
-		}
-	});
 });
 //controller/UserFormController.php?type=feedback
 $(document).ready(function(){
@@ -385,9 +394,4 @@ if($('.json').length>0)
 		clearTimeout();
 	}, 2000);
 }
-
-
-
-
-
 

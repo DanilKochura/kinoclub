@@ -1,6 +1,6 @@
 <?php 
 
-	require '../config/bd.php';
+	require '/var/www/u131898/data/www/imdibil.ru/config/bd.php';
 
 	class PostBase extends DB 
 	{
@@ -95,16 +95,17 @@
 		    header('Location: ../admin');
 		}
 		
-		public function AddRate()
+		public function AddRate($rate, $meet, $id)
 		{
-			$meet = $_POST['movie'];
-			$rate = $_POST['rating'];
-			$id = $_SESSION['user']['id'];
+
 			$query = "INSERT INTO `expert_rate`(`id_rate`, `id_meet`, `id_exp`, `rate`) VALUES(NULL, '$meet', '$id', '$rate')";
 
 			$d = $this->Query_try($query);
-			if(!$d) {die("Query Error!");}
-			header("Location: ../profile/".$_SESSION['user']['id']);
+			if(!$d) {
+                die("Query Error!");
+            }
+
+//			header("Location: ../profile/".$_SESSION['user']['id']);
 		}
 
 		public function Unrate()

@@ -38,8 +38,8 @@ session_start();
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarsExample04">
-                        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                            <li><a href="/" class="nav-link px-2 text-secondary">Главная</a></li>
+                        <ul class="navbar-nav me-auto mb-2 mb-md-0 fs-5">
+                            <li><a href="/" class="nav-link px-2 text-white">Главная</a></li>
                             <li><a href="/statistics" class="nav-link px-2 text-white">Аналитика</a></li>
                             <li><a href="/news" class="nav-link px-2 text-white">Новости</a></li>
                             <li><a href="/feedback" class="nav-link px-2 text-white">Форум</a></li>

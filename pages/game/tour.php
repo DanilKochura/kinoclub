@@ -7,15 +7,16 @@ $r = $db->GetGameFilms();
     <div class="container-fluid h-xl-100" style="background: linear-gradient(rgb(56 56 56 / 100%), rgb(110 110 110 / 76%)), url(https://imdibil.ru/image/bg.jpg) center/cover; margin-bottom:-20px;">
         <div class="container game">
           <div class="row my-2">
-              <div class="d-none result">
 
-              </div>
               <div class="col-md-7">
+                  <div class="d-none result bg-dark b1-warning h-100p rounded">
+
+                  </div>
                   <div class="row">
-                      <div class="col-6 f-1" id="12">
+                      <div class="col-6 f-1" style="height: 380px" id="12">
                           <img src="image/real.jpg" alt="" class="img img-fluid tour rounded">
                       </div>
-                      <div class="col-6 f-1" id="36">
+                      <div class="col-6 f-1" style="height: 380px" id="36">
                           <img src="image/midnight.jpg" alt="" class="img img-fluid tour rounded">
                       </div>
                   </div>

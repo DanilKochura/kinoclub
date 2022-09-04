@@ -1,6 +1,7 @@
 <?php
 
 define('ROOT', 'https://imdibil.ru');
+//define('ROOT', 'http://localhost/imdibil');
 define('PATH', $_SERVER['DOCUMENT_ROOT']);
 /**
  * Sitemap (можно перенести в отдельный файл)
@@ -10,6 +11,7 @@ $GLOBALS['sitemap'] = array (
     '/' => 'main.php',   // Главная страница
     '/news' => 'news.php',   // Новости - страница без параметров
     '/profile/?([0-9]+)?' => 'profile.php',  // С числовым параметром
+    '/film/?([0-9]+)?' => 'movies.php',  // С числовым параметром
     '/statistics' => 'statistics.php',  //
     '/feedback' => 'feedback.php',  //
     '/logout' => 'logout.php',  //

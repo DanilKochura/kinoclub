@@ -59,17 +59,17 @@
 <div class="container">
 	<div class="row">
 		<div class="col-sm-5">
-			<div class="forum-card new">
+			<div class="forum-card new admin-addfilm">
 				<h1 class="text-center">Новый фильм</h1>
 			<form action="controller/AdminFormController.php?type=mov" method="post" enctype="multipart/form-data">
 				<div class="form-gr">
 					<div class="form-path">
 						<label>Название</label>
-						<input type="text" name="name" value="<?=$a['name']?>"class="form-control">
+						<input type="text" name="name" id="nameRu" value="<?=$a['name']?>"class="form-control">
 					</div>
 					<div class="form-path">
 						<label>Оригинально название</label>
-						<input type="text" name="original" value="<?=$a['original']?>" class="form-control">
+						<input type="text" name="original" id="nameOriginal" value="<?=$a['original']?>" class="form-control">
 					</div>
 				</div>
 				<div class="form-gr">
@@ -145,6 +145,22 @@
 				<button type="submit" class="btn btn-warning">Проверить фильм</button>
 			</form>
 			</div>
+            <div class="row my-2">
+                <form action="/" class="search-m">
+                    <div class="container">
+                        <div class="row text-center">
+
+                            <div class="col-md-7">
+                                <input type="text" name="name-movie" class="h-100" id="movie_input" placeholder="ID фильма на КП">
+                            </div>
+                            <div class="col-md-5">
+                                <input type="submit" class="btn btn-warning">
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
             <div class="row">
                 <div class="row">
                     <form method="post" action="controller/AdminFormController.php?type=third">
@@ -254,7 +270,4 @@
 
 	
 </div>
-    <script
-            src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-            crossorigin="anonymous"></script>
+

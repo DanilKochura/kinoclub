@@ -105,4 +105,4 @@ $r = $db->GetGameFilms();
 
 
 
-<?php require_once 'path/footer.php';
+<?php //require_once 'path/footer.php';
