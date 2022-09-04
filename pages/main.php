@@ -54,7 +54,7 @@ foreach($meetings as $m):
 
     <div class="container rounded forum-card">
     <div class="row " >
-        <div class="col-md-2 poster"><a href="<?=$m['url'];?>"><img src="<?=$m['poster'];?>" class="img-fluid rounded"id="IM"></a></div>
+        <div class="col-md-2 poster"><a href="<?=$m['url'];?>" target="_blank"><img src="<?=$m['poster'];?>" class="img-fluid rounded"id="IM"></a></div>
         <div class="col-md-4 text-left description">
             <p class="name"><?=$m['name_m'];?></p>
             <div class="original"><?=$m['original'];?></div>
