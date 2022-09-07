@@ -880,3 +880,6 @@ html, body
   height: 100%;
 }
 
+.search-opt:hover{
+  background-color: lightgrey;
+}

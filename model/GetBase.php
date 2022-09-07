@@ -171,7 +171,7 @@
 		public function GetAllThirds()  //получения списка пользовательских троек
 		{
 			$thirds = array();
-			$query = "SELECT `movie`.*, `name`, `name_d`, `thirds`.`selected` from `movie` join `thirds` on `id_m`=`first` or `id_m`=`second` or `id_m`=`third` join `expert` using(`id_e`) join `director` on `director`=`id_d` order by `id_t` desc, `id_m` asc";
+			$query = "SELECT `movie`.*, `name`, `name_d`, `thirds`.`selected` from `movie` join `thirds` on `id_m`=`first` or `id_m`=`second` or `id_m`=`third` join `expert` using(`id_e`) join `director` on `director`=`id_d`  where checked = 1 order by `id_t` desc, `id_m` asc";
 			$query_g = "SELECT name_g, id_m from movie join thirds on id_m=first or id_m=second or id_m=third join gen_to_mov using(id_m) join genre using(id_g) order by id_t desc, id_m asc ";
 			$gen_res = $this->Query_try($query_g);
 			$thirds_res = $this->Query_try($query);

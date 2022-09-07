@@ -1,11 +1,78 @@
-// $('#search').on('input', function (){
-// 	$.post('/scripts/ajax/search.php',
-// 		{text: this.value},
-// 		function(data){
-// 		alt(JSON.parse(data));
-// 	});
+// $('.search-opt').on("click", function (){
+// 	alert('a');
+// 	console.log('aa');
+// 	let name = this.textContent;
+// 	let id = this.attr('id');
+// 	$('.selected').append('<div>'+name+'</div>');
 // });
-console.log($('form#Addrate'));
+let third = [];
+function film_add(id, name)
+{
+	if(third[0] == name || third[1] == name || third[2] == name)
+	{
+		return;
+	}
+	if(third.length == 3)
+	{
+		alert('Выбрано максимальное количество фильмов!');
+		return;
+	}
+	third.push(name)
+	console.log(third);
+
+	$('#thirdadd').append('<input type="hidden" class="'+name+'" name="film[]" value="'+name+'">');
+	if(third.length == 3)
+	{
+		$('#thirdadd').append('<input type="submit" class="btn btn-warning">');
+	}
+	$('.selected.t').append('<div class="row" id="'+name+'"><span class="col-11">'+id+'</span> <button type="button" onclick="delete_film(this);" class="btn-close btn-third-close col" aria-label="Закрыть"></button></div>');
+
+}
+function delete_film(obj){
+	let div = 	$(obj).parent();
+	let id = div.attr('id');
+	let inp = $('input.'+id);
+	if(third[0] == id)
+	{
+		third[0] = third[1];
+		third[1] = third[2];
+		third.pop();
+	}
+	else if(third[1] == id)
+	{
+		third[1] = third[2];
+		third.pop();
+	}
+	else if(third[2] == id)
+	{
+		third.pop();
+	}
+	if(third.length == 1 && !third[0])
+	{
+		third.shift();
+	}
+	div.remove();
+	console.log(inp)
+	inp.remove();
+	console.log(third);
+}
+$('#search').on('input', function (){
+	$('#results').empty();
+	$.post('/scripts/ajax/search.php',
+		{text: this.value},
+		function(data){
+
+			let a = JSON.parse(data);
+
+			$.each(a, function (key, value)
+			{
+				$('#results').append('<p onclick="film_add(\''+value['name_m']+'\','+value['id_m']+')" class="search-opt" id="'+value['id_m']+'">'+value['name_m']+'</p>');
+			});
+
+		// alert(JSON.parse(data));
+	});
+});
+
 $('form#Addrate').submit(function (e)
 {
 	e.preventDefault();
@@ -35,6 +102,36 @@ $('form#Addrate').submit(function (e)
 	$('#rateAddModal').modal('hide');
 
 });
+$('form#thirdadd').submit(function (e)
+{
+	e.preventDefault();
+	let obj = '';
+	$.ajax({
+		url: '/scripts/ajax/addthird.php',
+		method: 'post',
+		dataType: 'json',
+		data: $(this).serialize(),
+		success: function(data){
+			console.log(data);
+			if(data['state'] == 1)
+			{
+				obj = $('#answer');
+			}
+			else
+			{
+				obj = $('#err');
+			}
+			$('#thirdAddModal').modal('hide');
+			obj.find('.toast-body').text(data['text']);
+			obj.show();
+		},
+		error: function(error){
+			console.log(error);
+		}
+	});
+	// $('#rateAddModal').modal('hide');
+
+});
 console.log('dd');
 let uri_dir = 'https://kinopoiskapiunofficial.tech/api/v1/staff?filmId='
 let units = [['description', 'Описание: '], ['filmLength', 'Продолжительность: '], ['genres', ''], ['nameOriginal', ''], ['nameRu', ''], ['posterUrl', ''],
@@ -51,7 +148,15 @@ $('.search-m').submit(function (e){
 			'Content-Type': 'application/json',
 		},
 	})
-		.then(response => { return response.json() })
+		.then(response => {
+			if(response.status == 404)
+			{
+				let inp = '<p>Ничего не найдено(</p>';
+
+				$('form#addForm').append($(inp));
+				return false;
+			}
+				return response.json() })
 		.then(resB => {
 			data = resB;
 			console.log(data);

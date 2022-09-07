@@ -9,14 +9,12 @@
 			parent::__construct();
 		}
 
-        public function AddThird()
+        public function AddThird($id1, $id2, $id3, $id_e)
         {
-            $id1 = $_POST['film1'];
-            $id3 = $_POST['film3'];
-            $id2 = $_POST['film2'];
-            $id_e = $_POST['user'];
-            $this->Query_try("INSERT INTO thirds(first, second, third, selected, id_e) values ('$id1','$id2','$id3',NULL, '$id_e')");
-            header('Location: ../admin');
+
+
+            $this->Query_try("INSERT INTO thirds(first, second, third, selected, id_e, checked) values ('$id1','$id2','$id3',NULL, '$id_e', 0)");
+//            header('Location: ../admin');
         }
 
 		public function AddMeet()

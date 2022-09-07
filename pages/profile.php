@@ -130,34 +130,44 @@
        									 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
       							</div>
       						<div class="modal-body">
-<!--       						  <form action="" method="post">-->
-<!--                                  <input type="text" id="search">-->
-<!---->
-<!--										  <button type="submit" class="btn btn-warning">Отправить</button>-->
-<!--										</form>-->
-                                <div class="row">
-                                    <div class="row">
-                                        <form method="post" action="controller/AdminFormController.php?type=third">
-                                            <label>Выберите фильм</label>
-                                            <select class="form-select" name="film1"aria-label="Фильм">
-                                                <?php foreach ($user ->allFilms as $film): ?>
-                                                    <option name="<?=$film['name_m']?>"value="<?=$film['id_m']?>"><?=$film['name_m']?></option>
-                                                <?php endforeach;?>
-                                            </select>
-                                            <select class="form-select" name="film2"aria-label="Фильм">
-                                                <?php foreach ($user ->allFilms as $film): ?>
-                                                    <option name="<?=$film['name_m']?>"value="<?=$film['id_m']?>"><?=$film['name_m']?></option>
-                                                <?php endforeach;?>
-                                            </select>
-                                            <select class="form-select" name="film3"aria-label="Фильм">
-                                                <?php foreach ($user ->allFilms as $film): ?>
-                                                    <option name="<?=$film['name_m']?>"value="<?=$film['id_m']?>"><?=$film['name_m']?></option>
-                                                <?php endforeach;?>
-                                            </select>
-                                            <button type="submit" onclick="#" class="btn btn-warning">Добавить тройку</button>
-                                        </form>
-                                    </div>
+       						  <form action="" method="post">
+                                  <input type="text" id="search" class="w-100" placeholder="Интерстеллар">
+
+										</form>
+                                <div id="results">
+
                                 </div>
+                                <div class="row">
+                                    <div class="col selected t">
+
+                                    </div>
+                                    <form action="" id="thirdadd" class="text-center mt-3">
+
+                                    </form>
+                                </div>
+<!--                                <div class="row">-->
+<!--                                    <div class="row">-->
+<!--                                        <form method="post" action="" id="Addthird">-->
+<!--                                            <label>Выберите фильм</label>-->
+<!--                                            <select class="form-select" name="film1"aria-label="Фильм">-->
+<!--                                                --><?php //foreach ($user ->allFilms as $film): ?>
+<!--                                                    <option name="--><?//=$film['name_m']?><!--"value="--><?//=$film['id_m']?><!--">--><?//=$film['name_m']?><!--</option>-->
+<!--                                                --><?php //endforeach;?>
+<!--                                            </select>-->
+<!--                                            <select class="form-select" name="film2"aria-label="Фильм">-->
+<!--                                                --><?php //foreach ($user ->allFilms as $film): ?>
+<!--                                                    <option name="--><?//=$film['name_m']?><!--"value="--><?//=$film['id_m']?><!--">--><?//=$film['name_m']?><!--</option>-->
+<!--                                                --><?php //endforeach;?>
+<!--                                            </select>-->
+<!--                                            <select class="form-select" name="film3"aria-label="Фильм">-->
+<!--                                                --><?php //foreach ($user ->allFilms as $film): ?>
+<!--                                                    <option name="--><?//=$film['name_m']?><!--"value="--><?//=$film['id_m']?><!--">--><?//=$film['name_m']?><!--</option>-->
+<!--                                                --><?php //endforeach;?>
+<!--                                            </select>-->
+<!--                                            <button type="submit" onclick="#" class="btn btn-warning">Добавить тройку</button>-->
+<!--                                        </form>-->
+<!--                                    </div>-->
+<!--                                </div>-->
 						    </div>
 						  </div>
 						</div>
