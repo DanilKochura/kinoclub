@@ -1,4 +1,8 @@
 <?php
+    if(!$_SESSION['user']['id'])
+    {
+        header('Location: /login');
+    }
 	$id=$_SESSION['user']['id'];
 	if($_GET[0]!='')
 	{
