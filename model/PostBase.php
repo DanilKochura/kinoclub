@@ -221,6 +221,15 @@ VALUES (NULL, '$user', '$re', '$text', CURRENT_TIMESTAMP, '$type', '$path')";
             header('Location: ../feedback?page=1&type='.$type);
         }
 
+        public function DeleteThird($id)
+        {
+           $res =  $this->Query_try("DELETE from thirds where id_e = '$id' and checked = 0");
+            if($this->affected() == 0)
+            {
+                echo json_encode(array('state'=>0, 'text'=>'Произошла ошибка. Пожалуйста, обновите страницу!'));
+                exit;
+            }
+        }
         public function NewRates()
         {
 

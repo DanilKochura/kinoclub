@@ -1,4 +1,4 @@
-<?php 
+<?php
 define('DB_HOST',"localhost");
 define('DB_USER',"root");
 define('DB_PASS',"admin");
@@ -27,6 +27,10 @@ Class DB
         public function insrtid()
         {
             return $this->conn->insert_id;
+        }
+        public function affected()
+        {
+            return $this->conn->affected_rows;
         }
 		function __destruct()
 		{

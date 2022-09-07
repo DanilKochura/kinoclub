@@ -1,10 +1,13 @@
 <?php
+
     if(!$_SESSION['user']['id'])
     {
         header('Location: /login');
     }
+
 	$id=$_SESSION['user']['id'];
-	if($_GET[0]!='')
+
+    if($_GET[0]!='')
 	{
 		$id = $_GET[0];
 	}
@@ -13,9 +16,9 @@
 	require_once PATH.'/model/User.php';
 
     $user = new User($id);
-//    echo $user->name;
-//$user->debug();
 
+    //    echo $user->name;
+//$user->debug();
 
 
 
@@ -134,6 +137,7 @@
        									 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
       							</div>
       						<div class="modal-body">
+                                <?php if(!count($user->third)): ?>
        						  <form action="" method="post">
                                   <input type="text" id="search" class="w-100" placeholder="Интерстеллар">
 
@@ -149,29 +153,16 @@
 
                                     </form>
                                 </div>
-<!--                                <div class="row">-->
-<!--                                    <div class="row">-->
-<!--                                        <form method="post" action="" id="Addthird">-->
-<!--                                            <label>Выберите фильм</label>-->
-<!--                                            <select class="form-select" name="film1"aria-label="Фильм">-->
-<!--                                                --><?php //foreach ($user ->allFilms as $film): ?>
-<!--                                                    <option name="--><?//=$film['name_m']?><!--"value="--><?//=$film['id_m']?><!--">--><?//=$film['name_m']?><!--</option>-->
-<!--                                                --><?php //endforeach;?>
-<!--                                            </select>-->
-<!--                                            <select class="form-select" name="film2"aria-label="Фильм">-->
-<!--                                                --><?php //foreach ($user ->allFilms as $film): ?>
-<!--                                                    <option name="--><?//=$film['name_m']?><!--"value="--><?//=$film['id_m']?><!--">--><?//=$film['name_m']?><!--</option>-->
-<!--                                                --><?php //endforeach;?>
-<!--                                            </select>-->
-<!--                                            <select class="form-select" name="film3"aria-label="Фильм">-->
-<!--                                                --><?php //foreach ($user ->allFilms as $film): ?>
-<!--                                                    <option name="--><?//=$film['name_m']?><!--"value="--><?//=$film['id_m']?><!--">--><?//=$film['name_m']?><!--</option>-->
-<!--                                                --><?php //endforeach;?>
-<!--                                            </select>-->
-<!--                                            <button type="submit" onclick="#" class="btn btn-warning">Добавить тройку</button>-->
-<!--                                        </form>-->
-<!--                                    </div>-->
-<!--                                </div>-->
+                                <?php else: ?>
+                                <div class="row">
+                                    <p class="text-center">Вы уже отправили тройку на модерацию.</p>
+
+                                    <?php foreach($user->third as $film): ?>
+                                    <div class="col-4"><img src="<?=$film['poster']?>"  class="img-fluid rounded" style="width: 100px; height: 140px"alt=""></div>
+                                <?php endforeach;?>
+                                    <button class="btn btn-warning mt-3" onclick="delete_user_third(<?=$user->id?>)">Удалить</button>
+                                </div>
+                                <?php endif; ?>
 						    </div>
 						  </div>
 						</div>

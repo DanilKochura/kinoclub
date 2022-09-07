@@ -12,6 +12,7 @@ class User extends DB
     public array $allowed = [];
     public int $id;
     public array $allFilms = [];
+    public array $third = [];
 
     /**
      * @param $id - id пользователя
@@ -50,6 +51,16 @@ class User extends DB
         while($row = mysqli_fetch_assoc($momeet))
         {
             $this->allFilms[]=$row;
+        }
+        $third = $this->Query_try("SELECT  poster, url from thirds join movie on (id_m = first or id_m = second or id_m = third) where id_e = '$this->id' and checked = 0");
+        if($third->num_rows == 0)
+        {
+            $this->third = [];
+        }
+        else {
+            while ($row = $third->fetch_assoc()) {
+                $this->third[] = $row;
+            }
         }
 
 

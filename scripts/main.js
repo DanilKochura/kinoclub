@@ -6,6 +6,33 @@
 // 	$('.selected').append('<div>'+name+'</div>');
 // });
 let third = [];
+function delete_user_third(id)
+{
+	$.post('/scripts/ajax/deletethird.php',
+		{id: id},
+		function(data){
+
+			let a = JSON.parse(data);
+			console.log(a)
+			if(a['state'] == 1)
+			{
+				obj = $('#answer');
+			}
+			else
+			{
+				obj = $('#err');
+			}
+			$('#thirdAddModal').modal('hide');
+
+			obj.find('.toast-body').text(a['text']);
+			setTimeout(() =>{
+				location.reload()
+
+			}, 2000
+		);
+			obj.show();
+		});
+}
 function film_add(id, name)
 {
 	if(third[0] == name || third[1] == name || third[2] == name)
@@ -124,6 +151,11 @@ $('form#thirdadd').submit(function (e)
 			$('#thirdAddModal').modal('hide');
 			obj.find('.toast-body').text(data['text']);
 			obj.show();
+			setTimeout(()=> {
+				location.reload()
+			} ,2000);
+
+
 		},
 		error: function(error){
 			console.log(error);
@@ -290,6 +322,7 @@ function SelectCheck(el)
 	let id = "#id-"+el.textContent;
 	// console.log(id);
 	const RateC = document.querySelector(id);
+	if(!RateC) {return;}
 	RateC.classList.add("selected"); }
 
 }
