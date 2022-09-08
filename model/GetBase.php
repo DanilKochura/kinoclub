@@ -171,7 +171,7 @@
 		public function GetAllThirds()  //получения списка пользовательских троек
 		{
 			$thirds = array();
-			$query = "SELECT `movie`.*, `name`, `name_d`, `thirds`.`selected` from `movie` join `thirds` on `id_m`=`first` or `id_m`=`second` or `id_m`=`third` join `expert` using(`id_e`) join `director` on `director`=`id_d`  where checked = 1 order by `id_t` desc, `id_m` asc";
+			$query = "SELECT `movie`.*, `name`, `name_d`, `thirds`.`selected`, id_event, state from `movie` join `thirds` on `id_m`=`first` or `id_m`=`second` or `id_m`=`third` join `expert` using(`id_e`) join `director` on `director`=`id_d` left join vote using(id_event)  where checked = 1 order by `id_t` desc, `id_m` asc";
 			$query_g = "SELECT name_g, id_m from movie join thirds on id_m=first or id_m=second or id_m=third join gen_to_mov using(id_m) join genre using(id_g) order by id_t desc, id_m asc ";
 			$gen_res = $this->Query_try($query_g);
 			$thirds_res = $this->Query_try($query);
@@ -179,6 +179,19 @@
 			$j=0;
 			while($res = mysqli_fetch_assoc($thirds_res))
 			{
+				$id_event = $res['id_event'];
+				$gen_votes = "SELECT avatar FROM vote join votelist on id_v = id_vote join expert using(id_e) where id_event = '$id_event' and choise = '{$res['id_m']}'";
+				$votes = $this->Query_try($gen_votes);
+				$check_voted = $this->Query_try("SELECT * from votelist join vote on id_v = id_vote where id_event = '$id_event' and id_e = '{$_SESSION['user']['id']}'");
+				if($check_voted->num_rows > 0)
+				{
+					$res['state'] = 0;
+				}
+				while($vote = $votes->fetch_assoc())
+				{
+//					$res['allowtovote'] = $vote['state'];
+					$res['votes'][] = $vote['avatar'];
+				}
 				if($i==3)
 				{
 					$i=0;
@@ -196,8 +209,10 @@
 
 				$thirds[$j][]=$res;
 				++$i;
+
 					
 			}
+
 
 			return $thirds;
 		}

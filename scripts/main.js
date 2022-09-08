@@ -6,6 +6,39 @@
 // 	$('.selected').append('<div>'+name+'</div>');
 // });
 let third = [];
+function vote(id_event, id_m, third)
+{
+	$.ajax({
+		url: '/scripts/ajax/vote.php',
+		method: 'post',
+		dataType: 'json',
+		data: {id_event: id_event, id_m: id_m},
+		success: function(data){
+			console.log(data);
+			// return;
+			if(data['state'] == 1)
+			{
+				obj = $('#answer');
+			}
+			else
+			{
+				obj = $('#err');
+			}
+			let buttons = $('.btn-vote-'+third);
+			$.each(buttons, function (key, value)
+			{
+				value.remove();
+			})
+
+			obj.find('.toast-body').text(data['text'])
+			obj.show();
+			setTimeout(()=> {
+				obj.hide();
+			}, 3000);
+		}
+	});
+
+}
 function delete_user_third(id)
 {
 	$.post('/scripts/ajax/deletethird.php',
@@ -256,6 +289,29 @@ $('.search-m').submit(function (e){
 });
 $('form#addForm').submit(function (e){
 	e.preventDefault();
+	$.ajax({
+		url: '/scripts/ajax/addfilm.php',
+		method: 'post',
+		dataType: 'html',
+		data: $(this).serialize(),
+		success: function(data){
+
+			// console.log(data);
+			$('form#addForm').empty();
+			// $('.').empty()
+			$('#movieAddModal').modal('hide');
+			$('#answer').find('.toast-body').text(data)
+			$('#answer').show();
+			setTimeout(function (){
+				$('#answer').hide();
+			}, 3000);
+
+
+		},
+		error: function(error){
+			$('#message').html(error);
+		}
+	});
 
 });
 //controller/UserFormController.php?type=feedback

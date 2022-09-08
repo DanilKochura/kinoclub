@@ -883,3 +883,15 @@ html, body
 .search-opt:hover{
   background-color: lightgrey;
 }
+
+.w-30p
+{
+  width: 35px !important;
+}
+.h-30p{
+  height: 35px !important;
+}
+.vote
+{
+  min-height: 100px;
+}

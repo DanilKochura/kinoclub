@@ -12,8 +12,8 @@
         public function AddThird($id1, $id2, $id3, $id_e)
         {
 
-
-            $this->Query_try("INSERT INTO thirds(first, second, third, selected, id_e, checked) values ('$id1','$id2','$id3',NULL, '$id_e', 0)");
+            $event = uniqid();
+            $this->Query_try("INSERT INTO thirds(first, second, third, selected, id_e, checked, id_event) values ('$id1','$id2','$id3',NULL, '$id_e', 0, '$event')");
 //            header('Location: ../admin');
         }
 
@@ -242,6 +242,30 @@ VALUES (NULL, '$user', '$re', '$text', CURRENT_TIMESTAMP, '$type', '$path')";
                 $this->Query_try("INSERT INTO `expert_rate`(`id_meet`, `id_exp`, `rate`) VALUES ('$id_m', '$i', '$rate')");
                 header('Location: ../admin');
             }
+        }
+
+        public function vote($id_event, $id_m, $id_e)
+        {
+            $third_check = $this->Query_try("SELECT * from vote where id_event = '$id_event' and state = 1");
+            if($third_check->num_rows == 0)
+            {
+                echo json_encode(array('state'=> 0, 'text'=>'Голосование уже завершилось!'));
+                exit;
+            }
+            $id_vote = ($third_check->fetch_assoc())['id_v'];
+            $check_adv = $this->Query_try("SELECT expert.id_e from expert join thirds using(id_e) where id_event = '$id_event'");
+            if(($check_adv->fetch_assoc())['id_e'] == $id_e)
+            {
+                echo json_encode(array('state'=> 0, 'text' => 'Ты не можешь голосовать в этой тройке'));
+                exit;
+            }
+            $check_voted = $this->Query_try("SELECT * from votelist where id_vote = '$id_vote' and id_e = '$id_e'");
+            if($check_voted->num_rows > 0)
+            {
+                echo json_encode(array('state'=> 0, 'text' => 'Ты уже проголосовал, мудила!'));
+                exit;
+            }
+            $this->Query_try("INSERT INTO votelist(id_e, id_vote, choise) values('$id_e', '$id_vote', '$id_m')");
         }
 
         function __destruct()
