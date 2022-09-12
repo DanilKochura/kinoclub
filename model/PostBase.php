@@ -140,7 +140,7 @@
 			}
 			else 
 			{
-				$name = $_POST['name'];
+				$name = trim(html_entity_decode($_POST['name']), ';');
 			}
 
 
@@ -197,7 +197,7 @@
         {
             $user = $_POST['id'];
             $re = $_POST['re'];
-            $text = $_POST['text'];
+            $text = html_entity_decode($_POST['text']);
             //$file = $_POST['id'];
             $type=$_POST['type'];
             $path = null;
