@@ -185,7 +185,7 @@ function render(val)
         options: {
             scales: {
             y: {
-              min: 4,
+              min: 2,
               max: 10.5
             }
           },

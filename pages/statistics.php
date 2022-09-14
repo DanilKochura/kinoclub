@@ -31,7 +31,7 @@ $arr = $m->GetAllRates();
   }
 .charts
 {
-    max-height: 400px;
+    max-height: 600px;
 }
 .block {
 
