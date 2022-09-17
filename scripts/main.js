@@ -6,6 +6,7 @@
 // 	$('.selected').append('<div>'+name+'</div>');
 // });
 let third = [];
+let pair = [];
 function vote(id_event, id_m, third)
 {
 	$.ajax({
@@ -41,7 +42,7 @@ function vote(id_event, id_m, third)
 }
 function delete_user_third(id)
 {
-	$.post('/scripts/ajax/deletethird.php',
+	$.post('/scripts/ajax/delete.php?type=third',
 		{id: id},
 		function(data){
 
@@ -63,6 +64,33 @@ function delete_user_third(id)
 
 			}, 2000
 		);
+			obj.show();
+		});
+}
+function delete_user_pair(id)
+{
+	$.post('/scripts/ajax/delete.php?type=pair',
+		{id: id},
+		function(data){
+
+			let a = JSON.parse(data);
+			console.log(a)
+			if(a['state'] == 1)
+			{
+				obj = $('#answer');
+			}
+			else
+			{
+				obj = $('#err');
+			}
+			$('#thirdAddModal').modal('hide');
+
+			obj.find('.toast-body').text(a['text']);
+			setTimeout(() =>{
+					location.reload()
+
+				}, 2000
+			);
 			obj.show();
 		});
 }
@@ -88,6 +116,51 @@ function film_add(id, name)
 	$('.selected.t').append('<div class="row" id="'+name+'"><span class="col-11">'+id+'</span> <button type="button" onclick="delete_film(this);" class="btn-close btn-third-close col" aria-label="Закрыть"></button></div>');
 
 }
+function film_add_two(id, name)
+{
+	if(pair[0] == name || pair[1] == name)
+	{
+		return;
+	}
+	if(pair.length == 2)
+	{
+		alert('Выбрано максимальное количество фильмов!');
+		return;
+	}
+	pair.push(name)
+	console.log(pair);
+
+	$('#pairadd').append('<input type="hidden" class="'+name+'" name="film[]" value="'+name+'">');
+	if(pair.length == 2)
+	{
+		$('#pairadd').append('<input type="submit" class="btn btn-warning">');
+	}
+	$('.selected.p').append('<div class="row" id="'+name+'"><span class="col-11">'+id+'</span> <button type="button" onclick="delete_film_two(this);" class="btn-close btn-third-close col" aria-label="Закрыть"></button></div>');
+
+}
+function delete_film_two(obj){
+	let div = 	$(obj).parent();
+	let id = div.attr('id');
+	let inp = $('input.'+id);
+	if(pair[0] == id)
+	{
+		pair[0] = pair[1];
+		pair.pop();
+	}
+	else if(pair[1] == id)
+	{
+		pair.pop();
+	}
+	if(pair.length == 1 && !pair[0])
+	{
+		pair.shift();
+	}
+	div.remove();
+	console.log(inp)
+	inp.remove();
+	console.log(pair);
+}
+
 function delete_film(obj){
 	let div = 	$(obj).parent();
 	let id = div.attr('id');
@@ -116,8 +189,10 @@ function delete_film(obj){
 	inp.remove();
 	console.log(third);
 }
-$('#search').on('input', function (){
-	$('#results').empty();
+$('.search').on('input', function (){
+	$('.results').empty();
+	let id = $(this).attr('id');
+
 	$.post('/scripts/ajax/search.php',
 		{text: this.value},
 		function(data){
@@ -126,7 +201,15 @@ $('#search').on('input', function (){
 
 			$.each(a, function (key, value)
 			{
-				$('#results').append('<p onclick="film_add(\''+value['name_m']+'\','+value['id_m']+')" class="search-opt" id="'+value['id_m']+'">'+value['name_m']+'</p>');
+				if(id.length > 0)
+				{
+					$('.results').append('<p onclick="film_add_two(\''+value['name_m']+'\','+value['id_m']+')" class="search-opt" id="'+value['id_m']+'">'+value['name_m']+'</p>');
+
+				}
+				else{
+					$('.results').append('<p onclick="film_add(\''+value['name_m']+'\','+value['id_m']+')" class="search-opt" id="'+value['id_m']+'">'+value['name_m']+'</p>');
+
+				}
 			});
 
 		// alert(JSON.parse(data));
@@ -160,6 +243,41 @@ $('form#Addrate').submit(function (e)
 		}
 	});
 	$('#rateAddModal').modal('hide');
+
+});
+$('form#pairadd').submit(function (e)
+{
+	e.preventDefault();
+	let obj = '';
+	$.ajax({
+		url: '/scripts/ajax/addpair.php',
+		method: 'post',
+		dataType: 'json',
+		data: $(this).serialize(),
+		success: function(data){
+			console.log(data);
+			if(data['state'] == 1)
+			{
+				obj = $('#answer');
+			}
+			else
+			{
+				obj = $('#err');
+			}
+			$('#pairAddModal').modal('hide');
+			obj.find('.toast-body').text(data['text']);
+			obj.show();
+			setTimeout(()=> {
+				location.reload()
+			} ,2000);
+
+
+		},
+		error: function(error){
+			console.log(error);
+		}
+	});
+	// $('#rateAddModal').modal('hide');
 
 });
 $('form#thirdadd').submit(function (e)

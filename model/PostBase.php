@@ -230,6 +230,15 @@ VALUES (NULL, '$user', '$re', '$text', CURRENT_TIMESTAMP, '$type', '$path')";
                 exit;
             }
         }
+        public function DeletePair($id)
+        {
+           $res =  $this->Query_try("DELETE from pairs where id_exp = '$id'");
+            if($this->affected() == 0)
+            {
+                echo json_encode(array('state'=>0, 'text'=>'Произошла ошибка.. Пожалуйста, обновите страницу!'));
+                exit;
+            }
+        }
         public function NewRates()
         {
 
@@ -268,6 +277,11 @@ VALUES (NULL, '$user', '$re', '$text', CURRENT_TIMESTAMP, '$type', '$path')";
             $this->Query_try("INSERT INTO votelist(id_e, id_vote, choise) values('$id_e', '$id_vote', '$id_m')");
         }
 
+        public function AddPair($f1, $f2, $id, $event = null)
+        {
+            $vote = uniqid();
+            $this->Query_try("INSERT into pairs(id_exp, first, second, id_event, id_event_vote) values ('$id', '$f1', '$f2', '$event', '$vote')");
+        }
         function __destruct()
 		{
 			parent::__destruct();

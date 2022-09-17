@@ -13,6 +13,7 @@ class User extends DB
     public int $id;
     public array $allFilms = [];
     public array $third = [];
+    public array $pair = [];
 
     /**
      * @param $id - id пользователя
@@ -60,6 +61,16 @@ class User extends DB
         else {
             while ($row = $third->fetch_assoc()) {
                 $this->third[] = $row;
+            }
+        }
+        $pair = $this->Query_try("SELECT  poster, url from pairs join movie on (id_m = first or id_m = second) where id_exp = '$this->id'");
+        if($pair->num_rows == 0)
+        {
+            $this->pair = [];
+        }
+        else {
+            while ($row = $pair->fetch_assoc()) {
+                $this->pair[] = $row;
             }
         }
 

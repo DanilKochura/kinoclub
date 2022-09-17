@@ -44,6 +44,7 @@ session_start();
                             <li><a href="/news" class="nav-link px-2 text-white">Новости</a></li>
                             <li><a href="/feedback" class="nav-link px-2 text-white">Форум</a></li>
                             <li><a href="/game" class="nav-link px-2 text-white">Викторина</a></li>
+                            <li><a href="/special" class="nav-link px-2 text-white">3 сезон</a></li>
                         </ul>
                     </div>
 <!--                    <div class="text-end">-->

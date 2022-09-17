@@ -139,10 +139,10 @@
       						<div class="modal-body">
                                 <?php if(!count($user->third)): ?>
        						  <form action="" method="post">
-                                  <input type="text" id="search" class="w-100" placeholder="Интерстеллар">
+                                  <input type="text" class="search w-100" id="" placeholder="Интерстеллар">
 
 										</form>
-                                <div id="results">
+                                <div class="results">
 
                                 </div>
                                 <div class="row">
@@ -167,7 +167,46 @@
 						  </div>
 						</div>
 					</div>
-               <div></div> <button type="button" class="btn btn-warning btn-user m-0 mt-2" data-bs-toggle="modal" data-bs-target="#movieAddModal">Добавить фильм в базу</button><?php endif; ?></div>
+               <div></div> <button type="button" class="btn btn-warning btn-user m-0 mt-2" data-bs-toggle="modal" data-bs-target="#movieAddModal">Добавить фильм в базу</button>
+                    <button type="button" class="btn btn-danger btn-user m-0 mt-2" data-bs-toggle="modal" data-bs-target="#pairAddModal">Добавить пару</button></div>
+            <div class="modal fade" id="pairAddModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Добавить пару</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                        </div>
+                        <div class="modal-body">
+                            <?php if(!count($user->pair)): ?>
+                                <form action="" method="post">
+                                    <input type="text" class="search" id="pair" class="w-100" placeholder="Интерстеллар">
+
+                                </form>
+                                <div class="results">
+
+                                </div>
+                                <div class="row">
+                                    <div class="col selected p">
+
+                                    </div>
+                                    <form action="" id="pairadd" class="text-center mt-3">
+
+                                    </form>
+                                </div>
+                            <?php else: ?>
+                                <div class="row text-center">
+                                    <p class="text-center">Вы уже отправили пару на модерацию.</p>
+
+                                    <?php foreach($user->pair as $film): ?>
+                                        <div class="col-6"><img src="<?=$film['poster']?>"  class="img-fluid rounded" style="width: 150px; height: 200px"alt=""></div>
+                                    <?php endforeach;?>
+                                    <button class="btn btn-warning mt-3" onclick="delete_user_pair(<?=$user->id?>)">Удалить</button>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </div><?php endif; ?></div>
   				    <div class="modal fade" id="movieAddModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
  							 <div class="modal-dialog">
    							 <div class="modal-content">
