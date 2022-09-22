@@ -15,9 +15,10 @@ while($row = $pairs->fetch_assoc())
 {
     $id_event = $row['id_event_vote'];
     $votes = $db->Query_try("SELECT avatar, id_e from votelist join expert using(id_e) join vote on id_vote = id_v where id_event = '$id_event' and choise='{$row['id_m']}'");
+    $count = $db->Query_try("SELECT COUNT(*) as co from votelist join vote on id_vote = id_v where id_event = '{$row['id_event_vote']}'");
     while($vote = $votes->fetch_assoc())
     {
-        if($vote['id_e'] == $_SESSION['user']['id'])
+        if(($count->fetch_assoc()['co'])==8)
         {
             $row['done'] = 1;
         }
@@ -114,6 +115,7 @@ while($row = $pairs->fetch_assoc())
     {
         width: 50px;
         height: 75px;
+        border-radius: 5px;
     }
     .vote-image-final
     {
@@ -144,7 +146,7 @@ while($row = $pairs->fetch_assoc())
         display: block;
     }
 </style>
-<div class="container-fluid rad-0">
+<div class="container-fluid rad-0" style="height: 100%; margin-bottom: -20px">
 <div class="row totot bg-dark">
     <div class="col type-descr bg-main text-white  mb-3">
         <div class="container tour-table middle">

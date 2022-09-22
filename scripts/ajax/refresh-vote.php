@@ -2,7 +2,7 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 require '../../config/bd.php';
-
+$a =
 $db = new DB();
 $films = [];
 //$check_th = $db->Query_try("SELECT * from pairs where id_event = 'third'");
