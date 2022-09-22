@@ -16,11 +16,15 @@
     case "install":
         $base->AddParseFile();
         break;
-        case "third":
-            $base->AddThird();
-                break;
+//        case "third":
+//            $base->AddThird();
+//                break;
         case "rates":
             $base->NewRates();
+            break;
+
+        case 'shuffle':
+            $base->Shuffle();
             break;
 
     }

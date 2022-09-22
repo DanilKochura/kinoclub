@@ -315,6 +315,7 @@ $('form#thirdadd').submit(function (e)
 	// $('#rateAddModal').modal('hide');
 
 });
+
 console.log('dd');
 let uri_dir = 'https://kinopoiskapiunofficial.tech/api/v1/staff?filmId='
 let units = [['description', 'Описание: '], ['filmLength', 'Продолжительность: '], ['genres', ''], ['nameOriginal', ''], ['nameRu', ''], ['posterUrl', ''],
@@ -434,6 +435,59 @@ $('form#addForm').submit(function (e){
 });
 //controller/UserFormController.php?type=feedback
 $(document).ready(function(){
+	let votemodal = $('#pairVoteModal');
+	console.log(votemodal);
+	$('.modal-vote').on('click', function (e) {
+		let data = JSON.parse($(this).attr('data-movies'));
+		let vote = $(this).attr('data-vote');
+		votemodal.find('#first').find('.avatars').empty();
+		votemodal.find('#second').find('.avatars').empty();
+		console.log(data);
+		$.each(data['first']['votes'], function (key, val){
+			votemodal.find('#first').find('.avatars').append('<img  class="h-30p w-30p avatar" src="https://imdibil.ru/uploads/'+val+'">');
+		});
+		$.each(data['second']['votes'], function (key, val){
+			votemodal.find('#second').find('.avatars').append('<img  class="h-30p w-30p avatar" src="https://imdibil.ru/uploads/'+val+'">');
+		});
+		votemodal.find('#first').find('a').attr('href', data['first']['url']).find('img').attr('src', data['first']['poster']);
+		votemodal.find('#second').find('a').attr('href', data['second']['url']).find('img').attr('src', data['second']['poster']);
+		votemodal.find('#first').find('button').attr('data-movie', data['first']['id_m'])
+		votemodal.find('#second').find('button').attr('data-movie', data['second']['id_m'])
+		votemodal.find('.btn-vote').attr('data-vote',vote );
+
+		votemodal.modal('show');
+	});
+	$('.btn-vote').on('click', function (e) {
+		let film = $(this).attr('data-movie');
+		let vote = $(this).attr('data-vote');
+		$.ajax({
+			url: '/scripts/ajax/votepair.php',
+			method: 'post',
+			dataType: 'json',
+			data: {id_vote: vote, id_m: film},
+			success: function(data){
+				console.log(data);
+				// return;
+				if(data['state'] == 1)
+				{
+					obj = $('#answer');
+				}
+				else
+				{
+					obj = $('#err');
+				}
+
+
+				obj.find('.toast-body').text(data['text'])
+				obj.show();
+				votemodal.modal('hide');
+				setTimeout(()=> {
+					obj.hide();
+				}, 3000);
+			}
+		});
+
+	})
 	$('.your-class').slick({
 		slidesToShow: 5,
 		slidesToScroll: 1,
@@ -706,4 +760,5 @@ if($('.json').length>0)
 		clearTimeout();
 	}, 2000);
 }
+
 

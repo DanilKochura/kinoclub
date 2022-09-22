@@ -93,7 +93,6 @@ $routed_file = $sm->classname; // Получаем имя файла для по
 $route = 'pages/'.(file_exists('pages/'.$routed_file) ? $routed_file : 'page404.php');
 //echo $route;
 //require_once 'config/bd.php';
-echo
 if($routed_file != 'login.php')
 {
     require_once 'path/header.php';

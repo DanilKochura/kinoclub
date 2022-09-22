@@ -282,6 +282,33 @@ VALUES (NULL, '$user', '$re', '$text', CURRENT_TIMESTAMP, '$type', '$path')";
             $vote = uniqid();
             $this->Query_try("INSERT into pairs(id_exp, first, second, id_event, id_event_vote) values ('$id', '$f1', '$f2', '$event', '$vote')");
         }
+
+        public function Shuffle()
+        {
+            $pairs = $this->Query_try("SELECT poster, url, name_m, id_m   from pairs join movie on (first = id_m or second = id_m) where id_exp is not null");
+            while($row = $pairs->fetch_assoc())
+            {
+                $movs1[] = $row;
+                $movs2[] = $pairs->fetch_assoc();
+            }
+//debug($movs1);
+//debug($movs2);
+            shuffle($movs1);
+            shuffle($movs2);
+            $total = [$movs1, $movs2];
+//debug($total);
+
+            foreach ($total as $ar)
+            {
+//    debug($ar);
+                for($k=0; $k<8; $k+=2)
+                {
+                    $a = $k+1;
+                    $id = uniqid();
+                    $this->Query_try("INSERT INTO pairs(id_exp, first, second, id_event, id_event_vote) values(null, '{$ar[$k]['id_m']}', '{$ar[$a]['id_m']}', 'first', '$id')");
+                }
+            }
+        }
         function __destruct()
 		{
 			parent::__destruct();

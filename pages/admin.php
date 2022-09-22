@@ -6,7 +6,7 @@
 
 	session_start();
 	$db = new DB();
-	if($_SESSION['user']['id']!=29){header('Location: /profile');}
+	if($_SESSION['user']['id']!=29 and $_SESSION['user']['id']!=4 ){header('Location: /profile');}
 	$a = array(
 		'name'=>"Name",
 		'original'=>"Original Name",
@@ -262,6 +262,14 @@
                 <!-- Button trigger modal -->
                 <label for="">Редактировать оценки</label>
 
+            </div>
+
+            <div class="row">
+                <form method="post" action="../controller/AdminFormController.php?type=shuffle">
+                    <input type="submit" value="Образовать сетку">
+
+
+                </form>
             </div>
 
 
