@@ -11,6 +11,8 @@ class User extends DB
     public array $advices = [];
     public array $allowed = [];
     public int $id;
+    public int $verify;
+    public int $type;
     public array $allFilms = [];
     public array $third = [];
     public array $pair = [];
@@ -22,13 +24,15 @@ class User extends DB
     {
         parent::__construct();
         $this->id = $id;
-        $query_data = "SELECT ROUND(AVG(rate), 1) as module, count(id_meet) as amount, name, avatar from expert_rate join expert on id_e=id_exp where id_exp = '$id' and rate is not null";
+        $query_data = "SELECT ROUND(AVG(rate), 1) as module, count(id_meet) as amount, name, avatar, verify, class from expert_rate join expert on id_e=id_exp where id_exp = '$id' and rate is not null";
         $res_data = $this->Query_try($query_data);
         $dat = mysqli_fetch_assoc($res_data);
         $this->amount = $dat['amount'] ?: 0;
         $this->module = $dat['module'] ?: 0;
         $this->name = $dat['name'];
         $this->avatar = $dat['avatar'];
+        $this->verify = $dat['verify'];
+        $this->type = $dat['class'];
         $q = "SELECT DISTINCT poster, url from  movie left join meeting USING(id_m) join thirds on (first = id_m or second = id_m or third=id_m) where id_e = '$id' and meeting.id_m is null";
         $adv=$this->Query_try($q);
         while($row_a = $adv->fetch_assoc())

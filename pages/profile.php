@@ -395,4 +395,38 @@
 <!--            </div>-->
 <!--        </div>-->
     </div>
-<?php
+<?php if(!$user->verify): ?>
+    <div class="modal fade" id="verifyEmailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Привяжите адрес электронной почты</h5>
+<!--                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>-->
+                </div>
+                <div class="modal-body border-bottom hideafter">
+                    <form id="EmailVerification">
+<p>По техническим причинам на домен @gmail.com письма могут приходить с задержкой. Приносим извинения за неудобства.</p>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" name="email"  required id="floatingInput" placeholder="name@example.com">
+                            <label for="floatingInput">Адрес электронной почты</label>
+                        </div>
+                        <input type="hidden" required name="id" value="<?=$user->id?>">
+                        <button type="submit" class="btn btn-warning">Отправить</button>
+                    </form>
+                </div>
+                <div class="p-3 openafter d-none">
+                    <p>Письмо с кодом подтверждения направлено на ваш ящик. <b>Не забудьте проверить папку "спам"</b></p>
+                    <form id="CodeChecks">
+                        <div class="form-floating mb-3">
+                            <input type="text" maxlength="4"  class="form-control" name="code"  required id="CodeCheck" placeholder="1234">
+                            <label for="CodeCheck">Код проверки</label>
+                        </div>
+                        <input type="hidden" required name="id" value="<?=$user->id?>">
+                        <button type="submit" class="btn btn-warning">Отправить</button>
+                    </form>
+<!--                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif;; ?>

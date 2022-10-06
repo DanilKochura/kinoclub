@@ -21,6 +21,7 @@ $GLOBALS['sitemap'] = array (
     '/game' => 'game/quiz.php',
     '/game/tour' => 'game/tour.php',
     '/special' => 'special.php',
+    '/verification/?(.*)?' => 'verification.php',
     // Больше правил
 );
 // Код роутера

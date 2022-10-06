@@ -435,6 +435,63 @@ $('form#addForm').submit(function (e){
 });
 //controller/UserFormController.php?type=feedback
 $(document).ready(function(){
+	let verifyModal = $('#verifyEmailModal');
+	if(verifyModal)
+	{
+		setTimeout(()=>
+		{
+			verifyModal.modal('show');
+		}, 3000)
+	}
+	$('form#EmailVerification').submit(function (e) {
+		e.preventDefault();
+
+		console.log($(this).find('input[name="email"]').val());
+		let id = $(this).find('input[name="id"]').val();
+		$('.hideafter').empty();
+		$.ajax({
+			url: '/scripts/ajax/mail/SendCode.php',
+			method: 'post',
+			dataType: 'json',
+			data: $(this).serialize(),
+			success: function(data){
+				console.log(data);
+				$(verifyModal).find('.openafter').removeClass('d-none');
+				$('#CodeCheck').on('input', function (e) {
+					// console.log(this.value+toString(data[1]));
+					if(this.value.length == 4)
+					{
+						$.ajax({
+							url: '/scripts/ajax/verify.php',
+							method: 'post',
+							dataType: 'json',
+							data: {id: id, code: this.value},
+							success: function (data) {
+								if(data['state'] == 1)
+								{
+									obj = $('#answer');
+									obj.find('.toast-body').text(data['text'])
+									obj.show();
+									verifyModal.modal('hide');
+									setTimeout(()=> {
+										obj.hide();
+									}, 1000);
+								}
+								else
+								{
+									console.log('nope')
+								}
+
+
+
+							}
+				});
+			}
+		});
+	}
+	});
+	});
+
 	let votemodal = $('#pairVoteModal');
 	console.log(votemodal);
 	$('.modal-vote').on('click', function (e) {
@@ -485,7 +542,7 @@ $(document).ready(function(){
 				votemodal.modal('hide');
 				setTimeout(()=> {
 					obj.hide();
-				}, 3000);
+				}, 1000);
 			}
 		});
 
