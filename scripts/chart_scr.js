@@ -75,6 +75,7 @@ function avg(a) {//нахождение среднего в массиве
 let a = JSON.parse($('.hidden').text()); //парсинг данных об оценках
 console.log(a);
 
+
 //a.user[6].name = 'Дмитрий Сергеевич'
 function compare(a, b) { //поиск только совпадающих фильм у двух пользователей
     let first = [], second = [];

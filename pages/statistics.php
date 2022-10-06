@@ -2,6 +2,8 @@
 require 'model/GetBase.php';
 $m = new GetBase();
 $arr = $m->GetAllRates();
+//debug($arr);
+//exit;
 
 ?>
 

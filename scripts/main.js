@@ -316,7 +316,7 @@ $('form#thirdadd').submit(function (e)
 
 });
 
-console.log('dd');
+// console.log('dd');
 let uri_dir = 'https://kinopoiskapiunofficial.tech/api/v1/staff?filmId='
 let units = [['description', 'Описание: '], ['filmLength', 'Продолжительность: '], ['genres', ''], ['nameOriginal', ''], ['nameRu', ''], ['posterUrl', ''],
 	['ratingImdb', 'IMDB: '], ['ratingKinopoisk', 'КП: '], ['webUrl', ''], ['year', 'Год выпуска: ']];

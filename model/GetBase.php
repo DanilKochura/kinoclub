@@ -243,7 +243,7 @@
 				
 					
 			$i=0;
-			while($i<6)
+			while($i<7)
 			{
 				for($j = 0; $j<$num; ++$j)
 				{
