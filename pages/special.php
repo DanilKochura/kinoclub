@@ -1,10 +1,7 @@
 <?php
 
 require 'config/bd.php';
-if($_SESSION['user']['id'] != 4 and $_SESSION['user']['id'] != 29)
-{
-    header('Location: /');
-}
+
 
 $db = new DB();
 $total = [];
@@ -15,7 +12,7 @@ while($row = $pairs->fetch_assoc())
 {
     $id_event = $row['id_event_vote'];
     $votes = $db->Query_try("SELECT avatar, id_e from votelist join expert using(id_e) join vote on id_vote = id_v where id_event = '$id_event' and choise='{$row['id_m']}'");
-    $count = $db->Query_try("SELECT COUNT(*) as co from votelist join vote on id_vote = id_v where id_event = '{$row['id_event_vote']}'");
+     $count = $db->Query_try("SELECT COUNT(*) as co from votelist join vote on id_vote = id_v where id_event = '{$row['id_event_vote']}'");
     while($vote = $votes->fetch_assoc())
     {
         if(($count->fetch_assoc()['co'])==8)
@@ -31,9 +28,11 @@ while($row = $pairs->fetch_assoc())
 {
     $id_event = $row['id_event_vote'];
     $votes = $db->Query_try("SELECT avatar, id_e from votelist join expert using(id_e) join vote on id_vote = id_v where id_event = '$id_event' and choise='{$row['id_m']}'");
+    $count = $db->Query_try("SELECT COUNT(*) as co from votelist join vote on id_vote = id_v where id_event = '{$row['id_event_vote']}'");
+
     while($vote = $votes->fetch_assoc())
     {
-        if($vote['id_e'] == $_SESSION['user']['id'])
+        if(($count->fetch_assoc()['co'])==8)
         {
             $row['done'] = 1;
         }
@@ -46,9 +45,11 @@ while($row = $pairs->fetch_assoc())
 {
     $id_event = $row['id_event_vote'];
     $votes = $db->Query_try("SELECT avatar, id_e from votelist join expert using(id_e) join vote on id_vote = id_v where id_event = '$id_event' and choise='{$row['id_m']}'");
+    $count = $db->Query_try("SELECT COUNT(*) as co from votelist join vote on id_vote = id_v where id_event = '{$row['id_event_vote']}'");
+
     while($vote = $votes->fetch_assoc())
     {
-        if($vote['id_e'] == $_SESSION['user']['id'])
+        if(($count->fetch_assoc()['co'])==8)
         {
             $row['done'] = 1;
         }
@@ -63,7 +64,7 @@ while($row = $pairs->fetch_assoc())
     $votes = $db->Query_try("SELECT avatar, id_e from votelist join expert using(id_e) join vote on id_vote = id_v where id_event = '$id_event' and choise='{$row['id_m']}'");
     while($vote = $votes->fetch_assoc())
     {
-        if($vote['id_e'] == $_SESSION['user']['id'])
+        if(($count->fetch_assoc()['co'])==8)
         {
             $row['done'] = 1;
         }
@@ -198,7 +199,7 @@ while($row = $pairs->fetch_assoc())
             </div>
             <div class="col-22 col-final">
                 <?php if($movs[4]): ?>
-                        <div class=" mb-4 cell-final modal-vote <?=($movs[3][1]['done']==1 || $movs[3][2]['done']==1) ? 'selected' : ''?>"  data-vote='<?=$movs[3][1]['id_event_vote']?>' data-movies='<?=json_encode(array('first'=>$movs[3][1], 'second'=>$movs[3][2]), true)?>'>
+                        <div class=" mb-4 cell-final modal-vote <?=($movs[4][1]['done']==1 || $movs[4][2]['done']==1) ? 'selected' : ''?>"  data-vote='<?=$movs[4][1]['id_event_vote']?>' data-movies='<?=json_encode(array('first'=>$movs[4][0], 'second'=>$movs[4][1]), true)?>'>
                             <div class="cell-f"> <img class="vote-image vote-image-final <?=($movs[4][0]['selected']==$movs[4][0]['id_m'] or  $movs[4][0]['selected']==0) ? '' : 'opacity-25'?>" src="<?=$movs[4][0]['poster']?>"> </div>
                             <div class="cell-f"><img class="vote-image vote-image-final <?=($movs[4][1]['selected']==$movs[4][1]['id_m']  or  $movs[4][1]['selected']==0) ? '' : 'opacity-25'?>" src="<?=$movs[4][1]['poster']?>"></div>
                         </div>

@@ -443,12 +443,14 @@ $(document).ready(function(){
 		votemodal.find('#first').find('.avatars').empty();
 		votemodal.find('#second').find('.avatars').empty();
 		console.log(data);
-		$.each(data['first']['votes'], function (key, val){
-			votemodal.find('#first').find('.avatars').append('<img  class="h-30p w-30p avatar" src="https://imdibil.ru/uploads/'+val+'">');
-		});
-		$.each(data['second']['votes'], function (key, val){
-			votemodal.find('#second').find('.avatars').append('<img  class="h-30p w-30p avatar" src="https://imdibil.ru/uploads/'+val+'">');
-		});
+		if(data['second']['votes']) {
+			$.each(data['first']['votes'], function (key, val) {
+				votemodal.find('#first').find('.avatars').append('<img  class="h-30p w-30p avatar" src="https://imdibil.ru/uploads/' + val + '">');
+			});
+			$.each(data['second']['votes'], function (key, val) {
+				votemodal.find('#second').find('.avatars').append('<img  class="h-30p w-30p avatar" src="https://imdibil.ru/uploads/' + val + '">');
+			});
+		}
 		votemodal.find('#first').find('a').attr('href', data['first']['url']).find('img').attr('src', data['first']['poster']);
 		votemodal.find('#second').find('a').attr('href', data['second']['url']).find('img').attr('src', data['second']['poster']);
 		votemodal.find('#first').find('button').attr('data-movie', data['first']['id_m'])

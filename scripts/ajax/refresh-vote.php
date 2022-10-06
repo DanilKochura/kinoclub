@@ -85,6 +85,7 @@ else
         $check_th = $db->Query_try("SELECT id,id_v, id_m, id_event_vote, rating, rating_kp from pairs join vote on vote.id_event = id_event_vote join movie on (id_m = first or id_m = second) where pairs.id_event = 'first'");
         if ($check_th->num_rows != 0)
         {
+            echo 'a';
             while ($first = $check_th->fetch_assoc())
             {
                 $second = $check_th->fetch_assoc();
@@ -110,6 +111,7 @@ else
 
 
             }
+
             for($i = 0; $i < 7; $i+=2)
             {
                 $j = $i+1;
