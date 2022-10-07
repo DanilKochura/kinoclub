@@ -44,7 +44,7 @@ session_start();
                             <li><a href="/news" class="nav-link px-2 text-white">Новости</a></li>
                             <li><a href="/feedback" class="nav-link px-2 text-white">Форум</a></li>
                             <li><a href="/game" class="nav-link px-2 text-white">Викторина</a></li>
-                            <li><a href="/special" class="nav-link px-2 text-white">3 сезон</a></li>
+<!--                            <li><a href="/special" class="nav-link px-2 text-white">3 сезон</a></li>-->
                         </ul>
                     </div>
 <!--                    <div class="text-end">-->
@@ -68,8 +68,9 @@ session_start();
                                 <?php if(!$_SESSION['user']): ?>
                                     <li><a class="text-decoration-none text-white" href="/login">Вход</a></li>
                                 <?php endif; ?>
-                                <li><a class="text-decoration-none text-white" href="/profile">Профиль</a></li>
                                 <?php if($_SESSION['user']): ?>
+                                <li><a class="text-decoration-none text-white" href="/profile">Профиль</a></li>
+
                                     <li><a class="text-decoration-none text-white" href="/logout">Выход</a></li>
                                 <?php endif; ?>
                             </ul>
