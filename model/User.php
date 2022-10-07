@@ -3,6 +3,12 @@ require PATH.'/config/bd.php';
 //require '../model/GetBase.php';
 class User extends DB
 {
+    public const CLASSES =
+        [
+          1 => 'Резидент',
+            2 => 'Пользователь-неризедент',
+
+        ];
     public string $name;
     public string $avatar;
     public int $module;

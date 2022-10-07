@@ -1,8 +1,11 @@
 <?php
 
-    if(!$_SESSION['user']['id'])
+//print_r($_SESSION);
+//session_start();
+    if(!isset($_SESSION['user']['id']))
     {
-        header('Location: /login');
+//        echo'sfsdfsdfsdf';
+        header('Location: https://imdibil.ru');
     }
 
 	$id=$_SESSION['user']['id'];
@@ -14,7 +17,7 @@
 
 	$id_s = $_SESSION['user']['id'];
 	require_once PATH.'/model/User.php';
-
+        use User;
     $user = new User($id);
 
     //    echo $user->name;
@@ -32,6 +35,7 @@
             </div>
             <div class="col-sm-4 col-6">
                 <h1><?=$user->name?></h1>
+                <p><?=USER::CLASSES[$user->type]?></p>
                 <p>Средняя оценка: <span class="rate-ch"><?=$user->module?></span></p>
                 <p>Количество встреч: <?=$user->amount?></p>
                 <p class="d-none">Дата регистрации: 12.03.2022</p>
@@ -39,7 +43,8 @@
 
             </div>
   				<div class="col-sm-4">
-  					<?php if($id===$id_s):?>
+
+                    <?php if($id===$id_s):?>
   						<div>
   							<button type="button" class="btn btn-primary btn-user m-0 mt-2" data-bs-toggle="modal" data-bs-target="#userModal">Редактировать личные данные</button>
   						</div>
@@ -47,7 +52,7 @@
  							 <div class="modal-dialog">
    							 <div class="modal-content">
     							  <div class="modal-header">
-        							<h5 class="modal-title" id="exampleModalLabel">Заголовок модального окна</h5>
+        							<h5 class="modal-title" id="exampleModalLabel">Редактировать личные данные</h5>
        									 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
       							</div>
       						<div class="modal-body">
@@ -81,8 +86,10 @@
 						    </div>
 						  </div>
 								</div>
-
-  				<div><button type="button" class="btn btn-warning btn-user m-0 mt-2" data-bs-toggle="modal" data-bs-target="#rateAddModal">Добавить оценку</button></div>
+            <?PHP IF($user->type == 1): ?>
+  				<div>
+                    <button type="button" class="btn btn-warning btn-user m-0 mt-2" data-bs-toggle="modal" data-bs-target="#rateAddModal">Добавить оценку</button>
+                </div>
   				<div class="modal fade" id="rateAddModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
  							 <div class="modal-dialog">
    							 <div class="modal-content">
@@ -128,7 +135,9 @@
 						  </div>
 						</div>
 					</div>
-                <div><button type="button" class="btn btn-warning btn-user m-0 mt-2" data-bs-toggle="modal" data-bs-target="#thirdAddModal">Добавить тройку</button></div>
+                <div>
+                    <button type="button" class="btn btn-warning btn-user m-0 mt-2" data-bs-toggle="modal" data-bs-target="#thirdAddModal">Добавить тройку</button>
+                </div>
   				    <div class="modal fade" id="thirdAddModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
  							 <div class="modal-dialog">
    							 <div class="modal-content">
@@ -167,8 +176,8 @@
 						  </div>
 						</div>
 					</div>
-               <div></div> <button type="button" class="btn btn-warning btn-user m-0 mt-2" data-bs-toggle="modal" data-bs-target="#movieAddModal">Добавить фильм в базу</button>
-                    <button type="button" class="btn btn-danger btn-user m-0 mt-2" data-bs-toggle="modal" data-bs-target="#pairAddModal">Добавить пару</button></div>
+                <button type="button" class="btn btn-warning btn-user m-0 mt-2" data-bs-toggle="modal" data-bs-target="#movieAddModal">Добавить фильм в базу</button>
+<!--                    <button type="button" class="btn btn-danger btn-user m-0 mt-2" data-bs-toggle="modal" data-bs-target="#pairAddModal">Добавить пару</button></div>-->
             <div class="modal fade" id="pairAddModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -206,7 +215,9 @@
                         </div>
                     </div>
                 </div>
-            </div><?php endif; ?></div>
+            </div>
+    <?php endif; ?>
+    <?php endif; ?></div>
   				    <div class="modal fade" id="movieAddModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
  							 <div class="modal-dialog">
    							 <div class="modal-content">
@@ -395,7 +406,7 @@
 <!--            </div>-->
 <!--        </div>-->
     </div>
-<?php if(!$user->verify): ?>
+<?php if(!$user->verify and $user->id == $id_s): ?>
     <div class="modal fade" id="verifyEmailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -422,7 +433,6 @@
                             <label for="CodeCheck">Код проверки</label>
                         </div>
                         <input type="hidden" required name="id" value="<?=$user->id?>">
-                        <button type="submit" class="btn btn-warning">Отправить</button>
                     </form>
 <!--                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>-->
                 </div>
