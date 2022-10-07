@@ -16,6 +16,7 @@ $GLOBALS['sitemap'] = array (
     '/feedback' => 'feedback.php',  //
     '/logout' => 'logout.php',  //
     '/login' => 'login.php',  //
+    '/register' => 'register.php',  //
     '/admin' => 'admin.php',
     '/test' => 'test.php',
     '/game' => 'game/quiz.php',
@@ -94,7 +95,7 @@ $routed_file = $sm->classname; // Получаем имя файла для по
 $route = 'pages/'.(file_exists('pages/'.$routed_file) ? $routed_file : 'page404.php');
 //echo $route;
 //require_once 'config/bd.php';
-if($routed_file != 'login.php')
+if($routed_file != 'login.php' and $routed_file != 'register.php')
 {
     require_once 'path/header.php';
 
@@ -108,7 +109,7 @@ $_GET[0] = ($sm->params[1]) ?: '';
 $get = $sm->params;
 
 require_once $route;
-if(!in_array($routed_file, ['login.php', 'statistics.php']))
+if(!in_array($routed_file, ['login.php', 'statistics.php', 'register.php']))
 {
     require 'path/footer.php';
 

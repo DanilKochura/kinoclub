@@ -32,7 +32,7 @@ if(isset($_SESSION['user']))
         </div>
         <button class="w-100 btn btn-lg btn-warning" type="submit">Sign in</button>
         <p>
-            У вас нет аккаунта? - <a href="register.php">зарегистрируйтесь</a>!
+            У вас нет аккаунта? - <a href="/register">зарегистрируйтесь</a>!
         </p>
       </form>
         <?php if($_SESSION['message']):?>

@@ -13,7 +13,14 @@
 		{
 			$name = $_POST['full_name'];
     		$login = $_POST['login'];
-   			$email = $_POST['email'];
+            $logcheck = $this->Query_try("SELECT * from expert where login = '$login'");
+            if($logcheck->num_rows != 0)
+            {
+                $_SESSION['message'] = 'Логин уже занят';
+                header('Location: https://imdibil.ru/register');
+                die();
+            }
+//   			$email = $_POST['email'];
 			if ($_POST['password'] === $_POST['password_confirm']) {
 		        
 		        $password = md5($_POST['password']);
@@ -22,16 +29,16 @@
 		        if(!$d) {die("TI SUKA TUPOY CHTOLE");}
 
 		        
-		        
+                $_SESSION['user']['id'] = $this->insrtid();
 		        $_SESSION['message'] = 'Регистрация прошла успешно!';
-		        header('Location: ../index.php');
+		        header('Location: https://imdibil.ru/profile');
 
 
 		    } 
 		    else 
 		    {
 		        $_SESSION['message'] = 'Пароли не совпадают';
-		        header('Location: ../model/sign.php');
+		        header('Location: https://imdibil.ru/register');
 		    }   
 		}
 
