@@ -255,6 +255,13 @@ VALUES (NULL, '$user', '$re', '$text', CURRENT_TIMESTAMP, '$type', '$path')";
 
         public function vote($id_event, $id_m, $id_e)
         {
+            $class = $this->Query_try("SELECT class from expert where id_e='$id_e'");
+            $user = $class->fetch_assoc();
+            if($user['class']!=1)
+            {
+                echo json_encode(array('state'=> 0, 'text' => 'Нерезиденты не могут голосовать в этой тройке'));
+                exit;
+            }
             $third_check = $this->Query_try("SELECT * from vote where id_event = '$id_event' and state = 1");
             if($third_check->num_rows == 0)
             {

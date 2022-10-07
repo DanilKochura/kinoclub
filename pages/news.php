@@ -95,9 +95,10 @@
   				<div class="row description">
   					<div class="col-sm-12 description"><?=$film['description']?></div>
   				</div>
+<!--                --><?php //if(count($film['votes']) and !$film['ended']): ?>
                 <div class="row vote p-2">
                     <p class="name">Проголосовавшие:</p>
-                    <?php if($film['state']): ?>
+                    <?php if($film['state'] and !$film['ended']): ?>
                     <div class="col-4 btn-vote-<?=$itera?>">
                         <button class="btn btn-warning " onclick="vote('<?=$film['id_event']?>', <?=$film['id_m']?>, <?=$itera?>)">Проголосовать</button>
                     </div>
@@ -108,6 +109,7 @@
                         <?php endforeach; ?>
                     </div>
                 </div>
+<!--                --><?php //endif; ?>
 
             </div>
   		<?php endforeach; ?>
