@@ -180,9 +180,19 @@
 			while($res = mysqli_fetch_assoc($thirds_res))
 			{
 				$id_event = $res['id_event'];
+				$res_ended = $this->Query_try("SELECT * from vote where id_event= '$id_event' and date(date_end) > date(CURRENT_DATE)");
+				if($res_ended->num_rows > 0)
+				{
+					$res['ended'] = 0;
+				}
+				else
+				{
+					$res['ended'] = 1;
+
+				}
 				$gen_votes = "SELECT avatar FROM vote join votelist on id_v = id_vote join expert using(id_e) where id_event = '$id_event' and choise = '{$res['id_m']}'";
 				$votes = $this->Query_try($gen_votes);
-				$check_voted = $this->Query_try("SELECT * from votelist join vote on id_v = id_vote where id_event = '$id_event' and id_e = '{$_SESSION['user']['id']}'");
+				$check_voted = $this->Query_try("SELECT * from votelist join vote on id_v = id_vote where id_event = '$id_event' and id_e = '{$_SESSION['user']['id']}' and date(date_end) > date(CURRENT_DATE)");
 				if($check_voted->num_rows > 0)
 				{
 					$res['state'] = 0;
@@ -231,7 +241,10 @@
 		}
 		public function GetAllRates()  //получение оценок
 		{
-			$query_u = "SELECT `name_m`, `our_rate`,`rating`,`rating_kp`, `rate`, `name` FROM `movie` join `meeting` USING(`id_m`) join `expert_rate` using(`id_meet`) join expert on id_e=id_exp order by name, id_meet";
+			$query_u = "SELECT `name_m`, `our_rate`,`rating`,`rating_kp`, `rate`, `name` 
+						FROM `movie` join `meeting` USING(`id_m`) join `expert_rate` using(`id_meet`) 
+						join expert on id_e=id_exp where class = 1 
+						                           order by name, id_meet";
 			$query = "select count(*) as n from meeting";
 			$res = mysqli_fetch_assoc($this->Query_try($query));
 			$num =  $res['n'];
