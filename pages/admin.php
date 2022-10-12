@@ -56,7 +56,7 @@
 	}
 //    echo 'aaa';
 ?>
-<div class="container">
+<div class="container content">
 	<div class="row">
 		<div class="col-sm-5">
 			<div class="forum-card new admin-addfilm">

@@ -93,9 +93,13 @@ $mes = $base->GetSomeMessages($_GET['page'], $type);
         color: gold;
         cursor: pointer;
     }
+    .content
+    {
+        margin-top: 110px
+    }
 
 </style>
-<div class="container forum-card">
+<div class="container forum-card content">
     <div class="row">
         <div class="col-sm-3">
             <a href="?type=tech&page=1">Технические вопросы</a>

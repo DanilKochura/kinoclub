@@ -16,8 +16,10 @@
 	}
 
 	$id_s = $_SESSION['user']['id'];
-	require_once PATH.'/model/User.php';
-        use User;
+//	require_once PATH.'/model/User.php';
+require 'model/loader.php';
+
+use User;
     $user = new User($id);
 
     //    echo $user->name;
@@ -27,7 +29,7 @@
 
 ?>
 
-  	<div class="container main">
+  	<div class="container main content">
   		<div class="row user-info">
   			<div class="col-sm-1"></div>
   			<div class="col-sm-2 col-6">
@@ -176,7 +178,6 @@
 						  </div>
 						</div>
 					</div>
-                <button type="button" class="btn btn-warning btn-user m-0 mt-2" data-bs-toggle="modal" data-bs-target="#movieAddModal">Добавить фильм в базу</button>
 <!--                    <button type="button" class="btn btn-danger btn-user m-0 mt-2" data-bs-toggle="modal" data-bs-target="#pairAddModal">Добавить пару</button></div>-->
             <div class="modal fade" id="pairAddModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -217,7 +218,9 @@
                 </div>
             </div>
     <?php endif; ?>
-    <?php endif; ?></div>
+    <?php endif; ?>
+                    <button type="button" class="btn btn-warning btn-user m-0 mt-2" data-bs-toggle="modal" data-bs-target="#movieAddModal">Добавить фильм в базу</button>
+                </div>
   				    <div class="modal fade" id="movieAddModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
  							 <div class="modal-dialog">
    							 <div class="modal-content">
@@ -284,7 +287,7 @@
 					</div>
   			<div class="col-sm-1"></div>
         </div>
-        <div class="row" style="margin: 30px 0 0; overflow: hidden">
+        <div class="row mt-xs-3" style="margin: 30px 0 0; overflow: hidden">
 
             <div class="col-sm-1"></div>
                 <div class="col-sm-10 selected mt-3" style="overflow: hidden">

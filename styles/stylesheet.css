@@ -899,3 +899,15 @@ html, body
 {
 
 }
+
+.header
+{
+  position: fixed;
+  z-index: 999;
+  width: -webkit-fill-available;
+  width: 100%;
+  top:0;
+}
+.header + .content {
+  margin-top: 110px;
+}

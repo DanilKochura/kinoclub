@@ -26,7 +26,7 @@ session_start();
 
   </head>
   <body>
-  	<header class="p-3 text-white">
+  	<header class="p-3 text-white header" >
 	    <div class="container">
             <nav class="navbar navbar-expand-md navbar-dark" aria-label="Fourth navbar example">
                 <div class="container-fluid">
@@ -54,7 +54,7 @@ session_start();
                         <div class="dropdown dropstart">
                             <div class="bi bi-person-circle"  data-bs-toggle="dropdown" aria-expanded="false">
                             <?php if(isset($_SESSION['user']['avatar'])): ?>
-                                <img  src="<?=ROOT?>/uploads/<?=$_SESSION['user']['avatar']?>" alt="Ваня" class="avatar header">
+                                <img  src="<?=ROOT?>/uploads/<?=$_SESSION['user']['avatar']?>" alt="Ваня" class="avatar">
                             <?php else: ?>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"  viewBox="0 0 16 16">
                                     <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>

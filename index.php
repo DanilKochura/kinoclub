@@ -1,8 +1,10 @@
 <?php
 
 define('ROOT', 'https://imdibil.ru');
-//define('ROOT', 'http://localhost/imdibil');
 define('PATH', $_SERVER['DOCUMENT_ROOT']);
+
+
+//define('ROOT', 'http://localhost/imdibil');
 /**
  * Sitemap (можно перенести в отдельный файл)
  */
@@ -107,6 +109,7 @@ $_GET[0] = ($sm->params[1]) ?: '';
 //print_r($_GET);
 //print_r($_SESSION);
 $get = $sm->params;
+//require 'model/loader.php';
 
 require_once $route;
 if(!in_array($routed_file, ['login.php', 'statistics.php', 'register.php']))
@@ -115,6 +118,7 @@ if(!in_array($routed_file, ['login.php', 'statistics.php', 'register.php']))
 
 
 }
+
 // Подключаем файл
 //echo ROOT.'/image/favicon.ico';
 // P.S. Внутри подключённого файла Вы можете использовать параметры запроса,

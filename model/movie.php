@@ -1,5 +1,5 @@
 <?php
-require PATH.'/config/bd.php';
+//require PATH.'/config/bd.php';
 
 class Movie extends DB
 {
@@ -33,7 +33,7 @@ class Movie extends DB
         $this->url = $res['url'];
         $this->director = $res['name_d'];
     }
-    public function debug()
+    public function movie_debug()
     {
         echo $this->poster.PHP_EOL;
     }

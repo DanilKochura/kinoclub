@@ -20,6 +20,10 @@ $arr = $m->GetAllRates();
     background-color: #23282b;
     color: white;
   }
+  .content
+  {
+      padding-top: 150px;
+  }
   .description, .legend
   {
       margin: 40px;
@@ -50,7 +54,7 @@ $arr = $m->GetAllRates();
 
 
 </style>
-	<div class="container charts">
+	<div class="container charts content">
     <div class="row text-center">
       <div>
         <div class="btn-group">
