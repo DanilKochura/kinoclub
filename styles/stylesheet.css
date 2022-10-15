@@ -903,11 +903,22 @@ html, body
 .header
 {
   position: fixed;
-  z-index: 999;
+  z-index: 2;
   width: -webkit-fill-available;
   width: 100%;
   top:0;
 }
 .header + .content {
   margin-top: 110px;
+}
+.scrollup{
+  width:40px;
+  height:40px;
+  opacity:0.8;
+  position:fixed;
+  bottom:50px;
+  right:50px;
+  display:none;
+  text-indent:-9999px;
+  background: url('https://imdibil.ru/image/arrow-up-circle-fill.svg') no-repeat;
 }

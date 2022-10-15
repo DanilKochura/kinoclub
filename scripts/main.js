@@ -5,6 +5,7 @@
 // 	let id = this.attr('id');
 // 	$('.selected').append('<div>'+name+'</div>');
 // });
+
 let third = [];
 let pair = [];
 function vote(id_event, id_m, third)
@@ -434,7 +435,36 @@ $('form#addForm').submit(function (e){
 
 });
 //controller/UserFormController.php?type=feedback
+
 $(document).ready(function(){
+
+	// $('body').scroll(function () {
+	// 	let topHead = $(this).scrollTop();
+	// 	if ((topHead) >= 1) {
+	// 		alert('a');
+	// 	} else {
+	// 		alert('a');
+	//
+	// 	}
+	// });
+
+	// alert('before')
+	$('body').scroll(function(){
+		// alert('after')
+		// console.log('as');
+		if ($(this).scrollTop() > 100) {
+			console.log('ada');
+			console.log($('.scrollup'));
+			$('.scrollup').fadeIn();
+		} else {
+			$('.scrollup').fadeOut();
+		}
+	});
+
+	$('.scrollup').click(function(){
+		$("html, body").animate({ scrollTop: 0 }, 600);
+
+	});
 	let verifyModal = $('#verifyEmailModal');
 	if(verifyModal)
 	{
