@@ -453,7 +453,7 @@ $(document).ready(function(){
 		// alert('after')
 		// console.log('as');
 		if ($(this).scrollTop() > 100) {
-			console.log('ada');
+			// console.log('ada');
 			console.log($('.scrollup'));
 			$('.scrollup').fadeIn();
 		} else {
@@ -683,7 +683,7 @@ if($('.json').length>0)
 	 */
 	function NextTwo()
 	{
-		console.log(shuffled);
+		// console.log(shuffled);
 		// console.log('func started: shuffled: '+shuffled.length+' i='+movie_iterator);
 
 
@@ -704,7 +704,7 @@ if($('.json').length>0)
 					dataType: 'json',
 					data: {mode: 'tour', game: JSON.stringify(tour) },
 					success: function(data){
-
+						console.log(data)
 						},
 					error: function(error){
 						$('#message').html(error);

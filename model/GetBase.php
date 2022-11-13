@@ -268,6 +268,9 @@
 				++$i;
 					
 			}
+			file_put_contents(__DIR__.'/0.txt', print_r($res_m, 1));
+			$res_u = $this->Query_try($query_u);
+
 			for($j = 0; $j<$num; ++$j)
 				{
 					$res = mysqli_fetch_assoc($res_u);
@@ -283,7 +286,7 @@
 
 
 				}
-			//debug($res_m);
+
 			return($res_m);
 		}
 
@@ -331,10 +334,22 @@
 
 		}
 
+		public function GetResTour()
+		{
+			$films = [];
+			$res = $this->Query_try("SELECT * from (SELECT name_m, count(id_m) as co FROM `quiz_results` join movie USING(id_m) where type = 1 group by id_m) as tmp order by co desc");
+			while($row = $res->fetch_assoc())
+			{
+				$films[] = $row;
+			}
+			return $films;
+
+		}
+
 		public function GetGameFilms()
 		{
 			$films = array();
-			$res = $this->Query_try("SELECT name_m as name, id_m as id, poster from movie join meeting USING(id_m)");
+			$res = $this->Query_try("SELECT name_m as name, id_m as id, poster from movie join meeting USING(id_m) limit 16");
 			while($row = $res->fetch_assoc())
 			{
 				$i =  (int)$row['id'];

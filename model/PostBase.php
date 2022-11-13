@@ -9,6 +9,10 @@
 			parent::__construct();
 		}
 
+        public function QuizResult($type, $id_u, $id_m)
+        {
+            $this->Query_try("INSERT INTO `quiz_results`(`type`, `id_e`, `id_m`) VALUES('$type', '$id_u', '$id_m')");
+        }
         public function AddThird($id1, $id2, $id3, $id_e)
         {
 

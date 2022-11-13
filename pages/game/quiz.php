@@ -3,7 +3,7 @@ $db = new GetBase();
 $r = $db->GetGameFilms();
 ?>
 
-    <div class="container-fluid h-xl-100" style="background: linear-gradient(rgb(56 56 56 / 100%), rgb(110 110 110 / 76%)), url(https://imdibil.ru/image/bg.jpg) center/cover; margin-bottom:-20px;">
+    <div class="container-fluid h-xl-100" style="padding-top: 100px;background: linear-gradient(rgb(56 56 56 / 100%), rgb(110 110 110 / 76%)), url(https://imdibil.ru/image/bg.jpg) center/cover; margin-bottom:-20px;">
         <div class="container game">
             <div class="row card-center mt-3">
                 <!--        <div class="d-none result">-->
