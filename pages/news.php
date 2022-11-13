@@ -26,7 +26,7 @@
   			<div class="col-md-4 thirds" style="display: flex; flex-direction: column;justify-content: space-between;" id="id-<?=$film['id_m']?>">
   				<div class="row logo-and-rates">
   					<div class="col-sm-6 col-6">
-  						<a href="<?=$film['url']?>">	<img src="<?=$film['poster']?>"class="img-fluid rounded" id="IM"></a>
+  						<a href="<?=$film['url']?>" target="_blank">	<img src="<?=$film['poster']?>"class="img-fluid rounded" id="IM"></a>
   					</div>
   					<div class="col-sm-6 col-6">
   						<h5 class="name"><?=$film['name_m']?></h5>
@@ -95,10 +95,10 @@
   				<div class="row description">
   					<div class="col-sm-12 description"><?=$film['description']?></div>
   				</div>
-<!--                --><?php //if(count($film['votes']) and !$film['ended']): ?>
+                <?php if(!$film['ended']): ?>
                 <div class="row vote p-2">
                     <p class="name">Проголосовавшие:</p>
-                    <?php if($film['state'] and !$film['ended']): ?>
+                    <?php if(!$film['ended']): ?>
                     <div class="col-4 btn-vote-<?=$itera?>">
                         <button class="btn btn-warning " onclick="vote('<?=$film['id_event']?>', <?=$film['id_m']?>, <?=$itera?>)">Проголосовать</button>
                     </div>
@@ -109,7 +109,7 @@
                         <?php endforeach; ?>
                     </div>
                 </div>
-<!--                --><?php //endif; ?>
+                <?php endif; ?>
 
             </div>
   		<?php endforeach; ?>
