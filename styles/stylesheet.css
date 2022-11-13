@@ -879,7 +879,10 @@ html, body
   width: 100%;
   height: 100%;
 }
-
+.tour-t
+{
+  height: 100%;
+}
 .search-opt:hover{
   background-color: lightgrey;
 }
