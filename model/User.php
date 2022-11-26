@@ -1,12 +1,15 @@
 <?php
-require PATH.'/config/bd.php';
-//require '../model/GetBase.php';
+//require PATH.'/config/bd.php';
+//requir
+//e '../model/GetBase.php';
+//require '/var/www/u131898/data/www/imdibil.ru/config/bd.php';
+
 class User extends DB
 {
     public const CLASSES =
         [
           1 => 'Резидент',
-            2 => 'Пользователь-неризедент',
+            2 => 'Пользователь-нерезидент',
 
         ];
     public string $name;
@@ -86,7 +89,7 @@ class User extends DB
 
 
     }
-    public function debug()
+    public function User_debug()
     {
         echo '<pre>';
         print_r($this->advices);
