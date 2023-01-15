@@ -35,10 +35,6 @@ $mes = $base->GetSomeMessages($_GET['page'], $type);
         max-height: 100px;
         transition: 1s;
     }
-    .attachments:hover
-    {
-        transform: scale(5) translateX(100px) translateY(-20px);
-    }
     .tab
     {
         display: table-cell;
@@ -117,7 +113,7 @@ $mes = $base->GetSomeMessages($_GET['page'], $type);
 <?php $j=1; foreach($mes as $row): ?>
 <div class="container forum-card message-body">
     <div class="row message">
-        <div class="col-sm-1 user  text-center">
+        <div class="col-sm-1 col-md-2 user  text-center">
             <div class="user-av">
                 <a href="profile.php?id=<?=$row['id_e']?>" ><img src="uploads\<?=$row['avatar']?>" class="user-av"></a>
                 <p><?=$row['name']?></p>
@@ -131,7 +127,10 @@ $mes = $base->GetSomeMessages($_GET['page'], $type);
             <h2><?=$row['re_m']?></h2>
             <p><?=$row['text_m']?></p>
             <?php if(isset($row['attachments'])): ?>
-                <img src="uploads\messages\<?=$row['attachments']?>" class="attachments">
+                <a class="fancybox" href="uploads\messages\<?=$row['attachments']?>">
+                    <!-- thumbnail -->
+                    <img class="img-fluid attachments" src="uploads\messages\<?=$row['attachments']?>"  alt="..." />
+                </a>
             <?php endif; ?>
         </div>
     </div>

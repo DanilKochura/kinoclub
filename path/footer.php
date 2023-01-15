@@ -9,8 +9,10 @@
         <p class="text-center text-muted">© 2022 IMDBil</p>
     </footer>
 </div>
- <script src="<?=ROOT?>/scripts/bootstrap.bundle.min.js"></script>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+ <script src="<?=ROOT?>/scheduler/assets/js/core.min.js"></script>
+ <script src="<?=ROOT?>/scheduler/assets/js/vendor_bundle.min.js"></script>
+ <script src="<?=ROOT?>/scheduler/assets/js/vendor.datatables.js"></script>
+ <script src="<?=ROOT?>/scheduler/assets/js/vendor.fancybox.js"></script>
      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
  <script src="<?=ROOT?>/scripts/main.js"></script>
 <a href="#" class="scrollup"></a>
