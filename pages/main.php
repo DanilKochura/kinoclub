@@ -161,7 +161,7 @@ foreach($meetings as $m):
                 else echo "Упс! Тут ничего нет! Возможно, скоро появится."
                 ?>
                 <br><br>
-                <footer class="blockquote-footer"><?php if(isset($m['citate'][0]['author'])) echo $m['citate'][0]['author']; ?></cite></footer>
+                <footer class="blockquote-footer"><?php if(isset($m['citate']['author'])) echo $m['citate']['author']; ?></cite></footer>
             </blockquote>
         </div>
         <?php endif; ?>
