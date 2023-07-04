@@ -15,31 +15,37 @@ $start = ($page-1)*$show;
 $base = new GetBase();
 //$meetings= $base->GetAllMovies($sort, $order);
 $meetings= $base->GetMoviesPage($sort, $order, $start, $show); ?>
-<div class="container content">
+<div class="container content" id="test-div">
     <div class="row">
         <div class="col rounded forum-card d-none d-md-block">
             <div class="text-center">
                 <form method="get" action="">
-                    <div style="display: inline-flex">
-                        <select name="sort" id="">
+                    <div class="row justify-content-center">
+                        <div class="col-3">
+                        <select name="sort" class="form-select form-select-sm" id="">
                             <option value="id_meet">По номеру встречи</option>
                             <option value="rating_kp">По оценке КП</option>
                             <option value="rating">По оценке IMDB</option>
                             <option value="our_rate">По оценке IMDBil</option>
                         </select>
-                        <select name="order" id="">
+                        </div>
+                        <div class="col-3">
+                        <select name="order"  class="form-select  form-select-sm" id="">
                             <option value="asc">По возрастанию</option>
                             <option value="desc">По убыванию</option>
                         </select>
-                        <select name="show" id="">
+                        </div>
+                        <div class="col-1">
+                        <select name="show" class="form-select form-select-sm" id="">
                             <option value="5">5</option>
                             <option value="10">10</option>
                             <option value="20">20</option>
                         </select>
-                    </div>
-                    <div style="display: inline-flex">
-                        <button type="submit" class="btn btn-warning btn-sm">Подтвердить</button>
-                        <div>
+                        </div>
+                        <div class="col-3">
+                            <button type="submit" class="btn btn-warning btn-sm">Подтвердить</button>
+                        </div>
+                        </div>
                 </form>
             </div>
 
@@ -72,9 +78,9 @@ foreach($meetings as $m):
             <div class="rates"><table class="table-rate text-center">
                     <thead>
                     <tr>
-                        <th scope="col"><img src="image/imdb.png" class="res_logo"></th>
-                        <th scope="col"><img src="image/kp.png" class="res_logo"></th>
-                        <th scope="col"><img src="image/logogo.png" class="res_logo"></th>
+                        <th class="bg-dark" scope="col"><img src="image/imdb.png" class="res_logo"></th>
+                        <th class="bg-dark" scope="col"><img src="image/kp.png" class="res_logo"></th>
+                        <th  class="bg-dark" scope="col"><img src="image/logogo.png" class="res_logo"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -155,7 +161,7 @@ foreach($meetings as $m):
                 else echo "Упс! Тут ничего нет! Возможно, скоро появится."
                 ?>
                 <br><br>
-                <footer class="blockquote-footer"><?php if(isset($m['citate'][0]['author'])) echo $m['citate'][0]['author']; ?></cite></footer>
+                <footer class="blockquote-footer"><?php if(isset($m['citate']['author'])) echo $m['citate']['author']; ?></cite></footer>
             </blockquote>
         </div>
         <?php endif; ?>
