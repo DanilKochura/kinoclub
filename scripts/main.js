@@ -559,20 +559,14 @@ $(document).ready(function(){
 				// return;
 				if(data['state'] == 1)
 				{
-					obj = $('#answer');
+					$.SOW.core.toast.show('success', '', data['text'], 'top-center', 4000, true);
 				}
 				else
 				{
-					obj = $('#err');
+					$.SOW.core.toast.show('error', '', data['text'], 'top-center', 4000, true);
 				}
 
-
-				obj.find('.toast-body').text(data['text'])
-				obj.show();
 				votemodal.modal('hide');
-				setTimeout(()=> {
-					obj.hide();
-				}, 1000);
 			}
 		});
 

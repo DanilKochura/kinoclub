@@ -3,7 +3,6 @@
 define('ROOT', 'https://imdibil.ru');
 define('PATH', $_SERVER['DOCUMENT_ROOT']);
 
-
 //define('ROOT', 'http://localhost/imdibil');
 /**
  * Sitemap (можно перенести в отдельный файл)
@@ -25,6 +24,7 @@ $GLOBALS['sitemap'] = array (
     '/game/tour' => 'game/tour.php',
     '/special' => 'special.php',
     '/verification/?(.*)?' => 'verification.php',
+    '/scheduler/?(.*)?' => 'scheduler/index.php',
     // Больше правил
 );
 // Код роутера
@@ -93,7 +93,12 @@ class uSitemap {
     }
 }
 $sm = new uSitemap();
+
 $routed_file = $sm->classname; // Получаем имя файла для подключения через require()
+//if(strpos($routed_file,'scheduler')!==false)
+//{
+//	header('Location: /scheduler/'.$sm->params[1]);
+//}
 $route = 'pages/'.(file_exists('pages/'.$routed_file) ? $routed_file : 'page404.php');
 //echo $route;
 //require_once 'config/bd.php';
