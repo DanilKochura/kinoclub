@@ -40,6 +40,7 @@ $meetings= $base->GetMoviesPage($sort, $order, $start, $show); ?>
                             <option value="5">5</option>
                             <option value="10">10</option>
                             <option value="20">20</option>
+                            <option value="50">50</option>
                         </select>
                         </div>
                         <div class="col-3">
@@ -54,9 +55,11 @@ $meetings= $base->GetMoviesPage($sort, $order, $start, $show); ?>
 </div>
 
 <?php
+$month = ['', 'Jan' => 'января', 'Feb' => 'февраля', 'Mar' => 'марта', 'Apr' => 'апреля', 'May' => 'мая', 'Jun' => 'июня', 'Jul' => 'июля', 'Aug' => 'августа', 'Sep' => 'сентября', 'Oct' => 'октября', 'Nov' => 'ноября', 'Dec' => 'декабря'];
 foreach($meetings as $m):
     ?>
     <div class="row m-0" style="justify-content: center"><div class="three"><h1>Заседание #<?=$m['num']?></h1></div></div>
+
 
     <div class="container rounded forum-card">
     <div class="row " >
@@ -92,6 +95,7 @@ foreach($meetings as $m):
                     </tbody>
                 </table>
             </div>
+            <div><span><?=date("d", strtotime($m['date_at']))?> <?=$month[date("M",strtotime( $m['date_at']))]?>  <?=date("Y", strtotime($m['date_at']))?> </span></div>
         </div>
         <div class="rating-tab col-md-4 col-xl-3">
             <!--<table class="table-rate">

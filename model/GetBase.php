@@ -105,7 +105,7 @@
 
 			//$start = $limit ? $limit*($page-1) : 0;
 			$page = ($limit == 'all') ? "" : " LIMIT ".$limit." OFFSET ".$start;
-			$descr_q = "SELECT id_meet, url, id_m, name_m, original, year_of_cr, name_d,duration,rating, our_rate,rating_kp, poster from movie
+			$descr_q = "SELECT id_meet, url, id_m, name_m, date_at, original, year_of_cr, name_d,duration,rating, our_rate,rating_kp, poster from movie
 					join director on id_d=director join meeting using(id_m) order by ".$sort." ".$order.$page;  //получение карточки фильма
 
 			$res_description=$this->Query_try($descr_q);
@@ -165,12 +165,10 @@
 		public function GetMoviesMobile($sort , $order, $start, $limit=null) //функция получения супер-массива с данными о встречах постранично
 		{
 			$meetings= array();
-
 			//$start = $limit ? $limit*($page-1) : 0;
 			$page = ($limit == 'all') ? "" : " LIMIT ".$limit." OFFSET ".$start;
 			$descr_q = "SELECT id_meet, url, id_m, name_m, original, year_of_cr, name_d,duration,rating, our_rate,rating_kp, poster, thirds.id_e from movie
-					join director on id_d=director join meeting using(id_m) left join `thirds` on `id_m`=`first` or `id_m`=`second` or `id_m`=`third` order by ".$sort." ".$order.$page;  //получение карточки фильма
-
+					join director on id_d=director join meeting using(id_m) left join `thirds` on `id_m`=`first` or `id_m`=`second` or `id_m`=`third` GROUP BY id_meet order by ".$sort." ".$order.$page;  //получение карточки фильма
 			$res_description=$this->Query_try($descr_q);
 			$pos = $this->getPositions();
 
@@ -242,6 +240,13 @@
 			$movie['genre']=array();
 			return $movie;
 		}
+
+		public function getNext()
+		{
+			$res = $this->Query_try("SELECT * from movie where id_m = (select selected FROM thirds order by id_t desc limit 1)");
+			return $res->fetch_object();
+		}
+
 		public function GetMovieGenres($id)
 		{
 			$genres = array();
@@ -350,6 +355,7 @@
 					$res['ended'] = 1;
 
 				}
+
 				$gen_votes = "SELECT avatar FROM vote join votelist on id_v = id_vote join expert using(id_e) where id_event = '$id_event' and choise = '{$res['id_m']}'";
 				$votes = $this->Query_try($gen_votes);
 				$check_voted = $this->Query_try("SELECT * from votelist join vote on id_v = id_vote where id_event = '$id_event' and id_e = '{$_SESSION['user']['id']}' and date(date_end) > date(CURRENT_DATE)");
@@ -376,7 +382,7 @@
 				}
 				$res['genre'] = $gen;
 
-
+				$res['selected'] = $res['selected'] ?: 0;
 				$thirds[$j][]=$res;
 				++$i;
 
