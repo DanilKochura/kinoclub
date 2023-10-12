@@ -178,7 +178,7 @@ use User;
 						  </div>
 						</div>
 					</div>
-<!--                    <button type="button" class="btn btn-danger btn-user m-0 mt-2" data-bs-toggle="modal" data-bs-target="#pairAddModal">Добавить пару</button></div>-->
+                  <div>  <button type="button" class="btn btn-danger btn-user m-0 mt-2" data-bs-toggle="modal" data-bs-target="#pairAddModal">Добавить пару</button></div>
             <div class="modal fade" id="pairAddModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -449,7 +449,7 @@ use User;
 <!--            </div>-->
 <!--        </div>-->
     </div>
-<?php if(!$user->verify and $user->id == $id_s): ?>
+<?php if(!$user->verify and $user->id == $id_s and false): ?>
     <div class="modal fade" id="verifyEmailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

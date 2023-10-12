@@ -15,7 +15,7 @@ while($row = $pairs->fetch_assoc())
      $count = $db->Query_try("SELECT COUNT(*) as co from votelist join vote on id_vote = id_v where id_event = '{$row['id_event_vote']}'");
     while($vote = $votes->fetch_assoc())
     {
-        if(($count->fetch_assoc()['co'])==8)
+        if(($count->fetch_assoc()['co'])==9)
         {
             $row['done'] = 1;
         }
@@ -32,7 +32,7 @@ while($row = $pairs->fetch_assoc())
 
     while($vote = $votes->fetch_assoc())
     {
-        if(($count->fetch_assoc()['co'])==8)
+        if(($count->fetch_assoc()['co'])==9)
         {
             $row['done'] = 1;
         }
@@ -49,7 +49,7 @@ while($row = $pairs->fetch_assoc())
 
     while($vote = $votes->fetch_assoc())
     {
-        if(($count->fetch_assoc()['co'])==8)
+        if(($count->fetch_assoc()['co'])==9)
         {
             $row['done'] = 1;
         }
@@ -64,7 +64,7 @@ while($row = $pairs->fetch_assoc())
     $votes = $db->Query_try("SELECT avatar, id_e from votelist join expert using(id_e) join vote on id_vote = id_v where id_event = '$id_event' and choise='{$row['id_m']}'");
     while($vote = $votes->fetch_assoc())
     {
-        if(($count->fetch_assoc()['co'])==8)
+        if(($count->fetch_assoc()['co'])==9)
         {
             $row['done'] = 1;
         }
@@ -75,80 +75,8 @@ while($row = $pairs->fetch_assoc())
 //debug($movs);
 //exit;
 ?>
-<style>
-    .col-13
-    {
-        width: 13%;
-        /* height: 20px; */
-        /* background-color: white; */
-        /* border: 1px solid red; */
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-        flex-wrap: nowrap;
-    }
-    .col-22
-    {
-        width: 22%;
-        /* height: 20px; */
-        /* background-color: white; */
-        /* border: 1px solid red; */
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-        flex-wrap: nowrap;
-    }
-    .tour-table
-    {
-        max-height: none;
-    }
-    .totot
-    {
-        height: 100%;
-        margin-bottom: -40px;
-
-    }
-    .vote-image
-    {
-        width: 50px;
-        height: 75px;
-        border-radius: 5px;
-    }
-    .vote-image-final
-    {
-        width: 100px;
-        height: 150px;
-    }
-    .cell
-    {
-        width: 50px;
-        height: 75px;
-    }
-    .cell-f
-    {
-        width: 100px;
-        height: 150px;
-    }
-    .cell-pair
-    {
-        display: flex;
-        height: 100px;
-    }
-    .type-descr
-    {
-        border-radius: 0;
-    }
-    .cell-final
-    {
-        display: block;
-    }
-</style>
-<div class="container-fluid rad-0" style="height: 100%; margin-bottom: -20px">
-<div class="row totot bg-dark">
+<div class="container-fluid bg-main rad-0 main content py-2" style="margin-top: 88px; margin-bottom: -20px">
+<div class="row totot ">
     <div class="col type-descr bg-main text-white  mb-3">
         <div class="container tour-table middle">
             <div class="col-13">
@@ -268,6 +196,14 @@ while($row = $pairs->fetch_assoc())
 
 
 </div>
+
+    <div id="statsBySeasons">
+
+
+
+
+
+    </div>
 </div>
 <div class="modal fade" id="pairVoteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -303,33 +239,7 @@ while($row = $pairs->fetch_assoc())
 </div>
 
 <div class="toast-container position-absolute bottom-0 end-0 p-3">
-    <div class="toast" id="answer" role="alert" aria-atomic="true">
-        <div class="toast-header text-white bg-success">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
-                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
-            </svg>
-            <strong class="me-auto mx-1">IMDbil</strong>
-            <small class="text-muted">just now</small>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
 
-        </div>
-    </div>
-    <div class="toast" id="err" role="alert" aria-atomic="true">
-        <div class="toast-header text-white bg-danger">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
-                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
-            </svg>
-            <strong class="me-auto mx-1">IMDbil</strong>
-            <small class="text-white">just now</small>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-
-        </div>
     </div>
 
     <!--        <div class="toast" id="test" role="alert" aria-live="assertive" aria-atomic="true">-->
@@ -344,3 +254,76 @@ while($row = $pairs->fetch_assoc())
     <!--            </div>-->
     <!--        </div>-->
 </div>
+<style>
+
+    .col-13
+    {
+        width: 13%;
+        /* height: 20px; */
+        /* background-color: white; */
+        /* border: 1px solid red; */
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+    .col-22
+    {
+        width: 22%;
+        /* height: 20px; */
+        /* background-color: white; */
+        /* border: 1px solid red; */
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+    .tour-table
+    {
+        max-height: none;
+    }
+    .totot
+    {
+        height: 100%;
+        margin-bottom: -40px;
+
+    }
+    .vote-image
+    {
+        width: 50px;
+        height: 75px;
+        border-radius: 5px;
+    }
+    .vote-image-final
+    {
+        width: 100px;
+        height: 150px;
+    }
+    .cell
+    {
+        width: 50px;
+        height: 75px;
+    }
+    .cell-f
+    {
+        width: 100px;
+        height: 150px;
+    }
+    .cell-pair
+    {
+        display: flex;
+        height: 100px;
+    }
+    .type-descr
+    {
+        border-radius: 0;
+    }
+    .cell-final
+    {
+        display: block;
+    }
+</style>

@@ -11,7 +11,7 @@
         $itera++;
 		if($j==3){$j=0;}
 ?>
-	<div class="container forum-card content">
+	<div class="container forum-card mt-4 content">
   		<div class="row">
   			<div class="col-sm-12 text-center">
   				<div class="name">Добавлена тройка фильмов от пользователя <?=$third[$j]['name']?> </div>
@@ -19,7 +19,7 @@
   			<div class="selected" style="display: none;"><?=$third[$j]['selected']?></div>
   		</div>
   	</div>
-    <div class="container forum-card">
+    <div class="container forum-card mt-4">
   		<div class="row th">
   			<?php foreach($third as $film): ?>
 

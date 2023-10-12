@@ -17,7 +17,7 @@ $base = new GetBase();
 $meetings= $base->GetMoviesPage($sort, $order, $start, $show); ?>
 <div class="container content" id="test-div">
     <div class="row">
-        <div class="col rounded forum-card d-none d-md-block">
+        <div class="col rounded forum-card  mt-4 d-none d-md-block">
             <div class="text-center">
                 <form method="get" action="">
                     <div class="row justify-content-center">
@@ -61,7 +61,7 @@ foreach($meetings as $m):
     <div class="row m-0" style="justify-content: center"><div class="three"><h1>Заседание #<?=$m['num']?></h1></div></div>
 
 
-    <div class="container rounded forum-card">
+    <div class="container rounded forum-card mt-4">
     <div class="row " >
         <div class="col-md-2 poster"><a href="<?=$m['url'];?>" target="_blank"><img src="<?=$m['poster'];?>" class="img-fluid rounded"id="IM"></a></div>
         <div class="col-md-4 text-left description">
@@ -81,9 +81,9 @@ foreach($meetings as $m):
             <div class="rates"><table class="table-rate text-center">
                     <thead>
                     <tr>
-                        <th class="bg-dark" scope="col"><img src="image/imdb.png" class="res_logo"></th>
-                        <th class="bg-dark" scope="col"><img src="image/kp.png" class="res_logo"></th>
-                        <th  class="bg-dark" scope="col"><img src="image/logogo.png" class="res_logo"></th>
+                        <th class="bg-main" scope="col"><img src="image/imdb.png" class="res_logo"></th>
+                        <th class="bg-main" scope="col"><img src="image/kp.png" class="res_logo"></th>
+                        <th  class="bg-main" scope="col"><img src="image/logogo.png" class="res_logo"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -244,6 +244,13 @@ foreach($meetings as $m):
     }
 
 </style>
+<!--<div id="floating-switch">-->
+<!--    <label class="d-flex align-items-center mb-3">-->
+<!--        <span class="px-3 user-select-none" id="floating-switch-label">Barbie</span>-->
+<!--        <input class="d-none-cloaked" type="checkbox" id="floating-switch-btn" name="switch-checkbox" value="1" checked>-->
+<!--        <i class="switch-icon bg-main"></i>-->
+<!--    </label>-->
+<!--</div>-->
 <div class="container text-center">
     <div class="pagination">
         <ul>
