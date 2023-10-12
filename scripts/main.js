@@ -197,7 +197,7 @@ $('.search').on('input', function (){
 	$.post('/scripts/ajax/search.php',
 		{text: this.value},
 		function(data){
-
+			console.log(data)
 			let a = JSON.parse(data);
 
 			$.each(a, function (key, value)
@@ -219,14 +219,14 @@ $('.search').on('input', function (){
 
 $('form#Addrate').submit(function (e)
 {
-	e.preventDefault();
+	e.preventDefault();	
 	let obj = '';
 	$.ajax({
 		url: '/scripts/ajax/addrate.php',
 		method: 'post',
 		dataType: 'json',
 		data: $(this).serialize(),
-		success: function(data){
+		success: function(data) {
 			console.log(data)
 			if(data['state'] == 1)
 			{
@@ -437,7 +437,7 @@ $('form#addForm').submit(function (e){
 //controller/UserFormController.php?type=feedback
 
 $(document).ready(function(){
-
+	
 	// $('body').scroll(function () {
 	// 	let topHead = $(this).scrollTop();
 	// 	if ((topHead) >= 1) {
@@ -449,6 +449,83 @@ $(document).ready(function(){
 	// });
 
 	// alert('before')
+	let div = "<div class=\"season\"\n" +
+		"             data-aos=\"fade-up\"\n" +
+		"             data-aos-offset=\"200\"\n" +
+		"             data-aos-delay=\"50\"\n" +
+		"\n" +
+		"             data-aos-duration=\"1000\"\n" +
+		"             data-aos-easing=\"ease-in-out\"\n" +
+		"             data-aos-mirror=\"true\"\n" +
+		"             data-aos-once=\"true\"\n" +
+		"             data-aos-anchor-placement=\"top-center\">\n" +
+		"            \n" +
+		"\n" +
+		"        </div>";
+	if($('#statsBySeasons').length)
+	{
+
+
+
+		function animateValue(obj, start, end, duration) {
+			if (start === end) return;
+			let avg = false;
+			if (end * 10 % 10 === 0)
+			{
+				console.log('true')
+				avg = true
+			}
+			var range = end - start;
+			var current = start;
+			var increment = end > start? 0.1 : -0.1;
+			var stepTime = Math.abs(Math.floor(duration / range));
+			var timer = setInterval(function() {
+				current += increment;
+				if(!avg)
+				{
+					if (Math.abs(current - end) <= 0.1) {
+						clearInterval(timer);
+						return;
+
+					}
+				} else
+				{
+					if (parseInt(current) === parseInt(end)) {
+						clearInterval(timer);
+						return;
+					}
+				}
+				obj.innerHTML = Math.round(current * 1000) / 1000;
+				if(current)
+				{
+					if (current > 5.0)
+					{
+						$(obj).addClass('grey-zone')
+						$(obj).removeClass('red-zone')
+					} if(current > 7.0)
+				{
+					$(obj).removeClass('grey-zone')
+					$(obj).addClass('green-zone')
+
+
+				}
+				}
+
+			}, stepTime);
+		}
+		let timers = $('[data-toggle="count-animate"]')
+		for(let i = 0; i < timers.length; i++)
+		{
+			let timer = timers[i]
+			let from = $(timer).data("count-from")
+			let to = $(timer).data("count-to")
+			let duration = $(timer).data("count-duration")
+			animateValue(timer, from, to, duration)
+		}
+
+
+
+	}
 	$('body').scroll(function(){
 		// alert('after')
 		// console.log('as');
@@ -530,14 +607,13 @@ $(document).ready(function(){
 		votemodal.find('#first').find('.avatars').empty();
 		votemodal.find('#second').find('.avatars').empty();
 		console.log(data);
-		if(data['second']['votes']) {
-			$.each(data['first']['votes'], function (key, val) {
-				votemodal.find('#first').find('.avatars').append('<img  class="h-30p w-30p avatar" src="https://imdibil.ru/uploads/' + val + '">');
-			});
-			$.each(data['second']['votes'], function (key, val) {
-				votemodal.find('#second').find('.avatars').append('<img  class="h-30p w-30p avatar" src="https://imdibil.ru/uploads/' + val + '">');
-			});
-		}
+		$.each(data['first']['votes'], function (key, val) {
+			votemodal.find('#first').find('.avatars').append('<img  class="h-30p w-30p avatar" src="https://imdibil.ru/uploads/' + val + '">');
+		});
+		$.each(data['second']['votes'], function (key, val) {
+			votemodal.find('#second').find('.avatars').append('<img  class="h-30p w-30p avatar" src="https://imdibil.ru/uploads/' + val + '">');
+		});
+
 		votemodal.find('#first').find('a').attr('href', data['first']['url']).find('img').attr('src', data['first']['poster']);
 		votemodal.find('#second').find('a').attr('href', data['second']['url']).find('img').attr('src', data['second']['poster']);
 		votemodal.find('#first').find('button').attr('data-movie', data['first']['id_m'])
@@ -547,10 +623,11 @@ $(document).ready(function(){
 		votemodal.modal('show');
 	});
 	$('.btn-vote').on('click', function (e) {
+		console.log('test')
 		let film = $(this).attr('data-movie');
 		let vote = $(this).attr('data-vote');
 		$.ajax({
-			url: '/scripts/ajax/votepair.php',
+			url: 'https://imdibil.ru/scripts/ajax/votepair.php',
 			method: 'post',
 			dataType: 'json',
 			data: {id_vote: vote, id_m: film},
