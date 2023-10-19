@@ -6,8 +6,6 @@
 // 	$('.selected').append('<div>'+name+'</div>');
 // });
 
-let third = [];
-let pair = [];
 function vote(id_event, id_m, third)
 {
 	$.ajax({
@@ -319,94 +317,194 @@ $('form#thirdadd').submit(function (e)
 
 // console.log('dd');
 let uri_dir = 'https://kinopoiskapiunofficial.tech/api/v1/staff?filmId='
-let units = [['description', 'Описание: '], ['filmLength', 'Продолжительность: '], ['genres', ''], ['nameOriginal', ''], ['nameRu', ''], ['posterUrl', ''],
-	['ratingImdb', 'IMDB: '], ['ratingKinopoisk', 'КП: '], ['webUrl', ''], ['year', 'Год выпуска: ']];
+
+
+
+let units =
+	[
+		['description', 'Описание: '],
+		['filmLength', 'Продолжительность: '],
+		['genres', ''],
+		['nameOriginal', ''],
+		['nameRu', ''],
+		['posterUrl', ''],
+	['ratingImdb', 'IMDB: '],
+		['ratingKinopoisk', 'КП: '],
+		['webUrl', ''],
+		['year', 'Год выпуска: ']
+	];
 let data = '';
 $('.search-m').submit(function (e){
 	$('form#addForm').empty();
 	e.preventDefault();
-	let url = 'https://kinopoiskapiunofficial.tech/api/v2.2/films/'+$('#movie_input').val();
-	fetch(url, {
-		method: 'GET',
-		headers: {
-			'X-API-KEY': 'f71d6402-9cb4-4201-bfd5-e1f1536b0605',
-			'Content-Type': 'application/json',
+	// let url = 'https://kinopoiskapiunofficial.tech/api/v2.2/films/'+$('#movie_input').val();
+	// fetch(url, {
+	// 	method: 'GET',
+	// 	headers: {
+	// 		'X-API-KEY': 'f71d6402-9cb4-4201-bfd5-e1f1536b0605',
+	// 		'Content-Type': 'application/json',
+	// 	},
+	// })
+	// 	.then(response => {
+	// 		if(response.status == 404)
+	// 		{
+	// 			let inp = '<p>Ничего не найдено(</p>';
+	//
+	// 			$('form#addForm').append($(inp));
+	// 			return false;
+	// 		}
+	// 			return response.json() })
+	// 	.then(resB => {
+	// 		data = resB;
+	// 		console.log(data);
+    //         let item= '';
+	// 		$.each(units, function (key, value)
+	// 		{
+	// 			if($('.admin-addfilm').length > 0)
+	// 			{
+	//
+	// 			}else
+	// 			{
+	// 				item ='';
+	// 				if(value[0] == 'genres')
+	// 				{
+	// 					$.each(data[value[0]], function (key, val)
+	// 					{
+	// 						item += ' '+val['genre'];
+	// 					})
+	// 				}
+	// 				else
+	// 				{
+	// 					item = data[value[0]]
+	// 				}
+	// 				if(value[0] == 'posterUrl')
+	// 				{
+	// 					$('#'+value[0]).attr('src', item);
+	// 				}else
+	// 				{
+	// 					$('#'+value[0]).text(value[1]+item);
+	// 				}
+	//
+	// 				let inp = '<input type="hidden" name="'+value[0]+'" value="'+item+'">';
+	//
+	// 				$('form#addForm').append($(inp));
+	// 			}
+	//
+	// 		});
+	// 		fetch('https://kinopoiskapiunofficial.tech/api/v1/staff?filmId='+$('#movie_input').val(), {
+	// 			method: 'GET',
+	// 			headers: {
+	// 				'X-API-KEY': 'f71d6402-9cb4-4201-bfd5-e1f1536b0605',
+	// 				'Content-Type': 'application/json',
+	// 			},
+	// 		})
+	// 			.then(resp => { return resp.json() })
+	// 			.then(res => {
+	// 				let inp = '<input type="hidden" name="director" value="'+res[0]['nameRu']+'">';
+	//
+	// 				$('form#addForm').append($(inp));
+	// 			});
+    //         let inp ='<p>Ты искал этот фильм? Если да, то нажми кнопку "Сохранить" и он сохранится в нашей базе</p>'+
+	// 			'<button type="submit" class="btn btn-warning m-3">Сохранить</button>';
+	//
+    //         $('form#addForm').append($(inp));
+	//
+	// 	})
+	// 	.catch(err => console.log(err))
+	// // console.log(res);
+	let url_new = "https://api.kinopoisk.dev/v1.3/movie?selectFields=persons&selectFields=poster&selectFields=name&selectFields=alternativeName&selectFields=description&selectFields=id&selectFields=genres&selectFields=logo&selectFields=year&selectFields=movieLength&selectFields=rating&page=1&limit=10"
+
+
+	$.ajax({
+		url: url_new,
+		method: 'get',
+		headers: { 'X-API-KEY': 'BJW5RB7-7EPMVH8-HYD1773-4VEDA34' },
+		contentType: 'application/json',
+		data: {name: $('#movie_input').val()},
+		success: function(data){
+			dataDecoder(data)
+
 		},
-	})
-		.then(response => {
-			if(response.status == 404)
-			{
-				let inp = '<p>Ничего не найдено(</p>';
-
-				$('form#addForm').append($(inp));
-				return false;
-			}
-				return response.json() })
-		.then(resB => {
-			data = resB;
-			console.log(data);
-            let item= '';
-			$.each(units, function (key, value)
-			{
-				if($('.admin-addfilm').length > 0)
-				{
-
-				}else
-				{
-					item ='';
-					if(value[0] == 'genres')
-					{
-						$.each(data[value[0]], function (key, val)
-						{
-							item += ' '+val['genre'];
-						})
-					}
-					else
-					{
-						item = data[value[0]]
-					}
-					if(value[0] == 'posterUrl')
-					{
-						$('#'+value[0]).attr('src', item);
-					}else
-					{
-						$('#'+value[0]).text(value[1]+item);
-					}
-
-					let inp = '<input type="hidden" name="'+value[0]+'" value="'+item+'">';
-
-					$('form#addForm').append($(inp));
-				}
-
-			});
-			fetch('https://kinopoiskapiunofficial.tech/api/v1/staff?filmId='+$('#movie_input').val(), {
-				method: 'GET',
-				headers: {
-					'X-API-KEY': 'f71d6402-9cb4-4201-bfd5-e1f1536b0605',
-					'Content-Type': 'application/json',
-				},
-			})
-				.then(resp => { return resp.json() })
-				.then(res => {
-					let inp = '<input type="hidden" name="director" value="'+res[0]['nameRu']+'">';
-
-					$('form#addForm').append($(inp));
-				});
-            let inp ='<p>Ты искал этот фильм? Если да, то нажми кнопку "Сохранить" и он сохранится в нашей базе</p>'+
-				'<button type="submit" class="btn btn-warning m-3">Сохранить</button>';
-
-            $('form#addForm').append($(inp));
-
-		})
-			// const resp = answer.services;
-
-			// оперируйте данными здесь сколько душе угодно
-		.catch(err => console.log(err))
-	// console.log(res);
-
+		error: function(error){
+			console.log(error)
+		}
+	});
 
 	return false;
 });
+
+
+function dataDecoder(data)
+{
+	console.log(data)
+	let name, original_name, id, description, genres, logo, imdb, kp, year, duration, director
+
+	let movie = data.docs[0]
+	name = movie.name
+	original_name = movie.alternativeName
+	description = movie.description
+	id = movie.id
+	genres = movie.genres
+	logo = movie.poster.url
+	imdb = movie.rating.imdb
+	kp = movie.rating.kp
+	year = movie.year
+	duration = movie.movieLength
+	let persons = movie.persons
+	$.each(persons, function (key, value){
+		console.log(value.enProfession)
+		if(value.enProfession === "director"){
+			director = value.name
+			return false
+		}
+	})
+	let inp = '<input type="hidden" name="director" value="'+director+'">';
+	inp += '<input type="hidden" name="description" value="'+description+'">';
+	inp += '<input type="hidden" name="filmLength" value="'+duration+'">';
+	inp += '<input type="hidden" name="genres" value="'+genres.join(' ')+'">';
+	inp += '<input type="hidden" name="nameOriginal" value="'+original_name+'">';
+	inp += '<input type="hidden" name="nameRu" value="'+name+'">';
+	inp += '<input type="hidden" name="posterUrl" value="'+logo+'">';
+	inp += '<input type="hidden" name="ratingImdb" value="'+imdb+'">';
+	inp += '<input type="hidden" name="ratingKinopoisk" value="'+kp+'">';
+	inp += '<input type="hidden" name="webUrl" value="https://www.kinopoisk.ru/film/'+id+'">';
+	inp += '<input type="hidden" name="year" value="'+year+'">';
+	inp += '<input type="hidden" name="id" value="'+id+'">';
+	$('form#addForm').append($(inp));
+
+	let comparer =
+		{
+			nameOriginal: [original_name, ''],
+			nameRu: [name, ''],
+			ratingImdb: [imdb, "IMDB: "],
+			ratingKinopoisk: [kp, "КП: "],
+			filmLength: [duration, 'Продолжительность: '],
+			year: [year, "Год выпуска: "]
+
+		}
+	$('#posterUrl').attr('src', logo);
+	$.each(comparer, function (key, val){
+		$('#'+key).text(val[1]+val[0]);
+
+	})
+	let units =
+		[
+			['description', 'Описание: '],
+			['filmLength', 'Продолжительность: '],
+			['genres', ''],
+			['nameOriginal', ''],
+			['nameRu', ''],
+			['posterUrl', ''],
+			['ratingImdb', 'IMDB: '],
+			['ratingKinopoisk', 'КП: '],
+			['webUrl', ''],
+			['year', 'Год выпуска: ']
+		];
+	let input ='<p>Ты искал этот фильм? Если да, то нажми кнопку "Сохранить" и он сохранится в нашей базе</p>'+
+		'<button type="submit" class="btn btn-warning m-3">Сохранить</button>';
+	//
+	$('form#addForm').append($(input));
+}
 $('form#addForm').submit(function (e){
 	e.preventDefault();
 	$.ajax({

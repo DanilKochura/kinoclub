@@ -234,7 +234,7 @@ use User;
                                     <div class="row text-center">
 
                                             <div class="col-md-7">
-                                                <input type="text" required pattern="[0-9]+" name="name-movie" class="h-100" id="movie_input" placeholder="ID фильма на КП">
+                                                <input type="text" required name="name-movie" class="h-100" id="movie_input" placeholder="Название фильма на КП">
                                             </div>
                                         <div class="col-md-5">
                                             <input type="submit" class="btn btn-warning">
