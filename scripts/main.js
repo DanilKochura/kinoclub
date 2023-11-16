@@ -6,6 +6,8 @@
 // 	$('.selected').append('<div>'+name+'</div>');
 // });
 
+let third = [];
+let pair = [];
 function vote(id_event, id_m, third)
 {
 	$.ajax({
