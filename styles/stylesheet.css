@@ -1,7 +1,17 @@
+.bg-main
+{
+  background: var(--bg-main) !important;
+}
 
+#floating-switch
+{
+  position: fixed;
+  bottom: 10px;
+  right: 20px;
+}
 header
 {
-  background-color: #23282b;
+  background-color: var(--bg-main);
 }
 .b-example-divider {
   height: 3rem;
@@ -19,12 +29,12 @@ header
 
 .form-control-dark {
   color: #fff;
-  background-color: #23282b;
+  background-color: var(--bg-main);
   border-color: var(--bs-gray);
 }
 .form-control-dark:focus {
   color: #fff;
-  background-color: #23282b;
+  background-color: var(--bg-main);
   border-color: #fff;
   box-shadow: 0 0 0 .25rem rgba(255, 255, 255, .25);
 }
@@ -42,10 +52,10 @@ header
   outline: 0;
 }
 .forum-card {
-  background-color: #23282b;
+  background-color: var(--bg-main);
   color: white;
   vertical-align: middle;
-  margin-top: 20px;
+  /*margin-top: 20px;*/
   border: none;
   padding-left: 30px;
   padding-bottom: 20px;
@@ -67,7 +77,7 @@ header
 }
 .rating-tab::-webkit-scrollbar {
   width: 10px;
-  background-color: #23282b;
+  background-color: var(--bg-main);
 }
 
 .rating-tab::-webkit-scrollbar-thumb {
@@ -78,7 +88,7 @@ header
 .rating-tab::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
   border-radius: 10px;
-  background-color: #23282b;
+  background-color: var(--bg-main);
 }
 .table-rate {
   max-width: 100%;
@@ -199,6 +209,7 @@ h5.name {
 .green-zone
 {
   color: #03c03c;
+  color: #97fb9f;
 }
 .red-zone
 {
@@ -215,7 +226,7 @@ h5.name {
 .three h1 {
   position: relative;
   color: #FCF2E5;
-  background: #23282b;
+  background: var(--bg-main);
   font-weight: normal;
   padding: 10px 40px;
   display: inline-block;
@@ -231,7 +242,7 @@ h5.name {
   height: 4px;
   left: 0;
   bottom: -15px;
-  background: #23282b;
+  background: var(--bg-main);
   border-radius: 10%;
 }
 .three h1:after {
@@ -239,7 +250,7 @@ h5.name {
   position: absolute;
   height: 0;
   width: 80%;
-  border-top: 10px solid #23282b;
+  border-top: 10px solid var(--bg-main);
   border-left: 12px solid transparent;
   border-right: 12px solid transparent;
   left: 50%;
@@ -278,7 +289,7 @@ h5.name {
   border-radius: 10%;
 }
 .table-user-rate{
-  background-color: #23282b;
+  background-color: #2e2e2e;
   color: white;
   border-radius: 1%;
 }
@@ -500,7 +511,7 @@ html, body
   max-height: 400px;
   max-width: 100%;
   padding: 20px;
-  background-color: #23282b;
+  background-color: var(--bg-main);
 }
 
 @media(max-width: 720px) {
@@ -605,7 +616,7 @@ html, body
   --first-bg: white;
   --active-bg: #ffc107;
   --passive-bg: grey;
-  --dark-grey: #23282b;
+  --dark-grey: var(--bg-main);
 }
 .final
 {
@@ -902,7 +913,9 @@ html, body
 {
 
 }
-
+.w-30p{
+  width: 30px;
+}
 .header
 {
   position: fixed;
@@ -912,7 +925,7 @@ html, body
   top:0;
 }
 .header + .content {
-  margin-top: 110px;
+  margin-top: 95px !important;
 }
 .scrollup{
   width:40px;
@@ -924,4 +937,16 @@ html, body
   display:none;
   text-indent:-9999px;
   background: url('https://imdibil.ru/image/arrow-up-circle-fill.svg') no-repeat;
+}
+.navbar-xs
+{
+  background-color: black;
+}
+.newyear_hat
+{
+  width: 50px;
+  position: absolute;
+  transform: rotate(339deg);
+  z-index: 1;
+  top: 26px;
 }
