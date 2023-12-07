@@ -72,7 +72,7 @@ header
 
   padding-left: 40px;
   max-height: 250px;
-  overflow-y: scroll;
+  /*overflow-y: scroll;*/
   overflow-x: hidden;
 }
 .rating-tab::-webkit-scrollbar {
@@ -223,7 +223,7 @@ h5.name {
   text-align: center;
   
 } 
-.three h1 {
+.three p {
   position: relative;
   color: #FCF2E5;
   background: var(--bg-main);
@@ -235,7 +235,7 @@ h5.name {
   border-radius: 20px;
 
 }
-.three h1:before {
+.three p:before {
   content: ""; 
   position: absolute;
   width: 100%;
@@ -245,7 +245,7 @@ h5.name {
   background: var(--bg-main);
   border-radius: 10%;
 }
-.three h1:after {
+.three p:after {
   content: ""; 
   position: absolute;
   height: 0;
@@ -259,10 +259,10 @@ h5.name {
 
 }
 @media (max-width: 500px) {
-  .three h1 {font-size: 1.8em;}
+  .three p {font-size: 1.8em;}
 }
 @media (max-width: 400px) {
-  .three h1 {
+  .three p {
     font-size: 1.5em;
     padding: 10px 30px;
     border-radius: 10%;
