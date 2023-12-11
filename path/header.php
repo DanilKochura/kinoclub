@@ -9,8 +9,9 @@ session_start();
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <meta name="description" content="Информационный портал киноклуба">
+      <meta name="description" content="Информационный портал киноклуба МГТУ им. Баумана">
       <meta name="yandex-verification" content="242eb7336dec418c" />
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<?=ROOT?>/scheduler/assets/css/vendor_bundle.min.css">
       <link rel="stylesheet" href="<?=ROOT?>/scheduler/assets/css/vendor.datatables.css">
@@ -235,7 +236,8 @@ session_start();
 
                     <!-- navbar : brand (logo) -->
                     <a class="navbar-brand" href="/">
-                        <img src="<?=ROOT?>/image/logogo.png" width="110" height="38" alt="..." class="logo-head">
+<!--                        <img src="--><?php //=ROOT?><!--/image/logogo.png" width="110" height="38" alt="..." class="logo-head">-->
+                        <img src="<?=ROOT?>/image/newyear.png" width="110" height="38" alt="..." class="logo-head">
                     </a>
 
                 </div>
@@ -257,8 +259,9 @@ session_start();
                             Mobile Menu Logo
                             Logo : height: 70px max
                         -->
-                        <a class="navbar-brand" href="index.html">
-                            <img src="<?=ROOT?>/image/logogo.png" width="110" height="38" alt="...">
+                        <a class="navbar-brand" href="/">
+                            <img src="<?=ROOT?>/image/newyear.png" width="110" height="38" alt="...">
+<!--                            <img src="--><?php //=ROOT?><!--/image/logogo.png" width="110" height="38" alt="...">-->
                         </a>
 
                     </div>
@@ -319,21 +322,21 @@ session_start();
                         </li>
 
                         <!-- demos -->
-                        <li class="nav-item dropdown active">
+<!--                        <li class="nav-item dropdown active">-->
+<!---->
+<!--                            <a href="/game" class="nav-link">Викторина</a>-->
+<!---->
+<!--                        </li>-->
 
-                            <a href="/game" class="nav-link">Викторина</a>
-
-                        </li>
-
-                        <li class="nav-item dropdown">
-
-                            <a href="/special" class="animate-blink nav-link text-warning">
-                                5 сезон
-                            </a>
-
-
-
-                        </li>
+<!--                        <li class="nav-item dropdown">-->
+<!---->
+<!--                            <a href="/special" class="animate-blink nav-link text-warning">-->
+<!--                                5 сезон-->
+<!--                            </a>-->
+<!---->
+<!---->
+<!---->
+<!--                        </li>-->
                         <li class="nav-item dropdown">
 
                             <a href="/seasons" class=" nav-link">
